@@ -13,6 +13,8 @@ conda activate ./env
 conda install jupyterlab
 ```
 
+[See this page for additional guidance.](https://quarto.org/docs/projects/virtual-environments.html)
+
 ### The Julia Kernel for Jupyter
 
 This only needs to be done once per machine per Julia version. This might need to be changed slightly for each Julia upgrade.
@@ -28,3 +30,7 @@ Pkg.add("IJulia")
 using IJulia
 installkernel("Julia nodeps", "--depwarn=no")
 ```
+
+### Quarto installation
+
+[This only needs to be done once per machine for each upgrade of Quarto.](https://quarto.org/docs/get-started/)
