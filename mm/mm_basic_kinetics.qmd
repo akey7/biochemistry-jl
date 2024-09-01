@@ -43,16 +43,18 @@ $$ {d[P] \over dt} = {V_{\max}[S] \over K_M + [S]} $$
 #| label: make-plot
 #| eval: true
 #| include: true
-
-vmax = 1.0e-4
-km = 1.0e-3   # Also 2e-3 and 4e-3
+  
 substrate_concentrations = collect(range(start=0, stop=1e-2, length=100))
 
-function mm(substrate_concentration)
-    vmax * substrate_concentration / (km + substrate_concentration)
+function mm_curve(vmax, km)
+    function mm(substrate_concentration)
+        vmax * substrate_concentration / (km + substrate_concentration)
+    end
+
+    mm.(substrate_concentrations)
 end
 
-dP_dts = mm.(substrate_concentrations)
+dP_dts = mm_curve(1.0e-4, 1.0e-3)  # Also km=2e-3 and km=4e-3
 
 xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)  # Example x-tick positions
 xtick_labels = [@sprintf("%.3e", val) for val in xtick_vals]
