@@ -46,17 +46,19 @@ $$ {d[P] \over dt} = {V_{\max}[S] \over K_M + [S]} $$
 
 vmax = 1.0e-4
 km = 1.0e-3
-substrate_concentrations = collect(range(start=0, stop=7.5e-3, length=100))
+substrate_concentrations = collect(range(start=0, stop=1e-2, length=100))
 
 function mm(substrate_concentration)
     vmax * substrate_concentration / (km + substrate_concentration)
 end
 
 dP_dts = mm.(substrate_concentrations)
-dP_dt_max = maximum(dP_dts)
 
 xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)  # Example x-tick positions
-xtick_labels = [@sprintf("%.4f", val) for val in xtick_vals]
+xtick_labels = [@sprintf("%.3e", val) for val in xtick_vals]
 
-plot(substrate_concentrations, dP_dts, xlabel="[S] (M)", ylabel="d[P]/dt (M/min)", xticks=(xtick_vals, xtick_labels))
+ytick_vals = range(start=0, stop=maximum(dP_dts), length=5)  # Example x-tick positions
+ytick_labels = [@sprintf("%.3e", val) for val in ytick_vals]
+
+plot(substrate_concentrations, dP_dts, xlabel="[S] (M)", ylabel="d[P]/dt (M/min)", xticks=(xtick_vals, xtick_labels), yticks=(ytick_vals, ytick_labels), xlims=(0, 1.1e-2))
 ```
