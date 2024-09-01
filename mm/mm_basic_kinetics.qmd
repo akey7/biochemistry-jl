@@ -45,7 +45,7 @@ $$ {d[P] \over dt} = {V_{\max}[S] \over K_M + [S]} $$
 #| include: true
 
 vmax = 1.0e-4
-km = 1.0e-3
+km = 1.0e-3   # Also 2e-3 and 4e-3
 substrate_concentrations = collect(range(start=0, stop=1e-2, length=100))
 
 function mm(substrate_concentration)
