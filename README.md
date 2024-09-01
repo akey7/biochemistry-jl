@@ -34,3 +34,11 @@ installkernel("Julia", "--project=@.")
 ### Quarto installation
 
 [This only needs to be done once per machine for each upgrade of Quarto.](https://quarto.org/docs/get-started/)
+
+### FINALLY! Check the Quarto installation
+
+```
+quarto check jupyter
+```
+
+If everything comes back good, you are ready!
