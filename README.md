@@ -28,7 +28,7 @@ julia
 using Pkg
 Pkg.add("IJulia")
 using IJulia
-installkernel("Julia nodeps", "--depwarn=no")
+installkernel("Julia", "--project=@.")
 ```
 
 ### Quarto installation
