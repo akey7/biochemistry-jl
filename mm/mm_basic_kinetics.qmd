@@ -56,10 +56,10 @@ end
 
 dP_dts = mm_curve(1.0e-4, 1.0e-3)  # Also km=2e-3 and km=4e-3
 
-xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)  # Example x-tick positions
+xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
 xtick_labels = [@sprintf("%.3e", val) for val in xtick_vals]
 
-ytick_vals = range(start=0, stop=maximum(dP_dts), length=5)  # Example x-tick positions
+ytick_vals = range(start=0, stop=maximum(dP_dts), length=5)
 ytick_labels = [@sprintf("%.3e", val) for val in ytick_vals]
 
 plot(substrate_concentrations, dP_dts, xlabel="[S] (M)", ylabel="d[P]/dt (M/min)", xticks=(xtick_vals, xtick_labels), yticks=(ytick_vals, ytick_labels), xlims=(0, 1.1e-2))
