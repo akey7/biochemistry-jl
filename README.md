@@ -42,3 +42,11 @@ quarto check jupyter
 ```
 
 If everything comes back good, you are ready!
+
+## Demos and How to Run Them
+
+### Michaelis-Menten Kinetics
+
+```
+cd mm
+```
