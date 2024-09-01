@@ -12,7 +12,9 @@ format:
 #| eval: true
 #| include: false
 
+using Printf
 using Plots
+plotlyjs()
 ```
 
 ## Chemical and Rate Equations and Units
@@ -51,5 +53,10 @@ function mm(substrate_concentration)
 end
 
 dP_dts = mm.(substrate_concentrations)
-plot(substrate_concentrations, dP_dts, xlabel="[S] (M)", ylabel="d[P]/dt (M/min)", xticks=range(start=0, stop=7.5e-3, length=5))
+dP_dt_max = maximum(dP_dts)
+
+xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)  # Example x-tick positions
+xtick_labels = [@sprintf("%.4f", val) for val in xtick_vals]
+
+plot(substrate_concentrations, dP_dts, xlabel="[S] (M)", ylabel="d[P]/dt (M/min)", xticks=(xtick_vals, xtick_labels))
 ```
