@@ -1,2 +1,30 @@
 # biochemistry-jl
 Biochemistry simulations in Julia.
+
+## Setup
+
+### Jupyter Notebooks for Quarto and Julia Jupyter Support
+
+First, create a virtual environment for **Python** and install Jupyter Lab in it. This is required for Quarto builds of Julia. Run these commands from the root of the repo:
+
+```
+conda create --prefix env python=3.11
+conda activate ./env
+conda install jupyterlab
+```
+
+### The Julia Kernel for Jupyter
+
+This only needs to be done once per machine per Julia version. This might need to be changed slightly for each Julia upgrade.
+
+To run this part of the setup, the Python environment above should be activated so that Jupyter can install an additional kernel.
+
+[First install IJulia according to these instructions.](https://julialang.github.io/IJulia.jl/stable/manual/installation/). In brief, the relevant commands are:
+
+```
+julia
+using Pkg
+Pkg.add("IJulia")
+using IJulia
+installkernel("Julia nodeps", "--depwarn=no")
+```
