@@ -7,6 +7,10 @@ substrate_concentrations = collect(range(start=0, stop=0.1, length=100))
 # Number of frames in each animation. Animations will be written at 30 fps.
 num_frames = 300
 
+# Size of movies
+size_x = 1080 / 2
+size_y = 1920 / 4
+
 # Calculates the Michaelis-Menten curve given the substrate concentrations
 # above and the given vmax, km
 
@@ -52,7 +56,8 @@ function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
         xticks=(xtick_vals, xtick_labels), 
         yticks=(ytick_vals, ytick_labels), 
         linewidth=3,
-        legend=:none
+        legend=:none,
+        size=(size_x, size_y)
     )
 
     if annotate_km_or_vmax == :km
