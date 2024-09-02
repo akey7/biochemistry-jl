@@ -17,8 +17,8 @@ end
 
 # vmax and km range for curves
 vmax = 2.0e-3
-start_km = 1.0e-3
-stop_km = 1.0e-2
+start_km = 1.0e-2
+stop_km = 1.0e-3
 kms = range(start=start_km, stop=stop_km, length=150)
 
 # Create an animation object
