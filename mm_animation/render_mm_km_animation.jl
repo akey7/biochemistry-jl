@@ -16,7 +16,7 @@ function mm_curve(vmax, km)
 end
 
 # Renders a single frame with appropriate annotations
-function render_frame(anim, vmax, km, max_vmax)
+function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
     ys = mm_curve(vmax, km)
 
     xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
@@ -28,9 +28,6 @@ function render_frame(anim, vmax, km, max_vmax)
     vmax_formatted = @sprintf("%.2e", vmax)
     km_formatted = @sprintf("%.2e", km)
     title = "Vmax=$vmax_formatted"
-
-    annotation_x = km + maximum(substrate_concentrations) * 0.175
-    annotation_y = 0.95 * vmax
 
     plot(
         substrate_concentrations, 
@@ -46,8 +43,12 @@ function render_frame(anim, vmax, km, max_vmax)
         legend=:none
     )
 
-    vline!([km], label="Km", linecolor=:orange, linestyle=:dot, linewidth=3)
-    annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :orange, 12))
+    if annotate_km_or_vmax == :km
+        annotation_x = km + maximum(substrate_concentrations) * 0.175
+        annotation_y = 0.95 * vmax
+        vline!([km], label="Km", linecolor=:orange, linestyle=:dot, linewidth=3)
+        annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :orange, 12))
+    end
 
     frame(anim)
 end
@@ -68,7 +69,7 @@ function render_km_animation()
     # of decimal places. Give status update every 10 frames.
 
     for (index, km) in enumerate(kms)
-        render_frame(anim, vmax, km, vmax)
+        render_frame(anim, vmax, km, vmax, :km)
 
         if index % 10 == 0
             println("Frame $index rendered...")
@@ -82,4 +83,5 @@ function render_km_animation()
     println("Wrote Km animation!")
 end
 
+# Render the animations
 render_km_animation()
