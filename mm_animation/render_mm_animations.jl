@@ -25,13 +25,14 @@ for (index, km) in enumerate(kms)
     ytick_vals = collect(range(start=0, stop=vmax, length=5))
     ytick_labels = [@sprintf("%.1e", val) for val in ytick_vals]
 
+    vmax_formatted = @sprintf("%.3e", vmax)
     km_formatted = @sprintf("%.3e", km)
-    label = "Km=$km_formatted"
+    title = "Vmax=$vmax_formatted, Km=$km_formatted"
 
     plot(
         substrate_concentrations, 
         ys, 
-        label=label, 
+        title=title,
         xlims=(0.0, maximum(substrate_concentrations) * 1.1),
         ylims=(0.0, vmax * 1.01),
         xlabel="[S] (M)", 
@@ -39,7 +40,7 @@ for (index, km) in enumerate(kms)
         xticks=(xtick_vals, xtick_labels), 
         yticks=(ytick_vals, ytick_labels), 
         linewidth=3,
-        legend=:right
+        legend=:none
     )
 
     frame(anim)
