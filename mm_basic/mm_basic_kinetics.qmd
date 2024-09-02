@@ -39,6 +39,8 @@ $$ {d[P] \over dt} = {V_{\max}[S] \over K_M + [S]} $$
 
 ## Plot d[P]/dt vs. [S]
 
+Hover over the traces to see the exact coordinates!
+
 ```{julia}
 #| label: make-plot
 #| eval: true
