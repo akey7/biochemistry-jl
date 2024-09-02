@@ -19,37 +19,37 @@ end
 function render_frame(anim, vmax, km)
     ys = mm_curve(vmax, km)
 
-        xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
-        xtick_labels = [@sprintf("%.1e", val) for val in xtick_vals]
+    xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
+    xtick_labels = [@sprintf("%.1e", val) for val in xtick_vals]
 
-        ytick_vals = collect(range(start=0, stop=vmax, length=5))
-        ytick_labels = [@sprintf("%.1e", val) for val in ytick_vals]
+    ytick_vals = collect(range(start=0, stop=vmax, length=5))
+    ytick_labels = [@sprintf("%.1e", val) for val in ytick_vals]
 
-        vmax_formatted = @sprintf("%.2e", vmax)
-        km_formatted = @sprintf("%.2e", km)
-        title = "Vmax=$vmax_formatted"
+    vmax_formatted = @sprintf("%.2e", vmax)
+    km_formatted = @sprintf("%.2e", km)
+    title = "Vmax=$vmax_formatted"
 
-        annotation_x = km + maximum(substrate_concentrations) * 0.175
-        annotation_y = 0.95 * vmax
+    annotation_x = km + maximum(substrate_concentrations) * 0.175
+    annotation_y = 0.95 * vmax
 
-        plot(
-            substrate_concentrations, 
-            ys, 
-            title=title,
-            xlims=(0.0, maximum(substrate_concentrations) * 1.1),
-            ylims=(0.0, vmax * 1.01),
-            xlabel="[S] (M)", 
-            ylabel="d[P]/dt (M/min)", 
-            xticks=(xtick_vals, xtick_labels), 
-            yticks=(ytick_vals, ytick_labels), 
-            linewidth=3,
-            legend=:none
-        )
+    plot(
+        substrate_concentrations, 
+        ys, 
+        title=title,
+        xlims=(0.0, maximum(substrate_concentrations) * 1.1),
+        ylims=(0.0, vmax * 1.01),
+        xlabel="[S] (M)", 
+        ylabel="d[P]/dt (M/min)", 
+        xticks=(xtick_vals, xtick_labels), 
+        yticks=(ytick_vals, ytick_labels), 
+        linewidth=3,
+        legend=:none
+    )
 
-        vline!([km], label="Km", linecolor=:orange, linestyle=:dot, linewidth=3)
-        annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :orange, 12))
+    vline!([km], label="Km", linecolor=:orange, linestyle=:dot, linewidth=3)
+    annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :orange, 12))
 
-        frame(anim)
+    frame(anim)
 end
 
 # Creates the Km animation
