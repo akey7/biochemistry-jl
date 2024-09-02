@@ -52,7 +52,7 @@ If everything comes back good, you are ready!
 
 ```
 conda activate ./env
-cd mm
+cd mm_basic
 quarto render mm_basic_kinetics.qmd
 ```
 
