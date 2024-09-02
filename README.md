@@ -48,7 +48,7 @@ If everything comes back good, you are ready!
 
 ### Michaelis-Menten Kinetics
 
-#### Still Plot on an HTML Report
+#### Still plot on an HTML report
 
 ```
 conda activate ./env
@@ -57,3 +57,13 @@ quarto render mm_basic_kinetics.qmd
 ```
 
 After quarto finishes, open `mm_basic_kinetics.html` in a browser.
+
+#### Animated K<sub>M</sub> and V<sub>max</sub> plot
+
+```
+conda activate ./env
+cd mm_animation
+julia render_mm_km_animation.jl
+```
+
+Then open the `mm_km_animation.mp4` and `mm_vmax_animation.mp4` files in that folder.
