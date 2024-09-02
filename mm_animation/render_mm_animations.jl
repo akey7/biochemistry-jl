@@ -16,7 +16,7 @@ kms = range(start=2.5e-4, stop=1.0e-3, length=150)
 
 anim = Animation()
 
-for (frame, km) in enumerate(kms)
+for (index, km) in enumerate(kms)
     ys = mm_curve(vmax, km)
 
     xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
@@ -42,11 +42,11 @@ for (frame, km) in enumerate(kms)
 
     frame(anim)
 
-    if frame % 10 == 0
-        println("Frame $frame rendered...")
+    if index % 10 == 0
+        println("Frame $index rendered...")
     end
 end
 
-savefig("single_curve.png")
+mp4(anim, "mm_km_sweep.mp4", fps=30)
 
 println("Done!")
