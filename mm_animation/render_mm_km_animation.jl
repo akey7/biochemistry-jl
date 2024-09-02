@@ -15,23 +15,9 @@ function mm_curve(vmax, km)
     mm.(substrate_concentrations)
 end
 
-# Creates the Km animation
-function render_km_animation()
-    # vmax and km range for curves
-    vmax = 2.0e-3
-    start_km = 1.0e-2
-    stop_km = 1.0e-3
-    kms = range(start=start_km, stop=stop_km, length=150)
-
-    # Create an animation object
-    anim = Animation()
-
-    # Iterate over every km in the sequence, hold vmax constant, and
-    # render a frame for each km. Format floats to appropriate number
-    # of decimal places. Give status update every 10 frames.
-
-    for (index, km) in enumerate(kms)
-        ys = mm_curve(vmax, km)
+# Renders a single frame with appropriate annotations
+function render_frame(anim, vmax, km)
+    ys = mm_curve(vmax, km)
 
         xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
         xtick_labels = [@sprintf("%.1e", val) for val in xtick_vals]
@@ -64,6 +50,25 @@ function render_km_animation()
         annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :orange, 12))
 
         frame(anim)
+end
+
+# Creates the Km animation
+function render_km_animation()
+    # vmax and km range for curves
+    vmax = 2.0e-3
+    start_km = 1.0e-2
+    stop_km = 1.0e-3
+    kms = range(start=start_km, stop=stop_km, length=150)
+
+    # Create an animation object
+    anim = Animation()
+
+    # Iterate over every km in the sequence, hold vmax constant, and
+    # render a frame for each km. Format floats to appropriate number
+    # of decimal places. Give status update every 10 frames.
+
+    for (index, km) in enumerate(kms)
+        render_frame(anim, vmax, km)
 
         if index % 10 == 0
             println("Frame $index rendered...")
