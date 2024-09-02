@@ -27,12 +27,21 @@ function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
 
     vmax_formatted = @sprintf("%.2e", vmax)
     km_formatted = @sprintf("%.2e", km)
-    title = "Vmax=$vmax_formatted"
+
+    function vmax_or_km_title()
+        if annotate_km_or_vmax == :km
+            "Vmax=$vmax_formatted"
+        elseif annotate_km_or_vmax == :vmax
+            "Km=$km_formatted"
+        else
+            ""
+        end
+    end
 
     plot(
         substrate_concentrations, 
         ys, 
-        title=title,
+        title=vmax_or_km_title(),
         xlims=(0.0, maximum(substrate_concentrations) * 1.1),
         ylims=(0.0, vmax * 1.01),
         xlabel="[S] (M)", 
@@ -48,6 +57,11 @@ function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
         annotation_y = 0.95 * vmax
         vline!([km], label="Km", linecolor=:orange, linestyle=:dot, linewidth=3)
         annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :orange, 12))
+    elseif annotate_km_or_vmax == :vmax
+        annotation_x = maximum(substrate_concentrations) * 0.2
+        annotation_y = 0.95 * vmax
+        hline!([vmax], label="Vmax", linecolor=:orange, linestyle=:dot, linewidth=3)
+        annotate!(annotation_x, annotation_y, text("Vmax=$vmax_formatted", :orange, 12))
     end
 
     frame(anim)
