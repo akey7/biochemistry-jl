@@ -43,7 +43,7 @@ function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
         ys, 
         title=vmax_or_km_title(),
         xlims=(0.0, maximum(substrate_concentrations) * 1.1),
-        ylims=(0.0, vmax * 1.01),
+        ylims=(0.0, max_vmax * 1.01),
         xlabel="[S] (M)", 
         ylabel="d[P]/dt (M/min)", 
         xticks=(xtick_vals, xtick_labels), 
@@ -59,7 +59,7 @@ function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
         annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :orange, 12))
     elseif annotate_km_or_vmax == :vmax
         annotation_x = maximum(substrate_concentrations) * 0.2
-        annotation_y = 0.95 * vmax
+        annotation_y = vmax - 0.05 * max_vmax
         hline!([vmax], label="Vmax", linecolor=:orange, linestyle=:dot, linewidth=3)
         annotate!(annotation_x, annotation_y, text("Vmax=$vmax_formatted", :orange, 12))
     end
@@ -67,35 +67,51 @@ function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
     frame(anim)
 end
 
-# Creates the Km animation
+# Creates the Km animation by holding Vmax constant and animating Km
 function render_km_animation()
-    # vmax and km range for curves
     vmax = 2.0e-3
     start_km = 1.0e-2
     stop_km = 1.0e-3
     kms = range(start=start_km, stop=stop_km, length=150)
 
-    # Create an animation object
     anim = Animation()
-
-    # Iterate over every km in the sequence, hold vmax constant, and
-    # render a frame for each km. Format floats to appropriate number
-    # of decimal places. Give status update every 10 frames.
 
     for (index, km) in enumerate(kms)
         render_frame(anim, vmax, km, vmax, :km)
 
         if index % 10 == 0
-            println("Frame $index rendered...")
+            println("Km animation, frame $index rendered...")
         end
     end
 
-    # Write the animation to a file
     mp4(anim, "mm_km_animation.mp4", fps=30)
 
-    # Give the final status update
-    println("Wrote Km animation!")
+    println("Km animation finished!")
+end
+
+# Creates the Km animation by holding Vmax constant and animating Km
+function render_vmax_animation()
+    km = 5.0e-3
+    start_vmax = 1.0e-3
+    stop_vmax = 3.0e-3
+    vmaxs = range(start=start_vmax, stop=stop_vmax, length=150)
+
+    anim = Animation()
+
+    for (index, vmax) in enumerate(vmaxs)
+        render_frame(anim, vmax, km, stop_vmax, :vmax)
+
+        if index % 10 == 0
+            println(vmax)
+            # println("Vmax animation, frame $index rendered...")
+        end
+    end
+
+    mp4(anim, "mm_vmax_animation.mp4", fps=30)
+
+    println("Vmax animation finished!")
 end
 
 # Render the animations
-render_km_animation()
+# render_km_animation()
+render_vmax_animation()
