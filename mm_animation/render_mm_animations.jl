@@ -1,7 +1,7 @@
 using Plots
 using Printf
 
-substrate_concentrations = collect(range(start=0, stop=3e-2, length=100))
+substrate_concentrations = collect(range(start=0, stop=0.1, length=100))
 
 function mm_curve(vmax, km)
     function mm(substrate_concentration)
