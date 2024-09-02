@@ -48,6 +48,12 @@ If everything comes back good, you are ready!
 
 ### Michaelis-Menten Kinetics
 
+#### Still Plot on an HTML Report
+
 ```
-cd mm
+conda activate ./env
+cd mm_basic
+quarto render mm_basic_kinetics.qmd
 ```
+
+After quarto finishes, open `mm_basic_kinetics.html` in a browser.

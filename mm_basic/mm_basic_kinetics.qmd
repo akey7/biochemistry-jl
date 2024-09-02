@@ -32,8 +32,8 @@ $$ {d[P] \over dt} = {V_{\max}[S] \over K_M + [S]} $$
 
 | Variable | Units | Meaning |
 |---|---|---|
-| d[P]/dt | s<sup>-1</sup> | Rate of formation of product |
-| V<sub>max</sub> | s<sup>-1</sup> | Maximum possible rate of product formation |
+| d[P]/dt | min<sup>-1</sup> | Rate of formation of product |
+| V<sub>max</sub> | min<sup>-1</sup> | Maximum possible rate of product formation |
 | [S] | M | Concentration of substrate |
 | K<sub>M</sub> | M | Concentration of substrate at 1/2 V<sub>max</sub> |
 
