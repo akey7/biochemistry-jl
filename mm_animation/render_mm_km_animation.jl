@@ -45,7 +45,7 @@ function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
         xlims=(0.0, maximum(substrate_concentrations) * 1.1),
         ylims=(0.0, max_vmax * 1.01),
         xlabel="[S] (M)", 
-        ylabel="d[P]/dt (M/min)", 
+        ylabel="v (M/min)", 
         xticks=(xtick_vals, xtick_labels), 
         yticks=(ytick_vals, ytick_labels), 
         linewidth=3,
