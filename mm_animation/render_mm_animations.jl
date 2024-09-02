@@ -12,28 +12,41 @@ function mm_curve(vmax, km)
 end
 
 vmax = 1.0e-3
-km = 1.0e-3  # Go up to 4e-3
-ys = mm_curve(vmax, km)
+kms = range(start=2.5e-4, stop=1.0e-3, length=150)
 
-xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
-xtick_labels = [@sprintf("%.3e", val) for val in xtick_vals]
+anim = Animation()
 
-ytick_vals = collect(range(start=0, stop=vmax, length=5))
-ytick_labels = [@sprintf("%.3e", val) for val in ytick_vals]
+for (frame, km) in enumerate(kms)
+    ys = mm_curve(vmax, km)
 
-label = "Km=$km"
+    xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
+    xtick_labels = [@sprintf("%.3e", val) for val in xtick_vals]
 
-plot(
-    substrate_concentrations, 
-    ys, 
-    label=label, 
-    xlims=(0.0, maximum(substrate_concentrations) * 1.1),
-    ylims=(0.0, vmax * 1.01),
-    xlabel="[S] (M)", 
-    ylabel="d[P]/dt (M/min)", 
-    xticks=(xtick_vals, xtick_labels), 
-    yticks=(ytick_vals, ytick_labels), 
-    linewidth=3
-)
+    ytick_vals = collect(range(start=0, stop=vmax, length=5))
+    ytick_labels = [@sprintf("%.3e", val) for val in ytick_vals]
+
+    label = "Km=$km"
+
+    plot(
+        substrate_concentrations, 
+        ys, 
+        label=label, 
+        xlims=(0.0, maximum(substrate_concentrations) * 1.1),
+        ylims=(0.0, vmax * 1.01),
+        xlabel="[S] (M)", 
+        ylabel="d[P]/dt (M/min)", 
+        xticks=(xtick_vals, xtick_labels), 
+        yticks=(ytick_vals, ytick_labels), 
+        linewidth=3
+    )
+
+    frame(anim)
+
+    if frame % 10 == 0
+        println("Frame $frame rendered...")
+    end
+end
 
 savefig("single_curve.png")
+
+println("Done!")
