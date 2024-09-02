@@ -14,7 +14,7 @@ format:
 
 using Printf
 using Plots
-# plotlyjs()
+plotlyjs()
 ```
 
 ## Chemical and Rate Equations and Units
