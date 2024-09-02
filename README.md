@@ -61,7 +61,6 @@ After quarto finishes, open `mm_basic_kinetics.html` in a browser.
 #### Animated K<sub>M</sub> and V<sub>max</sub> plot
 
 ```
-conda activate ./env
 cd mm_animation
 julia render_mm_km_animation.jl
 ```
