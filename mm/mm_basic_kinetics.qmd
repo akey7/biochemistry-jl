@@ -14,7 +14,7 @@ format:
 
 using Printf
 using Plots
-plotlyjs()
+# plotlyjs()
 ```
 
 ## Chemical and Rate Equations and Units
@@ -58,10 +58,16 @@ function mm_curve(vmax, km)
     Dict(:dP_dts => dP_dts, :ytick_vals => ytick_vals, :ytick_labels => ytick_labels)
 end
 
-result = mm_curve(1.0e-4, 1.0e-3)  # Also km=2e-3 and km=4e-3
+kms = [1e-3, 2e-3, 4e-3]
+labels = ["Km=1e-3" "Km=2e-3" "Km=4e-3"]
+curves = [mm_curve(1.0e-4, km) for km in kms]
+ys = [curve[:dP_dts] for curve in curves]
 
 xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
 xtick_labels = [@sprintf("%.3e", val) for val in xtick_vals]
 
-plot(substrate_concentrations, result[:dP_dts], xlims=(0, 1.1e-2), xlabel="[S] (M)", ylabel="d[P]/dt (M/min)", xticks=(xtick_vals, xtick_labels), yticks=(result[:ytick_vals], result[:ytick_labels]))
+ytick_vals = curves[1][:ytick_vals]
+ytick_labels = curves[1][:ytick_labels]
+
+plot(substrate_concentrations, ys, label=labels, xlims=(0, 1.1e-2), xlabel="[S] (M)", ylabel="d[P]/dt (M/min)", xticks=(xtick_vals, xtick_labels), yticks=(ytick_vals, ytick_labels), linewidth=3)
 ```
