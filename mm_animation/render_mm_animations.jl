@@ -37,8 +37,8 @@ for (index, km) in enumerate(kms)
     ytick_vals = collect(range(start=0, stop=vmax, length=5))
     ytick_labels = [@sprintf("%.1e", val) for val in ytick_vals]
 
-    vmax_formatted = @sprintf("%.3e", vmax)
-    km_formatted = @sprintf("%.3e", km)
+    vmax_formatted = @sprintf("%.2e", vmax)
+    km_formatted = @sprintf("%.2e", km)
     title = "Vmax=$vmax_formatted"
 
     annotation_x = km + maximum(substrate_concentrations) * 0.175
@@ -59,7 +59,7 @@ for (index, km) in enumerate(kms)
     )
 
     vline!([km], label="Km", linecolor=:orange, linestyle=:dot, linewidth=3)
-    annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :red, 12))
+    annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :orange, 12))
 
     frame(anim)
 
