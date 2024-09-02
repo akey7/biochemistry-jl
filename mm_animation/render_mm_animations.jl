@@ -39,7 +39,10 @@ for (index, km) in enumerate(kms)
 
     vmax_formatted = @sprintf("%.3e", vmax)
     km_formatted = @sprintf("%.3e", km)
-    title = "Vmax=$vmax_formatted, Km=$km_formatted"
+    title = "Vmax=$vmax_formatted"
+
+    annotation_x = km + maximum(substrate_concentrations) * 0.175
+    annotation_y = 0.95 * vmax
 
     plot(
         substrate_concentrations, 
@@ -54,6 +57,9 @@ for (index, km) in enumerate(kms)
         linewidth=3,
         legend=:none
     )
+
+    vline!([km], label="Km", linecolor=:orange, linestyle=:dot, linewidth=3)
+    annotate!(annotation_x, annotation_y, text("Km=$km_formatted", :red, 12))
 
     frame(anim)
 
