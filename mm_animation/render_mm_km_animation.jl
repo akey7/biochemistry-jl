@@ -69,7 +69,7 @@ for (index, km) in enumerate(kms)
 end
 
 # Write the animation to a file
-mp4(anim, "mm_km_sweep.mp4", fps=30)
+mp4(anim, "mm_km_animation.mp4", fps=30)
 
 # Give the final status update
 println("Done!")
