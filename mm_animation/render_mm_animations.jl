@@ -1,7 +1,11 @@
 using Plots
 using Printf
 
+# The range of substrate concentrations to model
 substrate_concentrations = collect(range(start=0, stop=0.1, length=100))
+
+# Calculates the Michaelis-Menten curve given the substrate concentrations
+# above and the given vmax, km
 
 function mm_curve(vmax, km)
     function mm(substrate_concentration)
@@ -11,10 +15,18 @@ function mm_curve(vmax, km)
     mm.(substrate_concentrations)
 end
 
+# vmax and km range for curves
 vmax = 2.0e-3
-kms = range(start=1.0e-3, stop=1.0e-2, length=150)
+start_km = 1.0e-3
+stop_km = 1.0e-2
+kms = range(start=start_km, stop=stop_km, length=150)
 
+# Create an animation object
 anim = Animation()
+
+# Iterate over every km in the sequence, hold vmax constant, and
+# render a frame for each km. Format floats to appropriate number
+# of decimal places. Give status update every 10 frames.
 
 for (index, km) in enumerate(kms)
     ys = mm_curve(vmax, km)
@@ -50,6 +62,8 @@ for (index, km) in enumerate(kms)
     end
 end
 
+# Write the animation to a file
 mp4(anim, "mm_km_sweep.mp4", fps=30)
 
+# Give the final status update
 println("Done!")
