@@ -16,13 +16,13 @@ function mm_curve(vmax, km)
 end
 
 # Renders a single frame with appropriate annotations
-function render_frame(anim, vmax, km)
+function render_frame(anim, vmax, km, max_vmax)
     ys = mm_curve(vmax, km)
 
     xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
     xtick_labels = [@sprintf("%.1e", val) for val in xtick_vals]
 
-    ytick_vals = collect(range(start=0, stop=vmax, length=5))
+    ytick_vals = collect(range(start=0, stop=max_vmax, length=5))
     ytick_labels = [@sprintf("%.1e", val) for val in ytick_vals]
 
     vmax_formatted = @sprintf("%.2e", vmax)
@@ -68,7 +68,7 @@ function render_km_animation()
     # of decimal places. Give status update every 10 frames.
 
     for (index, km) in enumerate(kms)
-        render_frame(anim, vmax, km)
+        render_frame(anim, vmax, km, vmax)
 
         if index % 10 == 0
             println("Frame $index rendered...")
