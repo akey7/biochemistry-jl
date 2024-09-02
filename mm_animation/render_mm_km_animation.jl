@@ -102,8 +102,7 @@ function render_vmax_animation()
         render_frame(anim, vmax, km, stop_vmax, :vmax)
 
         if index % 10 == 0
-            println(vmax)
-            # println("Vmax animation, frame $index rendered...")
+            println("Vmax animation, frame $index rendered...")
         end
     end
 
@@ -113,5 +112,5 @@ function render_vmax_animation()
 end
 
 # Render the animations
-# render_km_animation()
+render_km_animation()
 render_vmax_animation()
