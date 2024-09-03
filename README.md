@@ -44,11 +44,9 @@ quarto check jupyter
 
 If everything comes back good, you are ready!
 
-## Demos and How to Run Them
+## Michaelis-Menten Kinetics
 
-### Michaelis-Menten Kinetics
-
-#### Still plot on an HTML report
+### Still plot on an HTML report
 
 ```
 conda activate ./env
@@ -58,7 +56,7 @@ quarto render mm_basic_kinetics.qmd
 
 After quarto finishes, open `mm_basic_kinetics.html` in a browser.
 
-#### Animated K<sub>M</sub> and V<sub>max</sub> plot for video creation
+### Animated K<sub>M</sub> and V<sub>max</sub> plot for video creation
 
 ```
 cd mm_animation
@@ -67,7 +65,7 @@ julia render_mm_km_animation.jl
 
 Then open the `mm_km_animation.mp4` and `mm_vmax_animation.mp4` files in that folder.
 
-### Linear Pathway
+## Linear Pathway
 
 This system comes from the paper by Voit et al found at:
 
