@@ -29,7 +29,7 @@ Manifest.toml
 # Intermediate build artifacts
 *.mp4
 *.gif
-# *.png
+*.png
 *.svg
 *.pdf
 *.html
