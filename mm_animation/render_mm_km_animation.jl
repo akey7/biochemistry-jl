@@ -4,6 +4,13 @@ using Printf
 # The range of substrate concentrations to model
 substrate_concentrations = collect(range(start=0, stop=0.1, length=100))
 
+# Number of frames in each animation. Animations will be written at 30 fps.
+num_frames = 300
+
+# Size of movies
+size_x = 1080 / 2
+size_y = 1920 / 4
+
 # Calculates the Michaelis-Menten curve given the substrate concentrations
 # above and the given vmax, km
 
@@ -45,11 +52,12 @@ function render_frame(anim, vmax, km, max_vmax, annotate_km_or_vmax)
         xlims=(0.0, maximum(substrate_concentrations) * 1.1),
         ylims=(0.0, max_vmax * 1.01),
         xlabel="[S] (M)", 
-        ylabel="d[P]/dt (M/min)", 
+        ylabel="v (M/min)", 
         xticks=(xtick_vals, xtick_labels), 
         yticks=(ytick_vals, ytick_labels), 
         linewidth=3,
-        legend=:none
+        legend=:none,
+        size=(size_x, size_y)
     )
 
     if annotate_km_or_vmax == :km
@@ -72,7 +80,7 @@ function render_km_animation()
     vmax = 2.0e-3
     start_km = 1.0e-2
     stop_km = 1.0e-3
-    kms = range(start=start_km, stop=stop_km, length=150)
+    kms = range(start=start_km, stop=stop_km, length=num_frames)
 
     anim = Animation()
 
@@ -94,7 +102,7 @@ function render_vmax_animation()
     km = 5.0e-3
     start_vmax = 1.0e-3
     stop_vmax = 3.0e-3
-    vmaxs = range(start=start_vmax, stop=stop_vmax, length=150)
+    vmaxs = range(start=start_vmax, stop=stop_vmax, length=num_frames)
 
     anim = Animation()
 

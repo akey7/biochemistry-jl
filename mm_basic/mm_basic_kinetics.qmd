@@ -28,16 +28,18 @@ Reversible rates are k<sub>+1</sub> and k<sub>-1</sub>. The final irreversible s
 [See Wikipedia for details](https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics#Model).
 
 Rate equation:
-$$ {d[P] \over dt} = {V_{\max}[S] \over K_M + [S]} $$
+$$ v = {V_{\max}[S] \over K_M + [S]} $$
 
 | Variable | Units | Meaning |
 |---|---|---|
-| d[P]/dt | min<sup>-1</sup> | Rate of formation of product |
+| v | min<sup>-1</sup> | Rate of formation of product |
 | V<sub>max</sub> | min<sup>-1</sup> | Maximum possible rate of product formation |
 | [S] | M | Concentration of substrate |
 | K<sub>M</sub> | M | Concentration of substrate at 1/2 V<sub>max</sub> |
 
-## Plot d[P]/dt vs. [S]
+## Plot v vs. [S]
+
+Hover over the traces to see the exact coordinates!
 
 ```{julia}
 #| label: make-plot
@@ -69,5 +71,5 @@ xtick_labels = [@sprintf("%.3e", val) for val in xtick_vals]
 ytick_vals = curves[1][:ytick_vals]
 ytick_labels = curves[1][:ytick_labels]
 
-plot(substrate_concentrations, ys, label=labels, xlims=(0, 1.1e-2), xlabel="[S] (M)", ylabel="d[P]/dt (M/min)", xticks=(xtick_vals, xtick_labels), yticks=(ytick_vals, ytick_labels), linewidth=3)
+plot(substrate_concentrations, ys, label=labels, xlims=(0, 1.1e-2), xlabel="[S] (M)", ylabel="v (M/min)", xticks=(xtick_vals, xtick_labels), yticks=(ytick_vals, ytick_labels), linewidth=3)
 ```
