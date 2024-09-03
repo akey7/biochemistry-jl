@@ -69,4 +69,10 @@ Then open the `mm_km_animation.mp4` and `mm_vmax_animation.mp4` files in that fo
 
 ### Linear Pathway
 
-> 1. Voit, E., Neves, A. R. & Santos, H. The intricate side of systems biology. Proc. Natl. Acad. Sci. U.S.A. 103, 9452–9457 (2006).
+This system comes from the paper by Voit et al found at:
+
+> Voit, E., Neves, A. R. & Santos, H. The intricate side of systems biology. Proc. Natl. Acad. Sci. U.S.A. 103, 9452–9457 (2006).
+
+The metabolic pathway is a simplified glycolytic pathway, as shown in Figure 4 of the paper. The description is "Generic linear feedforward activated pathway in which a downstream metabolite (X4) is needed as a second substrate for the first step."
+
+![Image of biochemical pathway](images/voit_et_al_fig_04.png "Voit et al Fig. 4")
