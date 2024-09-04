@@ -67,22 +67,6 @@ function trajectory(c)
 end
 
 #####################################################################
-# REASONABLE DEFAULTS TO RECREATE FIG 5A                            #
-#####################################################################
-
-fig_5a_defaults = Dict(
-    :duration_minutes => 100, 
-    :steps => 1000, 
-    :input1_level => 0.1, 
-    :input_2_on_level => 0.99,
-    :input_2_off_level => 0.01,
-    :input_2_turn_off_step => 101, 
-    :input_2_turn_on_step => 601,
-    :h42 => 0.75,
-    :initial_conditions => [1.0, 1.0, 1.0, 1.0, 1.0]
-)
-
-#####################################################################
 # FUNCTION TO CREATE A PLOT FROM A TRAJECTORY                       #
 #####################################################################
 
@@ -129,6 +113,22 @@ function plot_trajectory(trajectory_result)
 
     plot(output_plot, input2_plot, layout=(2, 1), size=(size_x, size_y))
 end
+
+#####################################################################
+# REASONABLE DEFAULTS TO RECREATE FIG 5A                            #
+#####################################################################
+
+fig_5a_defaults = Dict(
+    :duration_minutes => 100, 
+    :steps => 1000, 
+    :input1_level => 0.1, 
+    :input_2_on_level => 0.99,
+    :input_2_off_level => 0.01,
+    :input_2_turn_off_step => 101, 
+    :input_2_turn_on_step => 601,
+    :h42 => 0.75,
+    :initial_conditions => [1.0, 1.0, 1.0, 1.0, 1.0]
+)
 
 #####################################################################
 # CREATE THE PLOT FROM FIG 5A                                       #
