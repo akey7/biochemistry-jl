@@ -66,10 +66,10 @@ function trajectory(c)
 end
 
 #####################################################################
-# REASONABLE DEFAULTS                                               #
+# REASONABLE DEFAULTS TO RECREATE FIG 5A                            #
 #####################################################################
 
-reasonable_defaults = Dict(
+fig_5a_defaults = Dict(
     :duration_minutes => 100, 
     :steps => 1000, 
     :input1_level => 0.1, 
@@ -90,11 +90,11 @@ println("Rendering images...")
 xs = collect(
     range(
         start=0,
-        stop=reasonable_defaults[:duration_minutes],
-        length=reasonable_defaults[:steps]
+        stop=fig_5a_defaults[:duration_minutes],
+        length=fig_5a_defaults[:steps]
     )
 )
-result = trajectory(reasonable_defaults)
+result = trajectory(fig_5a_defaults)
 plot(xs, result[:x], size=(size_x, size_y))
 savefig("Fig 5A.png")
 
