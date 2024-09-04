@@ -1,4 +1,16 @@
+#####################################################################
+# IMPORT MODULES                                                    #
+#####################################################################
+
 using Plots
+
+#####################################################################
+# SIZE OF IMAGES AND MOVIES AND NUMBER OF FRAMES FOR ANIMATIONS     #
+#####################################################################
+
+size_x = 1080 / 2
+size_y = 1920 / 4
+num_frames = 300
 
 #####################################################################
 # FUNCTION TO CALCULATE TRAJECTORY                                  #
@@ -44,9 +56,11 @@ function trajectory(c)
         x[i, 5] = x5 + h*(x2^h42*x4^0.5 - x5^0.5)
 
         if i % 10 == 0
-            println("Trajectory passed iteration $i")
+            println("Trajectory calculation iteration $i")
         end
     end
+
+    println("Trajectory calculation finished")
 
     x 
 end
@@ -71,6 +85,8 @@ reasonable_defaults = Dict(
 # CREATE THE PLOT FROM FIG 5A                                       #
 #####################################################################
 
+println("Rendering images...")
+
 xs = collect(
     range(
         start=0,
@@ -79,5 +95,7 @@ xs = collect(
     )
 )
 ys = trajectory(reasonable_defaults)
-display(plot(xs, ys, size=(500,500)))
-readline()
+plot(xs, ys, size=(size_x, size_y))
+savefig("Fig 5A.png")
+
+println("Rendering done!")
