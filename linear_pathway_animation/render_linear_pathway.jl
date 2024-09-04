@@ -1,6 +1,4 @@
 using Plots
-using PyPlot
-pyplot()
 
 #####################################################################
 # FUNCTION TO CALCULATE TRAJECTORY                                  #
@@ -70,5 +68,6 @@ reasonable_defaults = Dict(
 )
 
 x_trajectory = trajectory(reasonable_defaults)
-scatter(x=1:1000, y=x_trajectory[:, 1])
+ys = x_trajectory[:, 2]
+plot(y=ys)
 savefig("foo.png")
