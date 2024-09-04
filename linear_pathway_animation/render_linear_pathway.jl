@@ -88,6 +88,8 @@ fig_5a_defaults = Dict(
 
 println("Rendering images...")
 
+result = trajectory(fig_5a_defaults)
+
 xs = range(
     start=0,
     stop=fig_5a_defaults[:duration_minutes],
@@ -97,12 +99,16 @@ xs = range(
 xtick_vals = range(start=minimum(xs), stop=maximum(xs), length=5)
 xtick_labels = [@sprintf("%.1f", val) for val in xtick_vals]
 
-result = trajectory(fig_5a_defaults)
+ytick_vals = range(start=0.0, stop=maximum(result[:x]), length=5)
+ytick_labels = [@sprintf("%.1f", val) for val in ytick_vals]
+
 plot(
     xs, 
     result[:x],
     xticks=(xtick_vals, xtick_labels),
+    yticks=(ytick_vals, ytick_labels),
     xlims=(0.0, maximum(xs) * 1.01),
+    ylims=(0.0, maximum(result[:x]) * 1.01),
     size=(size_x, size_y)
 )
 savefig("Fig 5A.png")
