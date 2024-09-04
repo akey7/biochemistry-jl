@@ -86,8 +86,6 @@ fig_5a_defaults = Dict(
 # CREATE THE PLOT FROM FIG 5A                                       #
 #####################################################################
 
-println("Rendering images...")
-
 result = trajectory(fig_5a_defaults)
 
 xs = range(
@@ -107,14 +105,12 @@ output_plot = plot(
     xs, 
     result[:x],
     labels=["G6P" "FBP" "3-PGA" "PEP" "Pyruvate"],
-    # xticks=(xtick_vals, xtick_labels),
     xticks=(xtick_vals, output_xtick_labels),
     yticks=(output_ytick_vals, output_ytick_labels),
     xlims=(0.0, maximum(xs) * 1.01),
     ylims=(0.0, maximum(result[:x]) * 1.01),
     xlabel="",
-    ylabel="concentration",
-    # size=(size_x, size_y)
+    ylabel="concentration"
 )
 
 input2_ytick_vals = range(start=0.0, stop=maximum(result[:inputs][:,2]), length=4)
@@ -129,8 +125,7 @@ input2_plot = plot(
     xlims=(0.0, maximum(xs) * 1.01),
     ylims=(0.0, maximum(result[:inputs][:, 2]) * 1.01),
     xlabel="sec",
-    ylabel="concentration",
-    # size=(size_x, size_y)
+    ylabel="concentration"
 )
 
 plot(output_plot, input2_plot, layout=(2, 1), size=(size_x, size_y))
