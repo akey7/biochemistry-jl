@@ -44,7 +44,7 @@ function trajectory(c)
         x[i, 5] = x5 + h*(x2^h42*x4^0.5 - x5^0.5)
 
         if i % 10 == 0
-            println("Passed iteration $i")
+            println("Trajectory passed iteration $i")
         end
     end
 
@@ -66,6 +66,10 @@ reasonable_defaults = Dict(
     :h42 => 0.75,
     :initial_conditions => [1.0, 1.0, 1.0, 1.0, 1.0]
 )
+
+#####################################################################
+# CREATE PLOT FROM FIG 5A                                           #
+#####################################################################
 
 xs = collect(
     range(
