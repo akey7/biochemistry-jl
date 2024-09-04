@@ -16,10 +16,10 @@ function trajectory(c)
     end
 
     for i in 1:length(in[:, 2])
-        if i <= c[:input_2_turn_on_step] && i >= c[:input_2_turn_off_step]
-            in[i, 2] = c[:input_2_on_level]
-        else
+        if i  >= c[:input_2_turn_off_step] && i <= c[:input_2_turn_on_step]
             in[i, 2] = c[:input_2_off_level]
+        else
+            in[i, 2] = c[:input_2_on_level]
         end
     end
 
