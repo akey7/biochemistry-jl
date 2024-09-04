@@ -67,6 +67,8 @@ Then open the `mm_km_animation.mp4` and `mm_vmax_animation.mp4` files in that fo
 
 ## Linear pathway from Voit et al.
 
+### Overview of simulation
+
 This system comes from the paper by Voit et al found at:
 
 > Voit, E., Neves, A. R. & Santos, H. The intricate side of systems biology. Proc. Natl. Acad. Sci. U.S.A. 103, 9452–9457 (2006).
@@ -78,6 +80,18 @@ The metabolic pathway is a simplified glycolytic pathway, as shown in Figure 4 o
 The differential equations that model this system are given in Equation 1 of the paper, as shown below:
 
 ![Image of differential equations](images/voit_et_al_eqn_01.png "Voit et al Eqn 1")
+
+The variables X<sub>n</sub> correspond to the following metabolites:
+
+| Variable | Metabolite |
+| -------- | ---------- |
+| X1       | G6P        |
+| X2       | FBP        |
+| X3       | 3-PGA      |
+| X4       | PEP        |
+| X5       | Pyruvate   |
+
+### How to run and plot simulation
 
 To run a simulation to reproduce Figure 5 of Voit et al., run these commands:
 
