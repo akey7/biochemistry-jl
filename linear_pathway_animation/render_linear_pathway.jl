@@ -1,4 +1,17 @@
+#####################################################################
+# IMPORT MODULES                                                    #
+#####################################################################
+
 using Plots
+using Printf
+
+#####################################################################
+# SIZE OF IMAGES AND MOVIES AND NUMBER OF FRAMES FOR ANIMATIONS     #
+#####################################################################
+
+size_x = 1080 / 2
+size_y = 1920 / 4
+num_frames = 300
 
 #####################################################################
 # FUNCTION TO CALCULATE TRAJECTORY                                  #
@@ -44,18 +57,20 @@ function trajectory(c)
         x[i, 5] = x5 + h*(x2^h42*x4^0.5 - x5^0.5)
 
         if i % 10 == 0
-            println("Passed iteration $i")
+            println("Trajectory calculation iteration $i")
         end
     end
 
-    x 
+    println("Trajectory calculation finished")
+
+    Dict(:x => x, :inputs => in)
 end
 
 #####################################################################
-# REASONABLE DEFAULTS                                               #
+# REASONABLE DEFAULTS TO RECREATE FIG 5A                            #
 #####################################################################
 
-reasonable_defaults = Dict(
+fig_5a_defaults = Dict(
     :duration_minutes => 100, 
     :steps => 1000, 
     :input1_level => 0.1, 
@@ -67,13 +82,58 @@ reasonable_defaults = Dict(
     :initial_conditions => [1.0, 1.0, 1.0, 1.0, 1.0]
 )
 
-xs = collect(
-    range(
-        start=0,
-        stop=reasonable_defaults[:duration_minutes],
-        length=reasonable_defaults[:steps]
-    )
+#####################################################################
+# CREATE THE PLOT FROM FIG 5A                                       #
+#####################################################################
+
+println("Rendering images...")
+
+result = trajectory(fig_5a_defaults)
+
+xs = range(
+    start=0,
+    stop=fig_5a_defaults[:duration_minutes],
+    length=fig_5a_defaults[:steps]
 )
-ys = trajectory(reasonable_defaults)
-display(plot(xs, ys, size=(500,500)))
-readline()
+
+xtick_vals = range(start=minimum(xs), stop=maximum(xs), length=5)
+input2_xtick_labels = [@sprintf("%.1f", val) for val in xtick_vals]
+output_xtick_labels = ["" for val in xtick_vals]
+
+output_ytick_vals = range(start=0.0, stop=maximum(result[:x]), length=4)
+output_ytick_labels = [@sprintf("%.1f", val) for val in output_ytick_vals]
+
+output_plot = plot(
+    xs, 
+    result[:x],
+    labels=["G6P" "FBP" "3-PGA" "PEP" "Pyruvate"],
+    # xticks=(xtick_vals, xtick_labels),
+    xticks=(xtick_vals, output_xtick_labels),
+    yticks=(output_ytick_vals, output_ytick_labels),
+    xlims=(0.0, maximum(xs) * 1.01),
+    ylims=(0.0, maximum(result[:x]) * 1.01),
+    xlabel="",
+    ylabel="concentration",
+    # size=(size_x, size_y)
+)
+
+input2_ytick_vals = range(start=0.0, stop=maximum(result[:inputs][:,2]), length=4)
+input2_ytick_labels = [@sprintf("%.1f", val) for val in input2_ytick_vals]
+
+input2_plot = plot(
+    xs, 
+    result[:inputs][:, 2],
+    labels="Input 2",
+    xticks=(xtick_vals, input2_xtick_labels),
+    yticks=(input2_ytick_vals, input2_ytick_labels),
+    xlims=(0.0, maximum(xs) * 1.01),
+    ylims=(0.0, maximum(result[:inputs][:, 2]) * 1.01),
+    xlabel="sec",
+    ylabel="concentration",
+    # size=(size_x, size_y)
+)
+
+plot(output_plot, input2_plot, layout=(2, 1), size=(size_x, size_y))
+savefig("Fig 5A.png")
+
+println("Rendering done!")
