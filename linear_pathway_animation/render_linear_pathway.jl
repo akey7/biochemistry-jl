@@ -99,10 +99,10 @@ xs = range(
 xtick_vals = range(start=minimum(xs), stop=maximum(xs), length=5)
 xtick_labels = [@sprintf("%.1f", val) for val in xtick_vals]
 
-output_ytick_vals = range(start=0.0, stop=maximum(result[:x]), length=5)
+output_ytick_vals = range(start=0.0, stop=maximum(result[:x]), length=4)
 output_ytick_labels = [@sprintf("%.1f", val) for val in output_ytick_vals]
 
-plot(
+output_plot = plot(
     xs, 
     result[:x],
     xticks=(xtick_vals, xtick_labels),
@@ -111,9 +111,25 @@ plot(
     ylims=(0.0, maximum(result[:x]) * 1.01),
     xlabel="sec",
     ylabel="concentration",
-    size=(size_x, size_y)
+    # size=(size_x, size_y)
 )
 
+input2_ytick_vals = range(start=0.0, stop=maximum(result[:inputs][:,2]), length=4)
+input2_ytick_labels = [@sprintf("%.1f", val) for val in input2_ytick_vals]
+
+input2_plot = plot(
+    xs, 
+    result[:inputs][:, 2],
+    xticks=(xtick_vals, xtick_labels),
+    yticks=(input2_ytick_vals, input2_ytick_labels),
+    xlims=(0.0, maximum(xs) * 1.01),
+    ylims=(0.0, maximum(result[:inputs][:, 2]) * 1.01),
+    xlabel="sec",
+    ylabel="concentration",
+    # size=(size_x, size_y)
+)
+
+plot(output_plot, input2_plot, layout=(2, 1))
 savefig("Fig 5A.png")
 
 println("Rendering done!")
