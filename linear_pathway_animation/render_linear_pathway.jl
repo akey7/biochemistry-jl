@@ -133,7 +133,7 @@ input2_plot = plot(
     # size=(size_x, size_y)
 )
 
-plot(output_plot, input2_plot, layout=(2, 1))
+plot(output_plot, input2_plot, layout=(2, 1), size=(size_x, size_y))
 savefig("Fig 5A.png")
 
 println("Rendering done!")
