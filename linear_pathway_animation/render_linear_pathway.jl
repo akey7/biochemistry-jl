@@ -109,6 +109,8 @@ plot(
     yticks=(ytick_vals, ytick_labels),
     xlims=(0.0, maximum(xs) * 1.01),
     ylims=(0.0, maximum(result[:x]) * 1.01),
+    xlabel="sec",
+    ylabel="concentration",
     size=(size_x, size_y)
 )
 savefig("Fig 5A.png")
