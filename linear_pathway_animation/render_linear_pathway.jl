@@ -62,7 +62,7 @@ function trajectory(c)
 
     println("Trajectory calculation finished")
 
-    x 
+    Dict(:x => x, :inputs => in)
 end
 
 #####################################################################
@@ -94,8 +94,8 @@ xs = collect(
         length=reasonable_defaults[:steps]
     )
 )
-ys = trajectory(reasonable_defaults)
-plot(xs, ys, size=(size_x, size_y))
+result = trajectory(reasonable_defaults)
+plot(xs, result[:x], size=(size_x, size_y))
 savefig("Fig 5A.png")
 
 println("Rendering done!")
