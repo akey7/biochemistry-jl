@@ -67,7 +67,6 @@ reasonable_defaults = Dict(
     :initial_conditions => [1.0, 1.0, 1.0, 1.0, 1.0]
 )
 
-x_trajectory = trajectory(reasonable_defaults)
-ys = x_trajectory[:, 2]
-plot(y=ys)
-savefig("foo.png")
+ys = trajectory(reasonable_defaults)
+display(plot(ys, size=(500,500)))
+readline()
