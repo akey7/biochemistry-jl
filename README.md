@@ -91,6 +91,8 @@ The variables X<sub>n</sub> correspond to the following metabolites:
 | X4       | PEP        |
 | X5       | Pyruvate   |
 
+Input1 is a small steady stream of glucose, while Input2 is stream of glucose of concentration over time.
+
 ### How to run and plot simulation
 
 To run a simulation to reproduce Figure 5 of Voit et al., run these commands:
