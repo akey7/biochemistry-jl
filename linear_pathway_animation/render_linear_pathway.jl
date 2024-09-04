@@ -67,6 +67,13 @@ reasonable_defaults = Dict(
     :initial_conditions => [1.0, 1.0, 1.0, 1.0, 1.0]
 )
 
+xs = collect(
+    range(
+        start=0,
+        stop=reasonable_defaults[:duration_minutes],
+        length=reasonable_defaults[:steps]
+    )
+)
 ys = trajectory(reasonable_defaults)
-display(plot(ys, size=(500,500)))
+display(plot(xs, ys, size=(500,500)))
 readline()
