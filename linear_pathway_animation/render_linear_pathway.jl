@@ -3,6 +3,7 @@
 #####################################################################
 
 using Plots
+using Printf
 
 #####################################################################
 # SIZE OF IMAGES AND MOVIES AND NUMBER OF FRAMES FOR ANIMATIONS     #
@@ -87,15 +88,23 @@ fig_5a_defaults = Dict(
 
 println("Rendering images...")
 
-xs = collect(
-    range(
-        start=0,
-        stop=fig_5a_defaults[:duration_minutes],
-        length=fig_5a_defaults[:steps]
-    )
+xs = range(
+    start=0,
+    stop=fig_5a_defaults[:duration_minutes],
+    length=fig_5a_defaults[:steps]
 )
+
+xtick_vals = range(start=minimum(xs), stop=maximum(xs), length=5)
+xtick_labels = [@sprintf("%.1f", val) for val in xtick_vals]
+
 result = trajectory(fig_5a_defaults)
-plot(xs, result[:x], size=(size_x, size_y))
+plot(
+    xs, 
+    result[:x],
+    xticks=(xtick_vals, xtick_labels),
+    xlims=(0.0, maximum(xs) * 1.01),
+    size=(size_x, size_y)
+)
 savefig("Fig 5A.png")
 
 println("Rendering done!")
