@@ -106,6 +106,7 @@ output_ytick_labels = [@sprintf("%.1f", val) for val in output_ytick_vals]
 output_plot = plot(
     xs, 
     result[:x],
+    labels=["G6P" "FBP" "3-PGA" "PEP" "Pyruvate"],
     # xticks=(xtick_vals, xtick_labels),
     xticks=(xtick_vals, output_xtick_labels),
     yticks=(output_ytick_vals, output_ytick_labels),
@@ -122,6 +123,7 @@ input2_ytick_labels = [@sprintf("%.1f", val) for val in input2_ytick_vals]
 input2_plot = plot(
     xs, 
     result[:inputs][:, 2],
+    labels="Input 2",
     xticks=(xtick_vals, input2_xtick_labels),
     yticks=(input2_ytick_vals, input2_ytick_labels),
     xlims=(0.0, maximum(xs) * 1.01),
