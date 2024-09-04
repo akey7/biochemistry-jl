@@ -97,7 +97,8 @@ xs = range(
 )
 
 xtick_vals = range(start=minimum(xs), stop=maximum(xs), length=5)
-xtick_labels = [@sprintf("%.1f", val) for val in xtick_vals]
+input2_xtick_labels = [@sprintf("%.1f", val) for val in xtick_vals]
+output_xtick_labels = ["" for val in xtick_vals]
 
 output_ytick_vals = range(start=0.0, stop=maximum(result[:x]), length=4)
 output_ytick_labels = [@sprintf("%.1f", val) for val in output_ytick_vals]
@@ -105,11 +106,12 @@ output_ytick_labels = [@sprintf("%.1f", val) for val in output_ytick_vals]
 output_plot = plot(
     xs, 
     result[:x],
-    xticks=(xtick_vals, xtick_labels),
+    # xticks=(xtick_vals, xtick_labels),
+    xticks=(xtick_vals, output_xtick_labels),
     yticks=(output_ytick_vals, output_ytick_labels),
     xlims=(0.0, maximum(xs) * 1.01),
     ylims=(0.0, maximum(result[:x]) * 1.01),
-    xlabel="sec",
+    xlabel="",
     ylabel="concentration",
     # size=(size_x, size_y)
 )
@@ -120,7 +122,7 @@ input2_ytick_labels = [@sprintf("%.1f", val) for val in input2_ytick_vals]
 input2_plot = plot(
     xs, 
     result[:inputs][:, 2],
-    xticks=(xtick_vals, xtick_labels),
+    xticks=(xtick_vals, input2_xtick_labels),
     yticks=(input2_ytick_vals, input2_ytick_labels),
     xlims=(0.0, maximum(xs) * 1.01),
     ylims=(0.0, maximum(result[:inputs][:, 2]) * 1.01),
