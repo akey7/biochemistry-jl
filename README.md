@@ -106,6 +106,8 @@ Then image and movie files will be rendered to that folder.
 
 ## Hill Equation
 
+### Overview of simulation
+
 The Hill equaiton models cooperativitiy in binding of ligands to a protein. There are 3 types of cooperativity:
 
 1. Non-cooperativity: Where binding of a ligand does not affect the binding of subsequent lignads.
@@ -113,3 +115,10 @@ The Hill equaiton models cooperativitiy in binding of ligands to a protein. Ther
 3. Positive cooperativity: Where binding of one ligand increases affinity for subsequent ligands.
 
 The animation from this script walks through each of these types of cooperativity.
+
+### How to run and plot simulation
+
+```
+cd hill_animation
+julia render_hill_animations_and_stills.jl
+```
