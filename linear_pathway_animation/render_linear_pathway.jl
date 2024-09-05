@@ -138,3 +138,26 @@ result = trajectory(fig_5a_defaults)
 plot_trajectory(result)
 savefig("Fig 5A.png")
 println("Rendering done!")
+
+#####################################################################
+# ANIMATE WIDENING OF INPUT2 SHUTOFF                                #
+#####################################################################
+
+input_2_turn_on_steps = 301:601
+
+anim = Animation()
+
+for (index, input_2_turn_on_step) in enumerate(input_2_turn_on_steps)
+    config = deepcopy(fig_5a_defaults)
+    config[:input_2_turn_on_step] = input_2_turn_on_step
+    result = trajectory(config)
+    plot_trajectory(result)
+    frame(anim)
+
+    if index % 10 == 0
+        println("Frame $index for input_2_turn_on_step=$input_2_turn_on_step finished")
+    end
+end
+
+mp4(anim, "Input2 Turn On Widening.mp4", fps=30)
+println("Render finished!")
