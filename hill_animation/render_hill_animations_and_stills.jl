@@ -9,10 +9,54 @@ using Printf
 # SIZE OF ANIMATIONS AND FPS                                        #
 #####################################################################
 
-
+size_x = 1080
+size_y = 1920 / 2
+fps = 30
 
 #####################################################################
-# LIGAND CONCENTRATIONS                                             #
+# HILL EQUATION                                                     #
 #####################################################################
 
-ligand_concentrations = range(start=0, stop=0.01, length=100)
+function hill_eqn(kd, n, ligand_concentrations)
+    function hill(ligand_concentration)
+        ligand_concentration^n / (kd + ligand_concentration^n)
+    end
+
+    hill.(ligand_concentrations)
+end
+
+#####################################################################
+# FUNCTION TO RENDER A SINGLE FRAME                                 #
+#####################################################################
+
+function render_frame(kd, n, ligand_concentrations)
+    ys = hill_eqn(kd, n, ligand_concentrations)
+
+    plot(
+        ligand_concentrations,
+        ys,
+        size=(size_x, size_y)
+    )
+end
+
+#####################################################################
+# FUNCTION TO RENDER AND SAVE STILLS                                #
+#####################################################################
+
+function render_stills()
+    ligand_concentrations = range(start=0.0, stop=1.0e-2, length=100)
+    kd = 1.0e-3
+    n_non_cooperative = 1.0
+    # n_neg_cooperative = 0.25
+    # n_pos_cooperative = 1.5
+
+    render_frame(kd, n_non_cooperative, ligand_concentrations)
+    savefig("Hill Non-Cooperative.png")
+    println("Rendered non-cooperative still")
+end
+
+#####################################################################
+# PRODUCE IMAGES AND MOVIES BY CALLING FUNCTIONS                    #
+#####################################################################
+
+render_stills()
