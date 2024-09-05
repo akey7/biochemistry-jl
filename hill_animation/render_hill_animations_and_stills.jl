@@ -66,20 +66,24 @@ function render_frame(kd, n, ligand_concentrations)
         legend=:none
     )
 
-    plot!(
-        ligand_concentrations, 
-        y_ref,
-        label="n=1.0",
-        linecolor=RGB(255/255, 189/255, 0/255),
-        linewidth=5
-    )
+    if n != 1.0
+        plot!(
+            ligand_concentrations, 
+            y_ref,
+            label="n=1.0",
+            linecolor=RGB(255/255, 189/255, 0/255),
+            linewidth=5
+        )
+    end
 
     vline!([kd], linecolor=RGB(255/255, 0/255, 84/255), linewidth=5)
 
-    annotate!(
-        (0.875, maximum(y_ref)),
-        text("n=1.0", 20, RGB(255/255, 189/255, 0/255))
-    )
+    if n != 1.0
+        annotate!(
+            (0.875, maximum(y_ref)),
+            text("n=1.0", 20, RGB(255/255, 189/255, 0/255))
+        )
+    end
 
     annotate!(
         (0.875, maximum(ys)),
