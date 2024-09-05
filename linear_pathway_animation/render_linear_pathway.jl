@@ -67,6 +67,54 @@ function trajectory(c)
 end
 
 #####################################################################
+# FUNCTION TO CREATE A PLOT FROM A TRAJECTORY                       #
+#####################################################################
+
+function plot_trajectory(trajectory_result)
+    xs = range(
+        start=0,
+        stop=fig_5a_defaults[:duration_minutes],
+        length=fig_5a_defaults[:steps]
+    )
+
+    xtick_vals = range(start=minimum(xs), stop=maximum(xs), length=5)
+    input2_xtick_labels = [@sprintf("%.1f", val) for val in xtick_vals]
+    output_xtick_labels = ["" for val in xtick_vals]
+
+    output_ytick_vals = range(start=0.0, stop=maximum(trajectory_result[:x]), length=4)
+    output_ytick_labels = [@sprintf("%.1f", val) for val in output_ytick_vals]
+
+    output_plot = plot(
+        xs, 
+        trajectory_result[:x],
+        labels=["G6P" "FBP" "3-PGA" "PEP" "Pyruvate"],
+        xticks=(xtick_vals, output_xtick_labels),
+        yticks=(output_ytick_vals, output_ytick_labels),
+        xlims=(0.0, maximum(xs) * 1.01),
+        ylims=(0.0, maximum(trajectory_result[:x]) * 1.01),
+        xlabel="",
+        ylabel="concentration"
+    )
+
+    input2_ytick_vals = range(start=0.0, stop=maximum(trajectory_result[:inputs][:,2]), length=4)
+    input2_ytick_labels = [@sprintf("%.1f", val) for val in input2_ytick_vals]
+
+    input2_plot = plot(
+        xs, 
+        trajectory_result[:inputs][:,2],
+        labels="Input 2",
+        xticks=(xtick_vals, input2_xtick_labels),
+        yticks=(input2_ytick_vals, input2_ytick_labels),
+        xlims=(0.0, maximum(xs) * 1.01),
+        ylims=(0.0, maximum(trajectory_result[:inputs][:,2]) * 1.01),
+        xlabel="sec",
+        ylabel="concentration"
+    )
+
+    plot(output_plot, input2_plot, layout=(2, 1), size=(size_x, size_y))
+end
+
+#####################################################################
 # REASONABLE DEFAULTS TO RECREATE FIG 5A                            #
 #####################################################################
 
@@ -86,54 +134,30 @@ fig_5a_defaults = Dict(
 # CREATE THE PLOT FROM FIG 5A                                       #
 #####################################################################
 
-println("Rendering images...")
-
 result = trajectory(fig_5a_defaults)
-
-xs = range(
-    start=0,
-    stop=fig_5a_defaults[:duration_minutes],
-    length=fig_5a_defaults[:steps]
-)
-
-xtick_vals = range(start=minimum(xs), stop=maximum(xs), length=5)
-input2_xtick_labels = [@sprintf("%.1f", val) for val in xtick_vals]
-output_xtick_labels = ["" for val in xtick_vals]
-
-output_ytick_vals = range(start=0.0, stop=maximum(result[:x]), length=4)
-output_ytick_labels = [@sprintf("%.1f", val) for val in output_ytick_vals]
-
-output_plot = plot(
-    xs, 
-    result[:x],
-    labels=["G6P" "FBP" "3-PGA" "PEP" "Pyruvate"],
-    # xticks=(xtick_vals, xtick_labels),
-    xticks=(xtick_vals, output_xtick_labels),
-    yticks=(output_ytick_vals, output_ytick_labels),
-    xlims=(0.0, maximum(xs) * 1.01),
-    ylims=(0.0, maximum(result[:x]) * 1.01),
-    xlabel="",
-    ylabel="concentration",
-    # size=(size_x, size_y)
-)
-
-input2_ytick_vals = range(start=0.0, stop=maximum(result[:inputs][:,2]), length=4)
-input2_ytick_labels = [@sprintf("%.1f", val) for val in input2_ytick_vals]
-
-input2_plot = plot(
-    xs, 
-    result[:inputs][:, 2],
-    labels="Input 2",
-    xticks=(xtick_vals, input2_xtick_labels),
-    yticks=(input2_ytick_vals, input2_ytick_labels),
-    xlims=(0.0, maximum(xs) * 1.01),
-    ylims=(0.0, maximum(result[:inputs][:, 2]) * 1.01),
-    xlabel="sec",
-    ylabel="concentration",
-    # size=(size_x, size_y)
-)
-
-plot(output_plot, input2_plot, layout=(2, 1), size=(size_x, size_y))
+plot_trajectory(result)
 savefig("Fig 5A.png")
-
 println("Rendering done!")
+
+#####################################################################
+# ANIMATE WIDENING OF INPUT2 SHUTOFF                                #
+#####################################################################
+
+input_2_turn_on_steps = 301:601
+
+anim = Animation()
+
+for (index, input_2_turn_on_step) in enumerate(input_2_turn_on_steps)
+    config = deepcopy(fig_5a_defaults)
+    config[:input_2_turn_on_step] = input_2_turn_on_step
+    result = trajectory(config)
+    plot_trajectory(result)
+    frame(anim)
+
+    if index % 10 == 0
+        println("Frame $index for input_2_turn_on_step=$input_2_turn_on_step finished")
+    end
+end
+
+mp4(anim, "Input2 Turn On Widening.mp4", fps=30)
+println("Render finished!")
