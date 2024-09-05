@@ -61,7 +61,8 @@ function render_frame(kd, n, ligand_concentrations)
         ylabel="fraction of receptor sites bound",
         yticks=(ytick_vals, ytick_labels),
         ytickfont=font(18),
-        size=(size_x, size_y)
+        size=(size_x, size_y),
+        legend=:none
     )
 
     plot!(
