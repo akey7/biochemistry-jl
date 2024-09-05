@@ -31,6 +31,7 @@ end
 
 function render_frame(kd, n, ligand_concentrations)
     ys = hill_eqn(kd, n, ligand_concentrations)
+    y_ref = hill_eqn(kd, 1.0, ligand_concentrations)
 
     xtick_vals = range(
         start=minimum(ligand_concentrations),
@@ -44,10 +45,16 @@ function render_frame(kd, n, ligand_concentrations)
     ytick_vals = range(start=0.0, stop=1.0, length=5)
     ytick_labels = [@sprintf("%.2f", val) for val in ytick_vals]
 
+    title = "n = $n"
+
     plot(
         ligand_concentrations,
         ys,
-        linewidth=3,
+        label="n=$n",
+        linecolor=RGB(57/255, 0, 153/255),
+        title=title,
+        titlefont=font(24),
+        linewidth=5,
         xlims=(minimum(ligand_concentrations), maximum(ligand_concentrations) * 1.05),
         ylims=(0.0, 1.01),
         guidefont=font(18),
@@ -57,8 +64,18 @@ function render_frame(kd, n, ligand_concentrations)
         ylabel="theta",
         yticks=(ytick_vals, ytick_labels),
         ytickfont=font(18),
-        size=(size_x, size_y),
+        size=(size_x, size_y)
     )
+
+    plot!(
+        ligand_concentrations, 
+        y_ref,
+        label="n=1.0",
+        linecolor=RGB(255/255, 189/255, 0/255),
+        linewidth=5
+    )
+
+    vline!([kd], linecolor=RGB(255/255, 0/255, 84/255), linewidth=5)
 end
 
 #####################################################################
