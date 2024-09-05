@@ -95,7 +95,7 @@ Input1 is a small steady stream of glucose, while Input2 is stream of glucose of
 
 ### How to run and plot simulation
 
-To run a simulation to reproduce Figure 5 of Voit et al., run these commands:
+To run a simulation to reproduce Figure 5 of Voit et al. and create an animation based on that figure, run these commands:
 
 ```
 cd linear_pathway_animation
