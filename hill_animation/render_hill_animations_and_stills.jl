@@ -42,18 +42,22 @@ function render_frame(kd, n, ligand_concentrations)
 
     # Y will always range from 0.0 to 1.0 in the Hill eqn
     ytick_vals = range(start=0.0, stop=1.0, length=5)
-    ytick_labels = [@sprintf("%.1e", val) for val in ytick_vals]
+    ytick_labels = [@sprintf("%.2f", val) for val in ytick_vals]
 
     plot(
         ligand_concentrations,
         ys,
+        linewidth=3,
         xlims=(minimum(ligand_concentrations), maximum(ligand_concentrations) * 1.05),
         ylims=(0.0, 1.01),
+        guidefont=font(18),
+        xlabel="[L] (M)",
         xticks=(xtick_vals, xtick_labels),
-        xtickfont=font(14),
+        xtickfont=font(18),
+        ylabel="theta",
         yticks=(ytick_vals, ytick_labels),
-        ytickfont=font(14),
-        size=(size_x, size_y)
+        ytickfont=font(18),
+        size=(size_x, size_y),
     )
 end
 
