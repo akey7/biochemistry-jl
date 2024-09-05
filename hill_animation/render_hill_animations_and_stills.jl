@@ -32,9 +32,25 @@ end
 function render_frame(kd, n, ligand_concentrations)
     ys = hill_eqn(kd, n, ligand_concentrations)
 
+    xtick_vals = range(
+        start=minimum(ligand_concentrations),
+        stop=maximum(ligand_concentrations),
+        length=5
+    )
+
+    xtick_labels = [@sprintf("%.1e", val) for val in xtick_vals]
+
+    # Y will always range from 0.0 to 1.0 in the Hill eqn
+    ytick_vals = range(start=0.0, stop=1.0, length=5)
+    ytick_labels = [@sprintf("%.1e", val) for val in ytick_vals]
+
     plot(
         ligand_concentrations,
         ys,
+        xlims=(minimum(ligand_concentrations), maximum(ligand_concentrations) * 1.01),
+        ylims=(0.0, 1.01),
+        xticks=(xtick_vals, xtick_labels),
+        yticks=(ytick_vals, ytick_labels),
         size=(size_x, size_y)
     )
 end
