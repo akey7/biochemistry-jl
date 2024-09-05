@@ -45,23 +45,20 @@ function render_frame(kd, n, ligand_concentrations)
     ytick_vals = range(start=0.0, stop=1.0, length=5)
     ytick_labels = [@sprintf("%.2f", val) for val in ytick_vals]
 
-    title = "n = $n"
-
     plot(
         ligand_concentrations,
         ys,
         label="n=$n",
         linecolor=RGB(57/255, 0, 153/255),
-        title=title,
         titlefont=font(24),
         linewidth=5,
-        xlims=(minimum(ligand_concentrations), maximum(ligand_concentrations) * 1.05),
+        xlims=(minimum(ligand_concentrations), maximum(ligand_concentrations) * 1.25),
         ylims=(0.0, 1.01),
         guidefont=font(18),
         xlabel="[L] (M)",
         xticks=(xtick_vals, xtick_labels),
         xtickfont=font(18),
-        ylabel="theta",
+        ylabel="fraction of receptor sites bound",
         yticks=(ytick_vals, ytick_labels),
         ytickfont=font(18),
         size=(size_x, size_y)
@@ -76,6 +73,21 @@ function render_frame(kd, n, ligand_concentrations)
     )
 
     vline!([kd], linecolor=RGB(255/255, 0/255, 84/255), linewidth=5)
+
+    annotate!(
+        (0.875, maximum(y_ref)),
+        text("n=1.0", 20, RGB(255/255, 189/255, 0/255))
+    )
+
+    annotate!(
+        (0.875, maximum(ys)),
+        text("n=$n", 20, RGB(57/255, 0, 153/255))
+    )
+
+    annotate!(
+        (kd / maximum(ligand_concentrations) * 1.25, 0.95),
+        text("Kd=$kd", 20, RGB(255/255, 0/255, 84/255))
+    )
 end
 
 #####################################################################
