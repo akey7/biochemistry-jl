@@ -67,14 +67,22 @@ end
 
 function render_stills()
     ligand_concentrations = range(start=0.0, stop=1.0e-2, length=100)
-    kd = 1.0e-3
+    kd = 2.5e-3
     n_non_cooperative = 1.0
-    # n_neg_cooperative = 0.25
-    # n_pos_cooperative = 1.5
+    n_neg_cooperative = 0.9
+    n_pos_cooperative = 1.1
 
     render_frame(kd, n_non_cooperative, ligand_concentrations)
     savefig("Hill Non-Cooperative.png")
     println("Rendered non-cooperative still")
+
+    render_frame(kd, n_neg_cooperative, ligand_concentrations)
+    savefig("Hill Negative Cooperativity.png")
+    println("Rendered negative-cooperativity still")
+
+    render_frame(kd, n_pos_cooperative, ligand_concentrations)
+    savefig("Hill Positive Cooperativity.png")
+    println("Rendered positive-cooperativity still")
 end
 
 #####################################################################
