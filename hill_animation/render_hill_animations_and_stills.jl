@@ -3,6 +3,7 @@
 #####################################################################
 
 using Plots
+using Plots.PlotMeasures
 using Printf
 
 #####################################################################
@@ -63,6 +64,7 @@ function render_frame(kd, n, ligand_concentrations)
         yticks=(ytick_vals, ytick_labels),
         ytickfont=font(18),
         size=(size_x, size_y),
+        margin=25px,
         legend=:none
     )
 
