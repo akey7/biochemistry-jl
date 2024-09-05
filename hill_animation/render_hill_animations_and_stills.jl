@@ -47,10 +47,12 @@ function render_frame(kd, n, ligand_concentrations)
     plot(
         ligand_concentrations,
         ys,
-        xlims=(minimum(ligand_concentrations), maximum(ligand_concentrations) * 1.01),
+        xlims=(minimum(ligand_concentrations), maximum(ligand_concentrations) * 1.05),
         ylims=(0.0, 1.01),
         xticks=(xtick_vals, xtick_labels),
+        xtickfont=font(14),
         yticks=(ytick_vals, ytick_labels),
+        ytickfont=font(14),
         size=(size_x, size_y)
     )
 end
