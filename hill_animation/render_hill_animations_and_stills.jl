@@ -32,6 +32,7 @@ end
 function render_frame(kd, n, ligand_concentrations)
     ys = hill_eqn(kd, n, ligand_concentrations)
     y_ref = hill_eqn(kd, 1.0, ligand_concentrations)
+    kd_formatted = @sprintf("%.1e", kd)
 
     xtick_vals = range(
         start=minimum(ligand_concentrations),
@@ -86,8 +87,8 @@ function render_frame(kd, n, ligand_concentrations)
     )
 
     annotate!(
-        (kd / maximum(ligand_concentrations) * 1.25, 0.95),
-        text("Kd=$kd", 20, RGB(255/255, 0/255, 84/255))
+        (kd / maximum(ligand_concentrations) * 1.75, 0.975),
+        text("Kd=$kd_formatted", 20, RGB(255/255, 0/255, 84/255))
     )
 end
 
@@ -96,7 +97,7 @@ end
 #####################################################################
 
 function render_stills()
-    ligand_concentrations = range(start=0.0, stop=1.0e-2, length=100)
+    ligand_concentrations = range(start=0.0, stop=2.0e-2, length=100)
     kd = 2.5e-3
     n_non_cooperative = 1.0
     n_neg_cooperative = 0.9
