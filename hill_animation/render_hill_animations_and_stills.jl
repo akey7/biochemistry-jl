@@ -115,6 +115,7 @@ function render_stills()
     ka = 1.0e-3
     n_neg_cooperative = 0.9
     n_pos_cooperative = 1.1
+    n_non_cooperative = 1.0
 
     render_frame(ka, n_neg_cooperative, ligand_concentrations)
     savefig("Hill Negative Cooperativity.png")
@@ -123,6 +124,10 @@ function render_stills()
     render_frame(ka, n_pos_cooperative, ligand_concentrations)
     savefig("Hill Positive Cooperativity.png")
     println("Rendered positive-cooperativity still")
+
+    render_frame(ka, n_non_cooperative, ligand_concentrations)
+    savefig("Hill Non-Cooperativity.png")
+    println("Rendered non-cooperativity still")
 end
 
 #####################################################################
