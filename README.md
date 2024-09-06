@@ -95,7 +95,7 @@ Input1 is a small steady stream of glucose, while Input2 is stream of glucose of
 
 ### How to run and plot simulation
 
-To run a simulation to reproduce Figure 5 of Voit et al., run these commands:
+To run a simulation to reproduce Figure 5 of Voit et al. and create an animation based on that figure, run these commands:
 
 ```
 cd linear_pathway_animation
@@ -103,3 +103,22 @@ julia render_lineary_pathway_animation.jl
 ```
 
 Then image and movie files will be rendered to that folder.
+
+## Hill Equation
+
+### Overview of simulation
+
+The Hill equaiton models cooperativitiy in binding of ligands to a protein. There are 3 types of cooperativity:
+
+1. Non-cooperativity: Where binding of a ligand does not affect the binding of subsequent lignads.
+2. Negative cooperativity: Where binding of one ligand lowers affinity for subsequent ligands.
+3. Positive cooperativity: Where binding of one ligand increases affinity for subsequent ligands.
+
+The animation from this script walks through each of these types of cooperativity.
+
+### How to run and plot simulation
+
+```
+cd hill_animation
+julia render_hill_animations_and_stills.jl
+```
