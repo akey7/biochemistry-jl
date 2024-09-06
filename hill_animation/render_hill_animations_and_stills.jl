@@ -128,12 +128,12 @@ function render_hill_coeff_animations()
 
     anim_neg = Animation()
     
-    for (frame, neg_cooperative_n) in enumerate(neg_cooperative_ns)
+    for (index, neg_cooperative_n) in enumerate(neg_cooperative_ns)
         render_frame(kd, neg_cooperative_n, ligand_concentrations)
         frame(anim_neg)
 
-        if frame % 10 == 0
-            println("Negative cooperativity frame $frame of $num_frames rendered")
+        if index % 10 == 0
+            println("Negative cooperativity frame $index of $num_frames rendered")
         end
     end
 
@@ -141,12 +141,12 @@ function render_hill_coeff_animations()
 
     anim_pos = Animation()
 
-    for (frame, pos_cooperative_n) in enumerate(pos_cooperative_ns)
+    for (index, pos_cooperative_n) in enumerate(pos_cooperative_ns)
         render_frame(kd, pos_cooperative_n, ligand_concentrations)
         frame(anim_pos)
 
-        if frame % 10 == 0
-            println("Positive cooperativity frame $frame of $num_frames rendered")
+        if index % 10 == 0
+            println("Positive cooperativity frame $index of $num_frames rendered")
         end
     end
 
