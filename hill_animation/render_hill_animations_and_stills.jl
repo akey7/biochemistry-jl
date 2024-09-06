@@ -18,9 +18,9 @@ fps = 30
 # HILL EQUATION                                                     #
 #####################################################################
 
-function hill_eqn(kd, n, ligand_concentrations)
+function hill_eqn(ka, n, ligand_concentrations)
     function hill(ligand_concentration)
-        ligand_concentration^n / (kd + ligand_concentration^n)
+        ligand_concentration^n / (ka^n + ligand_concentration^n)
     end
 
     hill.(ligand_concentrations)
@@ -30,10 +30,10 @@ end
 # FUNCTION TO RENDER A SINGLE FRAME                                 #
 #####################################################################
 
-function render_frame(kd, n, ligand_concentrations)
-    ys = hill_eqn(kd, n, ligand_concentrations)
-    y_ref = hill_eqn(kd, 1.0, ligand_concentrations)
-    kd_formatted = @sprintf("%.1e", kd)
+function render_frame(ka, n, ligand_concentrations)
+    ys = hill_eqn(ka, n, ligand_concentrations)
+    y_ref = hill_eqn(ka, 1.0, ligand_concentrations)
+    ka_formatted = @sprintf("%.1e", ka)
     n_formatted = @sprintf("%.2f", n)
 
     xtick_vals = range(
@@ -89,11 +89,11 @@ function render_frame(kd, n, ligand_concentrations)
         )
     end
 
-    vline!([kd], linecolor=RGB(255/255, 0/255, 84/255), linewidth=5)
+    vline!([ka], linecolor=RGB(255/255, 0/255, 84/255), linewidth=5)
 
     annotate!(
-        (kd / maximum(ligand_concentrations) * 1.75, 0.975),
-        text("Kd=$kd_formatted", 20, RGB(255/255, 0/255, 84/255))
+        (ka / maximum(ligand_concentrations) * 1.75, 0.975),
+        text("Ka=$ka_formatted", 20, RGB(255/255, 0/255, 84/255))
     )
 end
 
@@ -102,16 +102,16 @@ end
 #####################################################################
 
 function render_stills()
-    ligand_concentrations = range(start=0.0, stop=2.0e-2, length=100)
-    kd = 2.5e-3
+    ligand_concentrations = range(start=0.0, stop=2.5e-3, length=100)
+    ka = 1.0e-3
     n_neg_cooperative = 0.9
     n_pos_cooperative = 1.1
 
-    render_frame(kd, n_neg_cooperative, ligand_concentrations)
+    render_frame(ka, n_neg_cooperative, ligand_concentrations)
     savefig("Hill Negative Cooperativity.png")
     println("Rendered negative-cooperativity still")
 
-    render_frame(kd, n_pos_cooperative, ligand_concentrations)
+    render_frame(ka, n_pos_cooperative, ligand_concentrations)
     savefig("Hill Positive Cooperativity.png")
     println("Rendered positive-cooperativity still")
 end
@@ -122,15 +122,15 @@ end
 
 function render_hill_coeff_animations()
     num_frames = 10 * fps
-    kd = 2.5e-3
-    ligand_concentrations = range(start=0.0, stop=2.0e-2, length=100)
+    ka = 1.0e-3
+    ligand_concentrations = range(start=0.0, stop=2.5e-3, length=100)
     neg_cooperative_ns = range(start=0.25, stop=1.0, length=num_frames)
     pos_cooperative_ns = range(start=1.0, stop=2.0, length=num_frames)
 
     anim_neg = Animation()
     
     for (index, neg_cooperative_n) in enumerate(neg_cooperative_ns)
-        render_frame(kd, neg_cooperative_n, ligand_concentrations)
+        render_frame(ka, neg_cooperative_n, ligand_concentrations)
         frame(anim_neg)
 
         if index % 10 == 0
@@ -143,7 +143,7 @@ function render_hill_coeff_animations()
     anim_pos = Animation()
 
     for (index, pos_cooperative_n) in enumerate(pos_cooperative_ns)
-        render_frame(kd, pos_cooperative_n, ligand_concentrations)
+        render_frame(ka, pos_cooperative_n, ligand_concentrations)
         frame(anim_pos)
 
         if index % 10 == 0
@@ -159,4 +159,4 @@ end
 #####################################################################
 
 render_stills()
-render_hill_coeff_animations()
+# render_hill_coeff_animations()
