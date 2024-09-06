@@ -133,7 +133,7 @@ function render_hill_coeff_animations()
     num_frames = 10 * fps
     ka = 1.0e-3
     ligand_concentrations = range(start=0.0, stop=2.5e-3, length=100)
-    neg_cooperative_ns = range(start=0.25, stop=1.0, length=num_frames)
+    neg_cooperative_ns = range(start=0.125, stop=1.0, length=num_frames)
     pos_cooperative_ns = range(start=1.0, stop=4.0, length=num_frames)
 
     anim_neg = Animation()
