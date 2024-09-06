@@ -48,11 +48,20 @@ function render_frame(ka, n, ligand_concentrations)
     ytick_vals = range(start=0.0, stop=1.0, length=5)
     ytick_labels = [@sprintf("%.2f", val) for val in ytick_vals]
 
+    if n < 1.0
+        title = "Negative Cooperativity"
+    elseif n > 1.0
+        title = "Positive Cooperativity"
+    else
+        title = "Non-Cooperativity"
+    end
+
     plot(
         ligand_concentrations,
         ys,
         label="n=$n",
         linecolor=RGB(57/255, 0, 153/255),
+        title=title,
         titlefont=font(24),
         linewidth=5,
         xlims=(minimum(ligand_concentrations), maximum(ligand_concentrations) * 1.25),
@@ -125,7 +134,7 @@ function render_hill_coeff_animations()
     ka = 1.0e-3
     ligand_concentrations = range(start=0.0, stop=2.5e-3, length=100)
     neg_cooperative_ns = range(start=0.25, stop=1.0, length=num_frames)
-    pos_cooperative_ns = range(start=1.0, stop=2.0, length=num_frames)
+    pos_cooperative_ns = range(start=1.0, stop=4.0, length=num_frames)
 
     anim_neg = Animation()
     
