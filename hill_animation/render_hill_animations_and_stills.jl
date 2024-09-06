@@ -103,13 +103,8 @@ end
 function render_stills()
     ligand_concentrations = range(start=0.0, stop=2.0e-2, length=100)
     kd = 2.5e-3
-    n_non_cooperative = 1.0
     n_neg_cooperative = 0.9
     n_pos_cooperative = 1.1
-
-    render_frame(kd, n_non_cooperative, ligand_concentrations)
-    savefig("Hill Non-Cooperative.png")
-    println("Rendered non-cooperative still")
 
     render_frame(kd, n_neg_cooperative, ligand_concentrations)
     savefig("Hill Negative Cooperativity.png")
@@ -121,7 +116,46 @@ function render_stills()
 end
 
 #####################################################################
+# FUNCTION TO RENDER AND SAVE HILL COEFFICIENT ANIMATIONS           #
+#####################################################################
+
+function render_hill_coeff_animations()
+    num_frames = 10 * fps
+    kd = 2.5e-3
+    ligand_concentrations = range(start=0.0, stop=2.0e-2, length=100)
+    neg_cooperative_ns = range(start=0.25, stop=1.0, length=num_frames)
+    pos_cooperative_ns = range(start=1.0, stop=2.0, length=num_frames)
+
+    anim_neg = Animation()
+    
+    for (frame, neg_cooperative_n) in enumerate(neg_cooperative_ns)
+        render_frame(kd, neg_cooperative_n, ligand_concentrations)
+        frame(anim_neg)
+
+        if frame % 10 == 0
+            println("Negative cooperativity frame $frame of $num_frames rendered")
+        end
+    end
+
+    mp4(anim_neg, "Hill Equation Negative Cooperativity.mp4", fps=fps)
+
+    anim_pos = Animation()
+
+    for (frame, pos_cooperative_n) in enumerate(pos_cooperative_ns)
+        render_frame(kd, pos_cooperative_n, ligand_concentrations)
+        frame(anim_pos)
+
+        if frame % 10 == 0
+            println("Positive cooperativity frame $frame of $num_frames rendered")
+        end
+    end
+
+    mp4(anim_pos, "Hill Equation Positive Cooperativity.mp4", fps=fps)
+end
+
+#####################################################################
 # PRODUCE IMAGES AND MOVIES BY CALLING FUNCTIONS                    #
 #####################################################################
 
 render_stills()
+render_hill_coeff_animations()
