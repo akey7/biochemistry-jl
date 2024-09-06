@@ -92,7 +92,7 @@ function render_frame(ka, n, ligand_concentrations)
     vline!([ka], linecolor=RGB(255/255, 0/255, 84/255), linewidth=5)
 
     annotate!(
-        (ka / maximum(ligand_concentrations) * 1.75, 0.975),
+        (ka / maximum(ligand_concentrations) * 1.1, 0.975),
         text("Ka=$ka_formatted", 20, RGB(255/255, 0/255, 84/255))
     )
 end
@@ -159,4 +159,4 @@ end
 #####################################################################
 
 render_stills()
-# render_hill_coeff_animations()
+render_hill_coeff_animations()
