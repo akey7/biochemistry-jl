@@ -19,7 +19,17 @@ using Plots
 plotlyjs()
 ```
 
-## Create the model and display the results
+## What is being modeled?
+
+This system is taken from [4.4. Connected Reversible Linear Reactions](https://masspy.readthedocs.io/en/latest/education/sb2/chapters/sb2_chapter4.html#Connected-Reversible-Linear-Reactions) in [1].
+
+$$ x_1 \underset{v_2}{\stackrel{v_1}{\rightleftharpoons}} x_2 \stackrel{v_3} \rightarrow x_3 \underset{v_5}{\stackrel{v_4}{\rightleftharpoons}} x_4 $$
+
+$$ S = \begin{pmatrix} {-1} & {1} & {0} & {0} & {0}  \\ {1} & {-1} & {-1} & {0} & {0}  \\ {0} & {0} & {1} & {-1} & {1}  \\  {0} & {0} & {0} & {1} & {-1}  \\ \end{pmatrix} $$
+
+$$ v = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \\ v_5 \end{pmatrix} $$
+
+## Optimize the model
 
 ```{julia}
 #| label: create-model
@@ -56,3 +66,7 @@ println("Optimal v4: ", value(v4))
 println("Optimal v5: ", value(v5))
 println("Optimal objective value: ", objective_value(model))
 ```
+
+## Citation
+
+1. Bernhard Ø. Palsson. Systems Biology: Simulation of Dynamic Network States. Cambridge University Press, 2011. doi:10.1017/CBO9780511736179.
