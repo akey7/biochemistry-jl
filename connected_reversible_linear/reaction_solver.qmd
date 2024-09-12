@@ -30,11 +30,11 @@ plotlyjs()
 model = Model(GLPK.Optimizer)
 
 # Define decision variables
-@variable(model, v1 >= 0)
-@variable(model, v2 >= 0)
-@variable(model, v3 >= 0)
-@variable(model, v4 >= 0)
-@variable(model, v5 >= 0)
+@variable(model, v1 >= 1e-5)
+@variable(model, v2 >= 1e-5)
+@variable(model, v3 >= 1e-5)
+@variable(model, v4 >= 1e-5)
+@variable(model, v5 >= 1e-5)
 
 # Set objective function to maximize
 @objective(model, Max, v3)
