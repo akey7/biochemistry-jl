@@ -37,17 +37,20 @@ model = Model(GLPK.Optimizer)
 @variable(model, v5 >= 0)
 
 # Set objective function to maximize
-@objective(model, Max, v2)
+@objective(model, Max, v3)
 
 # Add constraints, mass balance
 @constraint(model, -v1 + v2 == 0)
 @constraint(model, v1 - v2 -v3 == 0)
-@constraint(model, v2 - v4 + v5 == 0)
+@constraint(model, v3 - v4 + v5 == 0)
 @constraint(model, v4 - v5 == 0)
 
 # Add constraints, fluxes
 @constraint(model, v1 >= 1)
-@constraint(model, v4 >= 2)
+@constraint(model, v2 >= 1)
+@constraint(model, v2 >= 1)
+@constraint(model, v3 >= 1)
+@constraint(model, v4 >= 1)
 
 # Solve the model
 optimize!(model)
