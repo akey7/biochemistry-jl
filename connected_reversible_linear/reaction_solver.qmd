@@ -30,21 +30,33 @@ plotlyjs()
 model = Model(GLPK.Optimizer)
 
 # Define decision variables
-@variable(model, x >= 0)
-@variable(model, y >= 0)
+@variable(model, v1 >= 0)
+@variable(model, v2 >= 0)
+@variable(model, v3 >= 0)
+@variable(model, v4 >= 0)
+@variable(model, v5 >= 0)
 
 # Set objective function to maximize
-@objective(model, Max, 3x + 5y)
+@objective(model, Max, v2)
 
-# Add constraints
-@constraint(model, 2x + 3y <= 12)
-@constraint(model, -x + 3y <= 6)
+# Add constraints, mass balance
+@constraint(model, -v1 + v2 == 0)
+@constraint(model, v1 - v2 -v3 == 0)
+@constraint(model, v2 - v4 + v5 == 0)
+@constraint(model, v4 - v5 == 0)
+
+# Add constraints, fluxes
+@constraint(model, v1 >= 1)
+@constraint(model, v4 >= 2)
 
 # Solve the model
 optimize!(model)
 
 # Get results
-println("Optimal x: ", value(x))
-println("Optimal y: ", value(y))
+println("Optimal v1: ", value(v1))
+println("Optimal v2: ", value(v2))
+println("Optimal v3: ", value(v3))
+println("Optimal v4: ", value(v4))
+println("Optimal v5: ", value(v5))
 println("Optimal objective value: ", objective_value(model))
 ```
