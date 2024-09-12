@@ -13,6 +13,38 @@ format:
 #| include: false
 
 using Printf
+using JuMP
+using GLPK
 using Plots
 plotlyjs()
+```
+
+## Create the model and display the results
+
+```{julia}
+#| label: create-model
+#| eval: true
+#| include: true
+
+# Create a model using the GLPK solver (open-source solver)
+model = Model(GLPK.Optimizer)
+
+# Define decision variables
+@variable(model, x >= 0)
+@variable(model, y >= 0)
+
+# Set objective function to maximize
+@objective(model, Max, 3x + 5y)
+
+# Add constraints
+@constraint(model, 2x + 3y <= 12)
+@constraint(model, -x + 3y <= 6)
+
+# Solve the model
+optimize!(model)
+
+# Get results
+println("Optimal x: ", value(x))
+println("Optimal y: ", value(y))
+println("Optimal objective value: ", objective_value(model))
 ```
