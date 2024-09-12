@@ -25,9 +25,11 @@ This system is taken from [4.4. Connected Reversible Linear Reactions](https://m
 
 $$ x_1 \underset{v_2}{\stackrel{v_1}{\rightleftharpoons}} x_2 \stackrel{v_3} \rightarrow x_3 \underset{v_5}{\stackrel{v_4}{\rightleftharpoons}} x_4 $$
 
-$$ S = \begin{pmatrix} {-1} & {1} & {0} & {0} & {0}  \\ {1} & {-1} & {-1} & {0} & {0}  \\ {0} & {0} & {1} & {-1} & {1}  \\  {0} & {0} & {0} & {1} & {-1}  \\ \end{pmatrix} $$
+$$ \mathbf S = \begin{pmatrix} {-1} & {1} & {0} & {0} & {0}  \\ {1} & {-1} & {-1} & {0} & {0}  \\ {0} & {0} & {1} & {-1} & {1}  \\  {0} & {0} & {0} & {1} & {-1}  \\ \end{pmatrix} $$
 
-$$ v = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \\ v_5 \end{pmatrix} $$
+$$ \mathbf v = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \\ v_5 \end{pmatrix} $$
+
+$$ \mathbf{Sv} = \mathbf 0 $$
 
 ## Optimize the model
 
