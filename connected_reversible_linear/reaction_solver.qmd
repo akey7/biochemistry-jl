@@ -71,12 +71,15 @@ println("Optimal objective value: ", objective_value(model))
 
 ## Dynamic model
 
-$$ v_1 = v_2 = v_3 = 1 $$ 
+First, break the fluxes into rate constants and concentrations:
+$$ \mathbf v(x) = \begin{pmatrix} k_1x_1 \\ k_{-1}x_2 \\ k_2x_2 \\ k_3x_3 \\ k_{-3}x_4 \end{pmatrix} $$
 
-$$ \dot x_1 = -v_1 + v_2 $$
-$$ \dot x_2 = v_1 - v_2 - v_3 $$
-$$ \dot x_3 = v_3 - v_4 + v_5 $$
-$$ \dot x_4 = v_4 - v_5 $$
+Then the ODEs:
+
+$$ \dot x_1 = -k_1x_1+k_{-1} $$
+$$ \dot x_2 = k_1x_1-k_{-1}x_2-k_2x_2 $$
+$$ \dot x_3 = k_2x_2-k_3x_3+k_{-3}x_4 $$
+$$ \dot x_4 =  k_3x_3-k_{-3}x_4 $$
 
 ## Citation
 
