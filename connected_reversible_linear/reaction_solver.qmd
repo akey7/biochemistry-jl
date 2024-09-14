@@ -31,7 +31,7 @@ $$ \mathbf v = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \\ v_5 \end{pmatrix} $$
 
 $$ \mathbf{Sv} = \mathbf 0 $$
 
-## Optimize the model
+## Find steady state fluxes
 
 ```{julia}
 #| label: create-model
@@ -68,6 +68,15 @@ println("Optimal v4: ", value(v4))
 println("Optimal v5: ", value(v5))
 println("Optimal objective value: ", objective_value(model))
 ```
+
+## Dynamic model
+
+$$ v_1 = v_2 = v_3 = 1 $$ 
+
+$$ \dot x_1 = -v_1 + v_2 $$
+$$ \dot x_2 = v_1 - v_2 - v_3 $$
+$$ \dot x_3 = v_3 - v_4 + v_5 $$
+$$ \dot x_4 = v_4 - v_5 $$
 
 ## Citation
 
