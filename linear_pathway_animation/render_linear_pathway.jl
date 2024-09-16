@@ -24,11 +24,11 @@ function trajectory(c)
     # Setup inputs into the system
     in = zeros(Float64, c[:steps], 2)
     
-    for i in 1:length(in[:, 1])
+    for i ∈ 1:length(in[:, 1])
         in[i, 1] = c[:input1_level]
     end
 
-    for i in 1:length(in[:, 2])
+    for i ∈ 1:length(in[:, 2])
         if i  >= c[:input_2_turn_off_step] && i <= c[:input_2_turn_on_step]
             in[i, 2] = c[:input_2_off_level]
         else
@@ -42,7 +42,7 @@ function trajectory(c)
     # Run the trajectory
     h = c[:duration_minutes] / c[:steps]
     h42 = c[:h42]
-    for i in 2:length(x[:, 1])
+    for i ∈ 2:length(x[:, 1])
         x1 = x[i-1, 1]
         x2 = x[i-1, 2]
         x3 = x[i-1, 3]
@@ -147,7 +147,7 @@ input_2_turn_on_steps = 301:601
 
 anim = Animation()
 
-for (index, input_2_turn_on_step) in enumerate(input_2_turn_on_steps)
+for (index, input_2_turn_on_step) ∈ enumerate(input_2_turn_on_steps)
     config = deepcopy(fig_5a_defaults)
     config[:input_2_turn_on_step] = input_2_turn_on_step
     result = trajectory(config)

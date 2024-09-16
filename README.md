@@ -122,3 +122,19 @@ The animation from this script walks through each of these types of cooperativit
 cd hill_animation
 julia render_hill_animations_and_stills.jl
 ```
+
+## Connected Reversible Linear Reaction
+
+### Overview of the simulation
+
+More documentation is in the Quarto document. But, in brief, it (1) reproduces a figure in the SB2 textbook (referenced in the document) as well as employs a simple linear solver to find the fluxes through an example from the book
+
+### Still plot on an HTML report
+
+```
+conda activate ./env
+cd connected_reversible_linear
+quarto render reaction_solver.qmd
+```
+
+After quarto finishes, open `reaction_solver.html` in a browser.
