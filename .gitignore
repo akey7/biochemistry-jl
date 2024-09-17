@@ -27,6 +27,8 @@ Manifest.toml
 .DS_Store
 
 # Intermediate build artifacts
+*.mp4
+*.gif
 *.png
 *.svg
 *.pdf
@@ -34,6 +36,7 @@ Manifest.toml
 *.css
 *.js
 *.woff
+*.quarto_ipynb
 
 # Ignore any conda environments
 env/

@@ -1,0 +1,75 @@
+---
+title: "Michaelis-Menten Kinetics"
+format:
+  html:
+    toc: true
+    html-math-method: mathjax
+    code-fold: true
+---
+
+```{julia}
+#| label: using-things
+#| eval: true
+#| include: false
+
+using Printf
+using Plots
+plotlyjs()
+```
+
+## Chemical and Rate Equations and Units
+
+Reaction:
+
+$$ E + S \leftrightharpoons ES \rightarrow E + P$$
+
+Reversible rates are k<sub>+1</sub> and k<sub>-1</sub>. The final irreversible step has rate k<sub>cat</sub>.
+
+[See Wikipedia for details](https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics#Model).
+
+Rate equation:
+$$ v = {V_{\max}[S] \over K_M + [S]} $$
+
+| Variable | Units | Meaning |
+|---|---|---|
+| v | min<sup>-1</sup> | Rate of formation of product |
+| V<sub>max</sub> | min<sup>-1</sup> | Maximum possible rate of product formation |
+| [S] | M | Concentration of substrate |
+| K<sub>M</sub> | M | Concentration of substrate at 1/2 V<sub>max</sub> |
+
+## Plot v vs. [S]
+
+Hover over the traces to see the exact coordinates!
+
+```{julia}
+#| label: make-plot
+#| eval: true
+#| include: true
+  
+substrate_concentrations = collect(range(start=0, stop=1e-2, length=100))
+
+function mm_curve(vmax, km)
+    function mm(substrate_concentration)
+        vmax * substrate_concentration / (km + substrate_concentration)
+    end
+
+    dP_dts = mm.(substrate_concentrations)
+    ytick_vals = range(start=0, stop=maximum(dP_dts), length=5)
+    ytick_labels = [@sprintf("%.3e", val) for val in ytick_vals]
+
+    Dict(:dP_dts => dP_dts, :ytick_vals => ytick_vals, :ytick_labels => ytick_labels)
+end
+
+kms = [1e-3, 2e-3, 4e-3]
+labels = ["Km=1e-3" "Km=2e-3" "Km=4e-3"]
+curves = [mm_curve(1.0e-4, km) for km in kms]
+ys = [curve[:dP_dts] for curve in curves]
+
+xtick_vals = range(start=0, stop=maximum(substrate_concentrations), length=5)
+xtick_labels = [@sprintf("%.3e", val) for val in xtick_vals]
+
+ytick_vals = curves[1][:ytick_vals]
+ytick_labels = curves[1][:ytick_labels]
+
+plot(substrate_concentrations, ys, label=labels, xlims=(0, 1.1e-2), xlabel="[S] (M)", ylabel="v (M/min)", xticks=(xtick_vals, xtick_labels), yticks=(ytick_vals, ytick_labels), linewidth=3)
+```
