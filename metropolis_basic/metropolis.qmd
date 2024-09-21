@@ -4,7 +4,55 @@ format:
   html:
     toc: true
     html-math-method: mathjax
-    code-fold: true
+    code-fold: false
 ---
 
+```{julia}
+#| label: using-things
+#| eval: true
+#| include: false
 
+using Printf
+using Plots
+using Distributions
+plotlyjs()
+```
+
+## Make a non-normal p(x)
+
+### Define the function
+
+```{julia}
+#| label: p-of-x
+#| eval: true
+#| include: true
+
+function p(xs)
+    μ1 = 1
+    σ1 = 1
+    dist1 = Normal(μ1, σ1)
+
+    μ2 = -2.0
+    σ2 = 0.5
+    dist2 = Normal(μ2, σ2)
+
+    μ3 = -5.0
+    σ3 = 1.5
+    dist3 = Normal(μ3, σ3)
+
+    pdf.(dist1, xs) + pdf.(dist2, xs).*0.25 + pdf.(dist3, xs)
+end;  # ; suppresses output in the Quarto document.
+```
+
+### Make a plot of it
+
+```{julia}
+#| label: plot-p
+#| eval: true
+#| include: true
+
+xs = range(start=-11, stop=5, length=200)
+ys = p(xs)
+
+plot(xs, ys)
+```
