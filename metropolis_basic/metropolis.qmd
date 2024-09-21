@@ -14,8 +14,11 @@ format:
 
 using Printf
 using Plots
+using Random
 using Distributions
+
 plotlyjs()
+Random.seed!(1234)
 ```
 
 ## Define p(x) and f(x)
@@ -33,7 +36,7 @@ Where NC is a normalizing constant that is unknown. Therefore, this demo will us
 #| eval: true
 #| include: true
 
-function f_pdf(xs)
+function f(xs)
     μ1 = 1
     σ1 = 1
     dist1 = Normal(μ1, σ1)
@@ -57,7 +60,8 @@ end;  # ; suppresses output in the Quarto document.
 #| eval: true
 #| include: true
 
-xs = range(start=-11, stop=5, length=200)
+domain_min = -11
+domain_max = 5
 ```
 
 ### Plot f(x)
@@ -67,7 +71,8 @@ xs = range(start=-11, stop=5, length=200)
 #| eval: true
 #| include: true
 
-ys = f_pdf(xs)
+xs = range(start=domain_min, stop=domain_max, length=200)
+ys = f(xs)
 plot(xs, ys)
 ```
 
@@ -77,10 +82,23 @@ plot(xs, ys)
 
 ```{julia}
 #| label: metropolis
-#| eval: false
+#| eval: true
 #| include: true
 
-function metropolis(num_steps)
+num_steps = 100
+σ_step = 1.0
 
+samples = zeros(Float64, num_steps)
+samples[1] = f(rand(Uniform(domain_min, domain_max)))
+
+for i ∈ 2:num_steps
+    next_proposal = f(rand(Normal(samples[i-1], σ_step)))
+    if min(1, f(next_proposal) / f(samples[i-1])) > rand()
+        samples[i] = next_proposal
+    else
+        samples[i] = samples[i-1]
+    end
 end
+
+print(samples)
 ```
