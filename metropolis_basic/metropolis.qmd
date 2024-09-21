@@ -18,7 +18,7 @@ using Distributions
 plotlyjs()
 ```
 
-## Make p(x) and f(x)
+## Define p(x) and f(x)
 
 Assuming
 
@@ -50,15 +50,37 @@ function f_pdf(xs)
 end;  # ; suppresses output in the Quarto document.
 ```
 
-### Make a plot of it
+### Set domain of f(x) for subsequent code 
+
+```{julia}
+#| label: f-domain
+#| eval: true
+#| include: true
+
+xs = range(start=-11, stop=5, length=200)
+```
+
+### Plot f(x)
 
 ```{julia}
 #| label: plot-f-pdf
 #| eval: true
 #| include: true
 
-xs = range(start=-11, stop=5, length=200)
 ys = f_pdf(xs)
-
 plot(xs, ys)
+```
+
+## Sample f(x)
+
+### Draw samples with Metropolis algorithm
+
+```{julia}
+#| label: metropolis
+#| eval: false
+#| include: true
+
+function metropolis(num_steps)
+
+end
 ```
