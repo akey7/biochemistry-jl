@@ -23,11 +23,11 @@ Random.seed!(1234)
 
 ## Define p(x) and f(x)
 
-Assuming
+Assuming:
 
 $$ p(x) = {f(x) \over NC} $$
 
-Where NC is a normalizing constant that is unknown. Therefore, this demo will use the f(x) PDF as a proxy for an unknown p(x).
+Where NC is a normalizing constant that is unknown.
 
 ### Define the function
 
@@ -53,10 +53,10 @@ function f(xs)
 end;  # ; suppresses output in the Quarto document.
 ```
 
-### Set domain of f(x) for subsequent code 
+### Set domain of p(x) for subsequent code 
 
 ```{julia}
-#| label: f-domain
+#| label: p-domain
 #| eval: true
 #| include: true
 
@@ -75,7 +75,19 @@ xs = range(start=domain_min, stop=domain_max, length=200)
 xticks = range(start=domain_min, stop=domain_max, length=5)
 x_tick_labels = [@sprintf("%.2f", x) for x in xticks]
 ys = f(xs)
-plot(xs, ys, xticks=(xticks, x_tick_labels), xlims=(domain_min, domain_max*1.1), linewidth=3, legend=false)
+
+plot(
+    xs, 
+    ys, 
+    xticks=(xticks, x_tick_labels), 
+    xlims=(domain_min, domain_max*1.1), 
+    linewidth=3, 
+    xlabel="x", 
+    ylabel="f(x)", 
+    title="f(x)", 
+    legend=false,
+    titlefont=font(18)
+)
 ```
 
 ## Sample f(x)
