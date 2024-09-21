@@ -18,16 +18,22 @@ using Distributions
 plotlyjs()
 ```
 
-## Make a non-normal p(x)
+## Make p(x) and f(x)
+
+Assuming
+
+$$ p(x) = {f(x) \over NC} $$
+
+Where NC is a normalizing constant that is unknown. Therefore, this demo will use the f(x) PDF as a proxy for an unknown p(x).
 
 ### Define the function
 
 ```{julia}
-#| label: p-of-x
+#| label: f-pdf
 #| eval: true
 #| include: true
 
-function p(xs)
+function f_pdf(xs)
     μ1 = 1
     σ1 = 1
     dist1 = Normal(μ1, σ1)
@@ -47,12 +53,12 @@ end;  # ; suppresses output in the Quarto document.
 ### Make a plot of it
 
 ```{julia}
-#| label: plot-p
+#| label: plot-f-pdf
 #| eval: true
 #| include: true
 
 xs = range(start=-11, stop=5, length=200)
-ys = p(xs)
+ys = f_pdf(xs)
 
 plot(xs, ys)
 ```
