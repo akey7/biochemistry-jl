@@ -118,5 +118,16 @@ end
 #| eval: true
 #| include: true
 
-histogram(samples, bins=200, normalize=true)
+histogram(
+    samples,
+    bins=200,
+    normalize=true,
+    xlabel="x", 
+    ylabel="Probability Density", 
+    title="Samples From f(x)", 
+    legend=false,
+    titlefont=font(18),
+    linecolor=:white,
+    fillcolor="#EFCB68"
+)
 ```
