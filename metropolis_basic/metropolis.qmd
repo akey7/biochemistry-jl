@@ -85,20 +85,28 @@ plot(xs, ys)
 #| eval: true
 #| include: true
 
-num_steps = 100
+num_steps = 1000000
 σ_step = 1.0
 
 samples = zeros(Float64, num_steps)
-samples[1] = f(rand(Uniform(domain_min, domain_max)))
+samples[1] = rand(Uniform(domain_min, domain_max))
 
 for i ∈ 2:num_steps
-    next_proposal = f(rand(Normal(samples[i-1], σ_step)))
+    next_proposal = rand(Normal(samples[i-1], σ_step))
     if min(1, f(next_proposal) / f(samples[i-1])) > rand()
         samples[i] = next_proposal
     else
         samples[i] = samples[i-1]
     end
 end
+```
 
-print(samples)
+### Plot histogram of the samples
+
+```{julia}
+#| label: metropolis-histogram
+#| eval: true
+#| include: true
+
+histogram(samples, bins=200, normalize=true)
 ```
