@@ -72,8 +72,10 @@ domain_max = 5
 #| include: true
 
 xs = range(start=domain_min, stop=domain_max, length=200)
+xticks = range(start=domain_min, stop=domain_max, length=5)
+x_tick_labels = [@sprintf("%.2f", x) for x in xticks]
 ys = f(xs)
-plot(xs, ys)
+plot(xs, ys, xticks=(xticks, x_tick_labels), xlims=(domain_min, domain_max*1.1), linewidth=3, legend=false)
 ```
 
 ## Sample f(x)
