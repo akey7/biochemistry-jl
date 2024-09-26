@@ -14,8 +14,15 @@ hx_concentrations = range(start=0.11, stop=0.44, length=100)
 # Compute the v_HGPRT for each combination of HX and PRPP concentration
 vs = [v_hgprt(hx, prpp) for hx in hx_concentrations, prpp in prpp_concentrations]
 
-# Display the surface in an interactive window
-display(surface(prpp_concentrations, hx_concentrations, vs))
+# Create a figure and axis
+fig = Figure()
+ax = Axis3(fig[1, 1], xlabel="PRPP (mM)", ylabel="Hypoxanthine (mM)", zlabel="v_HGPRT (mM/hr)")
+
+# Plot the surface
+surface!(ax, prpp_concentrations, hx_concentrations, vs)
+
+# Display the figure
+display(fig)
 
 # Do not quit right away, but rather wait for a keystroke to exit.
 readline()
