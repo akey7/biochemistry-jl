@@ -1,0 +1,57 @@
+---
+title: "Multivariate Normal Distribution"
+format:
+  html:
+    toc: true
+    html-math-method: mathjax
+    code-fold: false
+---
+
+```{julia}
+#| label: using-things
+#| eval: true
+#| include: false
+
+using Printf
+using Plots
+using Random
+using Distributions
+
+plotlyjs()
+Random.seed!(1234)
+```
+
+## 2-diensional Gaussian
+
+### Obtain samples
+
+```{julia}
+#| label: obtain-2d-samples
+#| eval: true
+#| include: true
+
+# Define the mean vector (μ) and covariance matrix (Σ)
+μ = [0.0, 0.0]             # Mean of the distribution
+# Σ = [1.0 0.5; 0.5 1.0]     # Covariance matrix
+Σ = [1.0 0.0; 0.0 1.0]     # Covariance matrix
+
+# Create a multivariate normal distribution
+mv_gaussian = MvNormal(μ, Σ)
+
+# Generate samples (e.g., 1000 samples)
+samples = rand(mv_gaussian, 1000)
+
+# Access the x and y components of the samples
+x_samples = samples[1, :]
+y_samples = samples[2, :]
+```
+
+### Plot the samples
+
+```{julia}
+#| label: plot-2d-samples
+#| eval: true
+#| include: true
+
+scatter(x_samples, y_samples)
+```
