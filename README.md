@@ -139,7 +139,7 @@ quarto render reaction_solver.qmd
 
 After quarto finishes, open `reaction_solver.html` in a browser.
 
-## Basic Metropolis Algorithm
+## Metropolis Algorithm
 
 ### Overview of the demo
 
@@ -154,3 +154,15 @@ quarto render metropolis.qmd
 ```
 
 Then open `metropolis.html` in a browser.
+
+## Michaelis-Menten two-substrate kinetics
+
+### Overview of the simulation
+
+This simulation is of the HGPRT enzyme in humans, which follows the rate law:
+
+![Image of Michaelis-Menten rate law](images/joshi_and_palsson_01.png "HGPRT Rate Law")
+
+Citation:
+
+> Joshi, A. & Palsson, B. O. Metabolic dynamics in the human red cell. Part III—Metabolic reaction rates. Journal of Theoretical Biology 142, 41–68 (1990).
