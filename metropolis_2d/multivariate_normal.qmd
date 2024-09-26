@@ -21,7 +21,7 @@ plotlyjs()
 Random.seed!(1234)
 ```
 
-## 2-diensional Gaussian
+## 2-dimensional Gaussian
 
 ### Obtain samples
 
