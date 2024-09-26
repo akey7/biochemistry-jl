@@ -138,3 +138,19 @@ quarto render reaction_solver.qmd
 ```
 
 After quarto finishes, open `reaction_solver.html` in a browser.
+
+## Basic Metropolis Algorithm
+
+### Overview of the demo
+
+This is a demo of the Metropolis algorithm sampling a PDF that is the sum of three normal distributions.
+
+### Running the demo
+
+```
+conda activate ./env
+cd metropolis_basic
+quarto render metropolis.qmd
+```
+
+Then open `metropolis.html` in a browser.
