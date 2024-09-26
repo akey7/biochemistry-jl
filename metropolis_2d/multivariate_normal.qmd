@@ -39,11 +39,11 @@ Random.seed!(1234)
 mv_gaussian = MvNormal(μ, Σ)
 
 # Generate samples (e.g., 1000 samples)
-samples = rand(mv_gaussian, 1000)
+samples = rand(mv_gaussian, 10000)
 
 # Access the x and y components of the samples
 x_samples = samples[1, :]
-y_samples = samples[2, :]
+y_samples = samples[2, :];
 ```
 
 ### Plot the samples as a scatter plot
@@ -63,5 +63,5 @@ scatter(x_samples, y_samples)
 #| eval: true
 #| include: true
 
-histogram2d(x_samples, y_samples, nbins=(20, 20))
+histogram2d(x_samples, y_samples, nbins=(50, 50))
 ```
