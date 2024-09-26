@@ -1,0 +1,10 @@
+---
+title: "Metropolis Algorithm 2D"
+format:
+  html:
+    toc: true
+    html-math-method: mathjax
+    code-fold: false
+---
+
+
