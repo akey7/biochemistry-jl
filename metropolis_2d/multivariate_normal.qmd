@@ -32,7 +32,6 @@ Random.seed!(1234)
 
 # Define the mean vector (μ) and covariance matrix (Σ)
 μ = [0.0, 0.0]             # Mean of the distribution
-# Σ = [1.0 0.5; 0.5 1.0]     # Covariance matrix
 Σ = [1.0 0.0; 0.0 1.0]     # Covariance matrix
 
 # Create a multivariate normal distribution
@@ -63,5 +62,5 @@ scatter(x_samples, y_samples)
 #| eval: true
 #| include: true
 
-histogram2d(x_samples, y_samples, nbins=(10, 10))
+histogram2d(x_samples, y_samples, nbins=(20, 20))
 ```
