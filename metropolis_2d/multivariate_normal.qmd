@@ -16,6 +16,7 @@ using Printf
 using Plots
 using Random
 using Distributions
+using StatsBase
 
 plotlyjs()
 Random.seed!(1234)
@@ -62,5 +63,27 @@ scatter(x_samples, y_samples)
 #| eval: true
 #| include: true
 
-histogram2d(x_samples, y_samples, nbins=(20, 20))
+# h = histogram2d(x_samples, y_samples, nbins=(20, 20))
+
+# Compute the 2D histogram
+h = fit(Histogram, (x_samples, y_samples), nbins=(30, 30))
+
+# Extract bin values and bin edges
+bin_counts = h.weights
+x_edges = h.edges[1]
+y_edges = h.edges[2]
+
+# Calculate bin centers for the x and y axes
+x_centers = 0.5 .* (x_edges[1:end-1] .+ x_edges[2:end])
+y_centers = 0.5 .* (y_edges[1:end-1] .+ y_edges[2:end])
+
+# Use broadcasting to create the 2D grid of bin centers
+X_grid = repeat(x_centers, 1, length(y_centers))
+Y_grid = repeat(y_centers', length(x_centers), 1)  # Transpose to match dimensions
+
+# Transpose bin_counts to match the orientation of the grid
+bin_counts_plot = bin_counts'
+
+# Create the surface plot
+surface(X_grid, Y_grid, bin_counts_plot, xlabel="X-axis", ylabel="Y-axis", zlabel="Frequency", title="2D Histogram Surface Plot", xlims=(-3, 3))
 ```
