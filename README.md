@@ -166,3 +166,12 @@ This simulation is of the HGPRT enzyme in humans, which follows the rate law:
 Citation:
 
 > Joshi, A. & Palsson, B. O. Metabolic dynamics in the human red cell. Part III—Metabolic reaction rates. Journal of Theoretical Biology 142, 41–68 (1990).
+
+### Running the simulation
+
+The following commands will display an OpenGL window with the surface of reactions rates and the script will pause execution waiting for a new line to exit the script. This is so the OpenGL window appears long enough for interaction.
+
+```
+cd mm_2_substrate
+julia two_substrate.jl
+```
