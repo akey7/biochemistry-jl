@@ -45,14 +45,11 @@ mv_gaussian = MvNormal(μ, Σ);  # ; To suppress output from cell
 #| eval: true
 #| include: true
 
-# Generate samples (e.g., 1000 samples)
-samples = rand(mv_gaussian, 10000)
-
-# Access the x and y components of the samples
+samples = rand(mv_gaussian, 100000)
 x_samples = samples[1, :]
 y_samples = samples[2, :]
 
-histogram2d(x_samples, y_samples, nbins=(50, 50))
+histogram2d(x_samples, y_samples, nbins=(100, 100), colormap=:viridis, normalize=true)
 ```
 
 ### Plot the PDF as a countour plot
