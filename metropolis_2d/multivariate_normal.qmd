@@ -13,15 +13,15 @@ format:
 #| include: false
 
 using Printf
+using Plots
 using CairoMakie
 using Random
 using Distributions
 
-plotlyjs()
 Random.seed!(1234)
 ```
 
-## Multivariate Normal Distribution
+## Simple Multivariate Normal Distribution
 
 ### Define the distribution
 
@@ -30,11 +30,8 @@ Random.seed!(1234)
 #| eval: true
 #| include: true
 
-# Define the mean vector (μ) and covariance matrix (Σ)
-μ = [0.0, 0.0]             # Mean of the distribution
-Σ = [1.0 0.0; 0.0 1.0]     # Covariance matrix
-
-# Create a multivariate normal distribution
+μ = [0.0, 0.0]  # Means
+Σ = [1.0 0.0; 0.0 1.0]  # Covariance matrix--off diagonal 0.0, directions uncorrelated.
 mv_gaussian = MvNormal(μ, Σ);  # ; To suppress output from cell
 ```
 
