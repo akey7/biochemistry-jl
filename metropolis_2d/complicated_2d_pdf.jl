@@ -5,6 +5,11 @@ using Distributions
 
 Random.seed!(1234)
 
+#####################################################################
+# CREATE A COMPLICATED f(x,y) THAT IS THE SUM OF 3 NORMAL           #
+# DISTRIBUTIONS                                                     #
+#####################################################################
+
 μ1 = [0.0, 0.0]  # Means
 Σ1 = [1.0 0.0; 0.0 1.0]  # Covariance matrix--off diagonal 0.0, directions uncorrelated.
 mv1 = MvNormal(μ1, Σ1)
@@ -21,6 +26,10 @@ mv3 = MvNormal(μ3, Σ3)
 function complicated_pdf(x, y)
     pdf(mv1, [x, y]) + pdf(mv2, [x, y]) + pdf(mv3, [x, y])
 end
+
+#####################################################################
+# CREATE A CONTOUR PLOT OF THE PDF                                  #
+#####################################################################
 
 # Create a grid of points for the x and y axes
 xs = range(start=-4.0, stop=4.0, length=100)
