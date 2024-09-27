@@ -57,13 +57,13 @@ CairoMakie.xlims!(ax, minimum(xs), maximum(xs))
 CairoMakie.ylims!(ax, minimum(ys), maximum(ys))
 contour_plot = CairoMakie.contour!(ax, xs, ys, zs, levels=20, colormap=:viridis, linewidth = 3)
 Colorbar(fig[1, 2], limits=(0, maximum(zs)), colormap=:viridis, flipaxis=false, size=25)
-save("figure.png", fig)
+save("2d_pdf.png", fig)
 
 #####################################################################
 # SAMPLE FROM THE 2D PDF USING METROPOLIS ALGORITHM                 #
 #####################################################################
 
-num_steps = 10
+num_steps = 1000000
 Σ_step = [1.0 0.0; 0.0 1.0]
 
 samples = zeros(Float64, 2, num_steps)
@@ -74,12 +74,17 @@ for i ∈ 2:num_steps
     μ_step = samples[:, i-1]
     proposal_dist = MvNormal(μ_step, Σ_step)
     proposal = rand(proposal_dist, 1)
-    
-    println(f(proposal))
 
-    # if min(1, f(proposal) / f(samples[:, i-1])) > rand()
-    #     samples[:, i] = proposal
-    # else
-    #     samples[:, i] = samples[:, i-1]
-    # end
+    if min(1, f(proposal) / f(samples[:, i-1])) > rand()
+        samples[:, i] = proposal
+    else
+        samples[:, i] = samples[:, i-1]
+    end
 end
+
+#####################################################################
+# 2D HISTOGRAM OF METROPOLIS SAMPLES                                #
+#####################################################################
+
+histogram2d(samples[1, :], samples[2, :], nbins=(100, 100), colormap=:viridis, normalize=false, size=(700, 600))
+savefig("2d_pdf_samples.png")
