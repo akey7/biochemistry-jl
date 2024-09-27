@@ -23,14 +23,16 @@ function complicated_pdf(x, y)
 end
 
 # Create a grid of points for the x and y axes
-xs = range(start=-3, stop=3, length=100)
-ys = range(start=-3, stop=3, length=100)
+xs = range(start=-5.0, stop=5.0, length=100)
+ys = range(start=-5.0, stop=5.0, length=100)
 
 # Compute the PDF values over the grid
 zs = [complicated_pdf(x, y) for x in xs, y in ys]
 
 fig = Figure(resolution = (750, 700))
 ax = Axis(fig[1, 1])
+CairoMakie.xlims!(ax, -5.0, 5.0)
+CairoMakie.ylims!(ax, -5.0, 5.0)
 contour_plot = CairoMakie.contour!(ax, xs, ys, zs, levels=20, colormap=:viridis, linewidth = 3)
 Colorbar(fig[1, 2], limits=(0, maximum(zs)), colormap=:viridis, flipaxis=false, size=50)
-save("figure.pdf", fig, pdf_version="1.4")
+save("figure.png", fig)
