@@ -58,7 +58,7 @@ y_samples = samples[2, :]
 histogram2d(x_samples, y_samples, nbins=(50, 50))
 ```
 
-### Plot the PDF as a surface
+### Plot the PDF as a countour plot
 
 ```{julia}
 #| label: plot-surface
@@ -72,5 +72,13 @@ ys = range(start=-3, stop=3, length=100)
 # Compute the PDF values over the grid
 zs = [pdf(mv_gaussian, [x, y]) for x in xs, y in ys]
 
-# Creatie surface plot some way here...
+# Create a figure with a custom size (e.g., 800x600 pixels)
+fig = Figure(resolution = (500, 500))
+
+# Create the contour plot in the figure
+ax = Axis(fig[1, 1])
+CairoMakie.contour!(ax, xs, ys, zs, levels = 20, colormap = :viridis, linewidth = 2)
+
+# Show the plot
+fig
 ```
