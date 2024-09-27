@@ -39,9 +39,9 @@ ys = range(start=-3.0, stop=4.0, length=100)
 zs = [complicated_pdf(x, y) for x in xs, y in ys]
 
 fig = Figure(resolution = (750, 700))
-ax = Axis(fig[1, 1])
+ax = Axis(fig[1, 1], title="2D PDF for Sampling")
 CairoMakie.xlims!(ax, minimum(xs), maximum(xs))
 CairoMakie.ylims!(ax, minimum(ys), maximum(ys))
 contour_plot = CairoMakie.contour!(ax, xs, ys, zs, levels=20, colormap=:viridis, linewidth = 3)
-Colorbar(fig[1, 2], limits=(0, maximum(zs)), colormap=:viridis, flipaxis=false, size=50)
+Colorbar(fig[1, 2], limits=(0, maximum(zs)), colormap=:viridis, flipaxis=false, size=25)
 save("figure.png", fig)
