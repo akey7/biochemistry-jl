@@ -3,10 +3,23 @@ using CairoMakie
 using Random
 using Distributions
 
+#####################################################################
+# SET RANDOM SEED                                                   #
+#####################################################################
+
 Random.seed!(1234)
 
 #####################################################################
-# CREATE A COMPLICATED f(x,y) THAT IS THE SUM OF 3 NORMAL           #
+# SET THE DOMAIN OF THE 2D PDF                                      #
+#####################################################################
+
+domain_x_min = -4.0
+domain_x_max = 4.0
+domain_y_min = -3.0
+domain_y_max = 4.0
+
+#####################################################################
+# CREATE A COMPLICATED 2D PDF f(x, y) THAT IS THE SUM OF 3 NORMAL   #
 # DISTRIBUTIONS                                                     #
 #####################################################################
 
@@ -23,20 +36,20 @@ mv2 = MvNormal(μ2, Σ2)
 mv3 = MvNormal(μ3, Σ3)
 
 # Compute the sum of PDFs
-function complicated_pdf(x, y)
-    pdf(mv1, [x, y]) + pdf(mv2, [x, y]) + pdf(mv3, [x, y])
+function f(v)
+    (pdf(mv1, v) + pdf(mv2, v) + pdf(mv3, v))[1]
 end
 
 #####################################################################
-# CREATE A CONTOUR PLOT OF THE PDF                                  #
+# CREATE A CONTOUR PLOT OF THE 2D PDF                               #
 #####################################################################
 
 # Create a grid of points for the x and y axes
-xs = range(start=-4.0, stop=4.0, length=100)
-ys = range(start=-3.0, stop=4.0, length=100)
+xs = range(start=domain_x_min, stop=domain_x_max, length=100)
+ys = range(start=domain_y_min, stop=domain_y_max, length=100)
 
 # Compute the PDF values over the grid
-zs = [complicated_pdf(x, y) for x in xs, y in ys]
+zs = [f([x, y]) for x in xs, y in ys]
 
 fig = Figure(resolution = (750, 700))
 ax = Axis(fig[1, 1], title="2D PDF for Sampling")
@@ -45,3 +58,28 @@ CairoMakie.ylims!(ax, minimum(ys), maximum(ys))
 contour_plot = CairoMakie.contour!(ax, xs, ys, zs, levels=20, colormap=:viridis, linewidth = 3)
 Colorbar(fig[1, 2], limits=(0, maximum(zs)), colormap=:viridis, flipaxis=false, size=25)
 save("figure.png", fig)
+
+#####################################################################
+# SAMPLE FROM THE 2D PDF USING METROPOLIS ALGORITHM                 #
+#####################################################################
+
+num_steps = 10
+Σ_step = [1.0 0.0; 0.0 1.0]
+
+samples = zeros(Float64, 2, num_steps)
+samples[1, 1] = rand(Uniform(domain_x_min, domain_x_max))
+samples[2, 1] = rand(Uniform(domain_y_min, domain_y_max))
+
+for i ∈ 2:num_steps
+    μ_step = samples[:, i-1]
+    proposal_dist = MvNormal(μ_step, Σ_step)
+    proposal = rand(proposal_dist, 1)
+    
+    println(f(proposal))
+
+    # if min(1, f(proposal) / f(samples[:, i-1])) > rand()
+    #     samples[:, i] = proposal
+    # else
+    #     samples[:, i] = samples[:, i-1]
+    # end
+end
