@@ -13,12 +13,9 @@ format:
 #| include: false
 
 using Printf
-using Plots
 using CairoMakie
-using Makie
 using Random
 using Distributions
-using StatsBase
 
 plotlyjs()
 Random.seed!(1234)
@@ -61,7 +58,7 @@ histogram2d(x_samples, y_samples, nbins=(50, 50))
 ### Plot the PDF as a countour plot
 
 ```{julia}
-#| label: plot-surface
+#| label: plot-contour
 #| eval: true
 #| include: true
 
@@ -72,13 +69,9 @@ ys = range(start=-3, stop=3, length=100)
 # Compute the PDF values over the grid
 zs = [pdf(mv_gaussian, [x, y]) for x in xs, y in ys]
 
-# Create a figure with a custom size (e.g., 800x600 pixels)
-fig = Figure(resolution = (500, 500))
-
-# Create the contour plot in the figure
+fig = Figure(resolution = (750, 700))
 ax = Axis(fig[1, 1])
-CairoMakie.contour!(ax, xs, ys, zs, levels = 20, colormap = :viridis, linewidth = 2)
-
-# Show the plot
+contour_plot = CairoMakie.contour!(ax, xs, ys, zs, levels=20, colormap=:viridis, linewidth = 3)
+Colorbar(fig[1, 2], limits=(0, maximum(zs)), colormap=:viridis, flipaxis=false, size=50)
 fig
 ```
