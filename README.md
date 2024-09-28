@@ -193,3 +193,18 @@ quarto render multivariate_normal.qmd
 ```
 
 Then open `multivariate_normal.html` in a browser.
+
+## Two-Dimensional Metropolis Algorithm
+
+### Overview of the demo
+
+This script uses a Metropolis algorithm to draw samples from a two-diensional PDF that is the sum of 3 multivariate normal distributions. It shows the original PDF as a contour plot and the samples as a two-dimensional histogram.
+
+### Running the demo
+
+```
+cd metropolis_2d
+julia complicated_2d_pdf.jl
+```
+
+This will render two images. First is `2d_pdf.png` which is the contour plot of the PDF being sampled from. Second is `2d_pdf_samples.png` which is the histogram of samples drawn by the Metropolis algorithm.
