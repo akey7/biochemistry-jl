@@ -175,3 +175,36 @@ The following commands will display an OpenGL window with the surface of reactio
 cd mm_2_substrate
 julia two_substrate.jl
 ```
+
+## Multivariate Normal Distribution
+
+### Overview of the demo
+
+This is a demo of a multivariate normal distribution from which random points on a two-diensional plane can be drawn. In this demo, I made the off-diagonal elements of the covariance matrix 0, so that the directions are uncorrelated with each other.
+
+### Running the simulation
+
+The following commands will render a Quarto document to HTML:
+
+```
+conda activate ./env
+cd multivariate_normal_distribution
+quarto render multivariate_normal.qmd
+```
+
+Then open `multivariate_normal.html` in a browser.
+
+## Two-Dimensional Metropolis Algorithm
+
+### Overview of the demo
+
+This script uses a Metropolis algorithm to draw samples from a two-diensional PDF that is the sum of 3 multivariate normal distributions. It shows the original PDF as a contour plot and the samples as a two-dimensional histogram.
+
+### Running the demo
+
+```
+cd metropolis_2d
+julia complicated_2d_pdf.jl
+```
+
+This will render two images. First is `2d_pdf.png` which is the contour plot of the PDF being sampled from. Second is `2d_pdf_samples.png` which is the histogram of samples drawn by the Metropolis algorithm.
