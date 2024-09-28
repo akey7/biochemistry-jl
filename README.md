@@ -138,3 +138,73 @@ quarto render reaction_solver.qmd
 ```
 
 After quarto finishes, open `reaction_solver.html` in a browser.
+
+## Metropolis Algorithm
+
+### Overview of the demo
+
+This is a demo of the Metropolis algorithm sampling a PDF that is the sum of three normal distributions.
+
+### Running the demo
+
+```
+conda activate ./env
+cd metropolis_basic
+quarto render metropolis.qmd
+```
+
+Then open `metropolis.html` in a browser.
+
+## Michaelis-Menten two-substrate kinetics
+
+### Overview of the simulation
+
+This simulation is of the HGPRT enzyme in humans, which follows the rate law:
+
+![Image of Michaelis-Menten rate law](images/joshi_and_palsson_01.png "HGPRT Rate Law")
+
+Citation:
+
+> Joshi, A. & Palsson, B. O. Metabolic dynamics in the human red cell. Part III—Metabolic reaction rates. Journal of Theoretical Biology 142, 41–68 (1990).
+
+### Running the simulation
+
+The following commands will display an OpenGL window with the surface of reactions rates and the script will pause execution waiting for a new line to exit the script. This is so the OpenGL window appears long enough for interaction.
+
+```
+cd mm_2_substrate
+julia two_substrate.jl
+```
+
+## Multivariate Normal Distribution
+
+### Overview of the demo
+
+This is a demo of a multivariate normal distribution from which random points on a two-diensional plane can be drawn. In this demo, I made the off-diagonal elements of the covariance matrix 0, so that the directions are uncorrelated with each other.
+
+### Running the simulation
+
+The following commands will render a Quarto document to HTML:
+
+```
+conda activate ./env
+cd multivariate_normal_distribution
+quarto render multivariate_normal.qmd
+```
+
+Then open `multivariate_normal.html` in a browser.
+
+## Two-Dimensional Metropolis Algorithm
+
+### Overview of the demo
+
+This script uses a Metropolis algorithm to draw samples from a two-diensional PDF that is the sum of 3 multivariate normal distributions. It shows the original PDF as a contour plot and the samples as a two-dimensional histogram.
+
+### Running the demo
+
+```
+cd metropolis_2d
+julia complicated_2d_pdf.jl
+```
+
+This will render two images. First is `2d_pdf.png` which is the contour plot of the PDF being sampled from. Second is `2d_pdf_samples.png` which is the histogram of samples drawn by the Metropolis algorithm.
