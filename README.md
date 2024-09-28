@@ -175,3 +175,21 @@ The following commands will display an OpenGL window with the surface of reactio
 cd mm_2_substrate
 julia two_substrate.jl
 ```
+
+## Multivariate Normal Distribution
+
+### Overview of the demo
+
+This is a demo of a multivariate normal distribution from which random points on a two-diensional plane can be drawn. In this demo, I made the off-diagonal elements of the covariance matrix 0, so that the directions are uncorrelated with each other.
+
+### Running the simulation
+
+The following commands will render a Quarto document to HTML:
+
+```
+conda activate ./env
+cd multivariate_normal_distribution
+quarto render multivariate_normal.qmd
+```
+
+Then open `multivariate_normal.html` in a browser.
