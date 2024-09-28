@@ -49,7 +49,7 @@ ys = range(start=-3, stop=3, length=100)
 # Compute the PDF values over the grid
 zs = [pdf(mv_gaussian, [x, y]) for x in xs, y in ys]
 
-fig = Figure(resolution = (750, 700))
+fig = Figure(resolution = (775, 700))
 ax = Axis(fig[1, 1])
 contour_plot = CairoMakie.contour!(ax, xs, ys, zs, levels=20, colormap=:viridis, linewidth = 3)
 Colorbar(fig[1, 2], limits=(0, maximum(zs)), colormap=:viridis, flipaxis=false, size=50)
