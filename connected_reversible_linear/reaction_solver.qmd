@@ -98,13 +98,9 @@ I am writing the chemical equation to explcitly show the rate constants used in 
 
 $$ x_1 \underset{k_{-1}}{\stackrel{k_1}{\rightleftharpoons}} x_2 \stackrel{k_2} \rightarrow x_3 \underset{k_{-3}}{\stackrel{k_3}{\rightleftharpoons}} x_4 $$
 
-THe stoichiometric is the same as above:
+The stoichiometric is the same as above. I am writing the flux vector differently than above to show the concentrations and rate constants explicitly.
 
-$$ \mathbf S = \begin{pmatrix} {-1} & {1} & {0} & {0} & {0}  \\ {1} & {-1} & {-1} & {0} & {0}  \\ {0} & {0} & {1} & {-1} & {1}  \\  {0} & {0} & {0} & {1} & {-1}  \\ \end{pmatrix} $$
-
-I am writing the flux vector differently than above to show the concentrations and rate constants explicitly:
-
-$$ \mathbf v(\mathbf x) = \begin{pmatrix} k_1 x_1 \\ k_{-1} x_2 \\ k_2 x_2 \\ k_3 x_3 \\ k_{-3}x_4 \end{pmatrix} $$
+$$ \mathbf S = \begin{pmatrix} {-1} & {1} & {0} & {0} & {0}  \\ {1} & {-1} & {-1} & {0} & {0}  \\ {0} & {0} & {1} & {-1} & {1}  \\  {0} & {0} & {0} & {1} & {-1}  \\ \end{pmatrix}, \mathbf v(\mathbf x) = \begin{pmatrix} k_1 x_1 \\ k_{-1} x_2 \\ k_2 x_2 \\ k_3 x_3 \\ k_{-3}x_4 \end{pmatrix} $$
 
 This gives the following differential equations for concentrations over time:
 
@@ -170,7 +166,6 @@ plot(
     x, 
     labels=["x1" "x2" "x3" "x4"],
     linewidth=3, 
-    title="Time Profiles of Concentrations",
     xlabel="Time",
     ylabel="Concentration"
 )
