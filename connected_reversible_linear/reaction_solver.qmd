@@ -72,28 +72,35 @@ println("Optimal objective value: ", objective_value(model))
 
 This plot reproduces Fig. 4.3 in [1]. It is the time course of concentrations given the equations below, and starting with the given initial conditions.
 
-$$ \dot x_1 = -k_1x_1+k_{-1}x_2 $$
-$$ \dot x_2 = k_1x_1-k_{-1}x_2-k_2x_2 $$
-$$ \dot x_3 = k_2x_2-k_3x_3+k_{-3}x_4 $$
-$$ \dot x_4 =  k_3x_3-k_{-3}x_4 $$
+$$ {dx_1 \over dt} = -k_1x_1+k_{-1}x_2 $$
+$$ {dx_2 \over dt} = k_1x_1-k_{-1}x_2-k_2x_2 $$
+$$ {dx_3 \over dt} = k_2x_2-k_3x_3+k_{-3}x_4 $$
+$$ {dx_4 \over dt} =  k_3x_3-k_{-3}x_4 $$
 
 ```{julia}
 #| label: time-profiles
 #| eval: true
 #| include: true
 
+# Rate constants
 k_fwd_1 = 1.0
 k_rev_1 = 1.0
 k_fwd_2 = 1.0
 k_fwd_3 = 1.0
 k_rev_3 = 1.0
 
+# Initial concentration conditions and 1000 steps.
 x = zeros(Float64, 1000, 4)
 x[1, 1] = 1.0
+
+# 10 arbitrary units of time. Set x axis for plotting.
 t = 10
-h = t / length(x[:, 1])
 ts = range(start=0, stop=t, length=length(x[:, 1]))
 
+# Step size
+h = t / length(x[:, 1])
+
+# Comptue concentration trajectories
 for i ∈ 2:length(x[:, 1])
     x1 = x[i-1, 1]
     x2 = x[i-1, 2]
@@ -105,11 +112,11 @@ for i ∈ 2:length(x[:, 1])
     x[i, 4] = x4 + h*(k_fwd_3*x3 - k_rev_3*x4)
 end
 
+# Plot!
 plot(
     ts,
     x, 
     labels=["x1" "x2" "x3" "x4"],
-    color=["#33312E" "#EE6C4D" "#662C91" "#17A398"],
     linewidth=3, 
     title="Time Profiles of Concentrations",
     xlabel="Time",
