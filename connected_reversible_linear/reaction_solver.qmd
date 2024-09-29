@@ -12,7 +12,6 @@ format:
 #| eval: true
 #| include: false
 
-using Printf
 using JuMP
 using GLPK
 using Plots
