@@ -19,7 +19,7 @@ using Plots
 
 ## What is being modeled?
 
-This system is taken from [4.4. Connected Reversible Linear Reactions](https://masspy.readthedocs.io/en/latest/education/sb2/chapters/sb2_chapter4.html#Connected-Reversible-Linear-Reactions) in [1].
+This system is taken from [4.4. Connected Reversible Linear Reactions](https://masspy.readthedocs.io/en/latest/education/sb2/chapters/sb2_chapter4.html#Connected-Reversible-Linear-Reactions) in [1]. I have rewritten the chemical equation to simplify the notation of the fluxes over the reactions.
 
 $$ x_1 \underset{v_2}{\stackrel{v_1}{\rightleftharpoons}} x_2 \stackrel{v_3} \rightarrow x_3 \underset{v_5}{\stackrel{v_4}{\rightleftharpoons}} x_4 $$
 
@@ -63,7 +63,7 @@ optimize!(model)
 
 ### Results of optimization
 
-Print any diagnostic information:
+Print diagnostic information.
 
 ```{julia}
 #| label: was-solution-feasible
@@ -71,7 +71,6 @@ Print any diagnostic information:
 #| include: true
 
 println("Was solution feasible? ", is_solved_and_feasible(model))
-solution_summary(model)
 ```
 
 What was the solution?
@@ -92,6 +91,10 @@ println("Optimal objective value: ", objective_value(model))
 ## Dynamic model
 
 This plot reproduces Fig. 4.3 in [1]. It is the time course of concentrations given the equations below, and starting with the given initial conditions.
+
+I am writing the flux vector differently than above to show the concentrations and rate constants explicitly:
+
+$$ \mathbf v(\mathbf x) = \begin{pmatrix} k_1 x_1 \\ k_{-1} x_2 \\ k_2 x_2 \\ k_3 x_3 \\ k_{-3}x_4 \end{pmatrix} $$
 
 $$ {dx_1 \over dt} = -k_1x_1+k_{-1}x_2 $$
 $$ {dx_2 \over dt} = k_1x_1-k_{-1}x_2-k_2x_2 $$
