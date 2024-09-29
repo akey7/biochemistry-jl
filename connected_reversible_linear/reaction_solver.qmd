@@ -31,6 +31,8 @@ $$ \mathbf{Sv} = \mathbf 0 $$
 
 ## Steady state fluxes
 
+This demo will find steady state fluxes using JuMP.jl [2] with a GLPK solver.
+
 ### Create the model
 
 ```{julia}
@@ -173,3 +175,5 @@ plot(
 ## Citation
 
 1. Bernhard Ø. Palsson. Systems Biology: Simulation of Dynamic Network States. Cambridge University Press, 2011. doi:10.1017/CBO9780511736179.
+
+2. Lubin, M. et al. JuMP 1.0: recent improvements to a modeling language for mathematical optimization. Math. Prog. Comp. 15, 581–589 (2023).
