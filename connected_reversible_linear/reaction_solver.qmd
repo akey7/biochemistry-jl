@@ -30,7 +30,9 @@ $$ \mathbf v = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \\ v_5 \end{pmatrix} $$
 
 $$ \mathbf{Sv} = \mathbf 0 $$
 
-## Find steady state fluxes
+## Steady state fluxes
+
+### Create the model
 
 ```{julia}
 #| label: create-model
@@ -58,8 +60,15 @@ model = Model(GLPK.Optimizer)
 
 # Solve the model
 optimize!(model)
+```
 
-# Get results
+### Results of optimization
+
+```{julia}
+#| label: results-of-optimization
+#| eval: true
+#| include: true
+
 println("Optimal v1: ", value(v1))
 println("Optimal v2: ", value(v2))
 println("Optimal v3: ", value(v3))
@@ -76,6 +85,8 @@ $$ {dx_1 \over dt} = -k_1x_1+k_{-1}x_2 $$
 $$ {dx_2 \over dt} = k_1x_1-k_{-1}x_2-k_2x_2 $$
 $$ {dx_3 \over dt} = k_2x_2-k_3x_3+k_{-3}x_4 $$
 $$ {dx_4 \over dt} =  k_3x_3-k_{-3}x_4 $$
+
+### Compute concentrations over time
 
 ```{julia}
 #| label: time-profiles
@@ -111,8 +122,15 @@ for i ∈ 2:length(x[:, 1])
     x[i, 3] = x3 + h*(k_fwd_2*x2 - k_fwd_3*x3 + k_rev_3*x4)
     x[i, 4] = x4 + h*(k_fwd_3*x3 - k_rev_3*x4)
 end
+```
 
-# Plot!
+### Plot concentrations over time
+
+```{julia}
+#| label: plot-trajectories
+#| eval: true
+#| include: true
+
 plot(
     ts,
     x, 
