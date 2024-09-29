@@ -16,7 +16,6 @@ using Printf
 using JuMP
 using GLPK
 using Plots
-# plotlyjs()
 ```
 
 ## What is being modeled?
@@ -38,24 +37,24 @@ $$ \mathbf{Sv} = \mathbf 0 $$
 #| eval: true
 #| include: true
 
-# Create a model using the GLPK solver (open-source solver)
+# Use JuMP.jl with GLPK
 model = Model(GLPK.Optimizer)
 
-# Define decision variables
+# Define flux variables and their constraints
 @variable(model, 0.5 <= v1 <= 1.5)
 @variable(model, 0.25 <= v2 <= 0.75)
 @variable(model, 0.5 <= v3 <= 1.5)
 @variable(model, 0.5 <= v4 <= 1.5)
 @variable(model, 0.25 <= v5 <= 0.75)
 
-# Set objective function to maximize
-@objective(model, Max, v3)
-
-# Add constraints, mass balance
+# Steady state constraints, Sv=0
 @constraint(model, -v1 + v2 == 0)
 @constraint(model, v1 - v2 -v3 == 0)
 @constraint(model, v3 - v4 + v5 == 0)
 @constraint(model, v4 - v5 == 0)
+
+# Set objective function to maximize
+@objective(model, Max, v4)
 
 # Solve the model
 optimize!(model)
@@ -71,7 +70,7 @@ println("Optimal objective value: ", objective_value(model))
 
 ## Dynamic model
 
-This plot reproduces Fig. 4.3 in [1]. It is the time course of concentrations given the equations below, and starting with the givne initial conditions.
+This plot reproduces Fig. 4.3 in [1]. It is the time course of concentrations given the equations below, and starting with the given initial conditions.
 
 $$ \dot x_1 = -k_1x_1+k_{-1}x_2 $$
 $$ \dot x_2 = k_1x_1-k_{-1}x_2-k_2x_2 $$
