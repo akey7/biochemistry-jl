@@ -37,6 +37,11 @@ Manifest.toml
 *.js
 *.woff
 *.quarto_ipynb
+*.map
+*.eot 
+LICENSE
+*.yml
+*.ttf
 
 # Ignore any conda environments
 env/
