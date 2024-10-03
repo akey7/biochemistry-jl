@@ -17,8 +17,6 @@ conda install jupyterlab
 
 ### The Julia Kernel for Jupyter
 
-This only needs to be done once per machine per Julia version. This might need to be changed slightly for each Julia upgrade.
-
 To run this part of the setup, the Python environment above should be activated so that Jupyter can install an additional kernel.
 
 [First install IJulia according to these instructions.](https://julialang.github.io/IJulia.jl/stable/manual/installation/). In brief, the relevant commands are:
