@@ -49,3 +49,6 @@ env/
 # Ignore input and output files
 input/
 output/
+
+# VSCode stuff
+.vscode/*
