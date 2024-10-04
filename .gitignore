@@ -37,6 +37,11 @@ Manifest.toml
 *.js
 *.woff
 *.quarto_ipynb
+*.map
+*.eot 
+LICENSE
+*.yml
+*.ttf
 
 # Ignore any conda environments
 env/
@@ -44,3 +49,6 @@ env/
 # Ignore input and output files
 input/
 output/
+
+# VSCode stuff
+.vscode/*

@@ -3,6 +3,21 @@ Biochemistry simulations in Julia.
 
 ## Setup
 
+### Install the Julia environment
+
+Julia dependencies for this repo need to be installed. From the root of this repo, type `julia`. At the prompt, type `]`. Then type the following:
+
+```
+(@v1.10) pkg> activate .
+(biochemistry-jl) pkg> instantiate
+```
+
+After the latter command finishes, type backspace, then:
+
+```
+julia> exit()
+```
+
 ### Jupyter Notebooks for Quarto and Julia Jupyter Support
 
 First, create a virtual environment for **Python** and install Jupyter Lab in it. This is required for Quarto builds of Julia. Run these commands from the root of the repo:
@@ -17,8 +32,6 @@ conda install jupyterlab
 
 ### The Julia Kernel for Jupyter
 
-This only needs to be done once per machine per Julia version. This might need to be changed slightly for each Julia upgrade.
-
 To run this part of the setup, the Python environment above should be activated so that Jupyter can install an additional kernel.
 
 [First install IJulia according to these instructions.](https://julialang.github.io/IJulia.jl/stable/manual/installation/). In brief, the relevant commands are:
@@ -28,7 +41,6 @@ julia
 using Pkg
 Pkg.add("IJulia")
 using IJulia
-installkernel("Julia nodeps", "--depwarn=no")
 installkernel("Julia", "--project=@.")
 ```
 
@@ -60,7 +72,7 @@ After quarto finishes, open `mm_basic_kinetics.html` in a browser.
 
 ```
 cd mm_animation
-julia render_mm_km_animation.jl
+julia --project=.. render_mm_km_animation.jl
 ```
 
 Then open the `mm_km_animation.mp4` and `mm_vmax_animation.mp4` files in that folder.
@@ -99,7 +111,7 @@ To run a simulation to reproduce Figure 5 of Voit et al. and create an animation
 
 ```
 cd linear_pathway_animation
-julia render_lineary_pathway_animation.jl
+julia --project=.. render_lineary_pathway_animation.jl
 ```
 
 Then image and movie files will be rendered to that folder.
@@ -120,7 +132,7 @@ The animation from this script walks through each of these types of cooperativit
 
 ```
 cd hill_animation
-julia render_hill_animations_and_stills.jl
+julia --project=.. render_hill_animations_and_stills.jl
 ```
 
 ## Connected Reversible Linear Reaction
@@ -173,7 +185,7 @@ The following commands will display an OpenGL window with the surface of reactio
 
 ```
 cd mm_2_substrate
-julia two_substrate.jl
+julia --project=.. two_substrate.jl
 ```
 
 ## Multivariate Normal Distribution
@@ -204,7 +216,7 @@ This script uses a Metropolis algorithm to draw samples from a two-diensional PD
 
 ```
 cd metropolis_2d
-julia complicated_2d_pdf.jl
+julia --project=.. complicated_2d_pdf.jl
 ```
 
 This will render two images. First is `2d_pdf.png` which is the contour plot of the PDF being sampled from. Second is `2d_pdf_samples.png` which is the histogram of samples drawn by the Metropolis algorithm.
