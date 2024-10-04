@@ -3,6 +3,21 @@ Biochemistry simulations in Julia.
 
 ## Setup
 
+### Install the Julia environment
+
+Julia dependencies for this repo need to be installed. From the root of this repo, type `julia`. At the prompt, type `]`. Then type the following:
+
+```
+(@v1.10) pkg> activate .
+(biochemistry-jl) pkg> instantiate
+```
+
+After the latter command finishes, type backspace, then:
+
+```
+julia> exit()
+```
+
 ### Jupyter Notebooks for Quarto and Julia Jupyter Support
 
 First, create a virtual environment for **Python** and install Jupyter Lab in it. This is required for Quarto builds of Julia. Run these commands from the root of the repo:
