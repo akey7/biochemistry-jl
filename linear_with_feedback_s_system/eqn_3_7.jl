@@ -1,5 +1,6 @@
 using Base.Threads
 using Plots
+using Plots.PlotMeasures
 using Printf
 
 gr()  # Use basic GR backend for plots
@@ -115,6 +116,7 @@ anim = @animate for (frame, g13) ∈ frames_and_g13s
         ytickfont=18,
         title="g13=$title_g13",
         titlefont=24,
+        margin=25px,
         size=size
     )
 end
