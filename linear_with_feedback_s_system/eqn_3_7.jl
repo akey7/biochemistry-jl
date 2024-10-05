@@ -8,16 +8,16 @@
 n_iterations = 1000
 n_metabolites = 4
 n_frames = 300
-systems = zeros(Float64, n_iterations, n_metabolites, n_frames)
+x = zeros(Float64, n_iterations, n_metabolites, n_frames)
 
 ###########################################################
 # SET INITIAL CONDITIONS FOR ALL FRAMES                   #
 ###########################################################
 
-systems[1, 1, :] .= 1.0
-systems[1, 2, :] .= 1.0
-systems[1, 3, :] .= 1.0
-systems[:, 4, :] .= 0.5  # X4 is a constant
+x[1, 1, :] .= 1.0
+x[1, 2, :] .= 1.0
+x[1, 3, :] .= 1.0
+x[:, 4, :] .= 0.5  # X4 is a constant
 
 ###########################################################
 # TIME LENGTH AND STEP SIZE                               #
@@ -39,12 +39,12 @@ g13_end = -5.0
 ###########################################################
 
 function eqn_3_7(frame::Int64, g13::Float64)
-    for i ∈ 2:length(systems[:, 1, 1])
-        x1 = systems[i-1, 1, frame]
-        x1 = systems[i-1, 2, frame]
-        x1 = systems[i-1, 3, frame]
-        x1 = systems[i-1, 4, frame]
-
+    for i ∈ 2:length(x[:, 1, 1])
+        x1 = x[i-1, 1, frame]
+        x1 = x[i-1, 2, frame]
+        x1 = x[i-1, 3, frame]
+        x1 = x[i-1, 4, frame]
+        
     end
 end
 
@@ -52,4 +52,8 @@ end
 # RENDER AND SAVE ALL FRAMES                              #
 ###########################################################
 
-println(collect(zip(1:n_frames, range(start=g13_start, stop=g13_end, length=n_frames))))
+frames_and_g13s = collect(zip(1:n_frames, range(start=g13_start, stop=g13_end, length=n_frames)))
+
+for (frame, g13) ∈ frames_and_g13s
+    println("Rendering frame=$frame g13=$g13")
+end
