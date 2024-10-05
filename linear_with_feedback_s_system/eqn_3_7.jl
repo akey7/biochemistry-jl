@@ -1,7 +1,8 @@
 # using Plots
 
 ###########################################################
-# SYSTEM VALUES FOR ALL FRAMES                            #
+# SYSTEM PROPERTIES THAT WILL BE DIMENSTIONS OF THE DATA  #
+# STRUCTURE.                                              #
 ###########################################################
 
 n_iterations = 1000
@@ -19,13 +20,31 @@ systems[1, 3, :] .= 1.0
 systems[:, 4, :] .= 0.5  # X4 is a constant
 
 ###########################################################
+# TIME LENGTH AND STEP SIZE                               #
+###########################################################
+
+t_max = 10.0
+h = t_max / n_iterations
+
+###########################################################
+# EXTREME VALUES OF g13 PARAMETER (WHICH ARE NEGATIVE)    #
+###########################################################
+
+g13_start = 0.0
+g13_end = -5.0
+
+###########################################################
 # FUNCTION TO CALCULATE SYSTEM FROM INTIAL CONIDTIONS     #
 # AND PARAMETERS.                                         # 
 ###########################################################
 
 function eqn_3_7(frame::Int64, g13::Float64)
     for i ∈ 2:length(systems[:, 1, 1])
-        println(i)
+        x1 = systems[i-1, 1, frame]
+        x1 = systems[i-1, 2, frame]
+        x1 = systems[i-1, 3, frame]
+        x1 = systems[i-1, 4, frame]
+
     end
 end
 
@@ -33,4 +52,4 @@ end
 # RENDER AND SAVE ALL FRAMES                              #
 ###########################################################
 
-eqn_3_7(1, -2.0)
+println(collect(zip(1:n_frames, range(start=g13_start, stop=g13_end, length=n_frames))))
