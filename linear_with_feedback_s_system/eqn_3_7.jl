@@ -80,11 +80,13 @@ end
 
 # But this has to happen on one thread to preserve frame order
 
-display(
-    plot(
-        range(start=0.0, stop=t_max, length=n_iterations),
-        x[:, 1:3, 1]
-    )
+anim = Animation()
+
+plot(
+    range(start=0.0, stop=t_max, length=n_iterations),
+    x[:, 1:3, 1]
 )
+
+frame(anim)
 
 readline()
