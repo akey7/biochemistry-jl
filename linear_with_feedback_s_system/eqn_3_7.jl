@@ -84,26 +84,36 @@ end
 println("Rendering all frames...")
 
 y_max = maximum(x[:, 1:3, :])
-yticks_values = range(start=0.0, stop=y_max, length=10)
-yticks_labels = [@sprintf("%.1f", ytick_value) for ytick_value in yticks_values]
-line_labels = ["x1" "x2" "x3 (inhibits x1)" "x4"]
+ytick_values = range(start=0.0, stop=y_max, length=10)
+ytick_labels = [@sprintf("%.1f", ytick_value) for ytick_value in ytick_values]
+line_labels = ["x1" "x2" "x3 (inhibits x1)"]
 x_axis = range(start=0.0, stop=t_max, length=n_iterations)
+xtick_values = range(start=0.0, stop=t_max, length=3)
+xtick_labels = [@sprintf("%.1f", xtick_value) for xtick_value in xtick_values]
+size = (1080, 1920 / 2)
+linewidth = 3
 
 anim = @animate for (frame, g13) ∈ frames_and_g13s
     title_g13 = @sprintf("%.2f", g13)
-    y_axis = x[:, :, frame]
+    y_axis = x[:, 1:3, frame]
 
     plot(
         x_axis,
         y_axis,
-        linewidth=2,
+        linewidth=linewidth,
         legend=:topleft,
+        legendfont=14,
         label=line_labels,
+        xticks=(xtick_values, xtick_labels),
+        xtickfont=14,
         ylims=(0.0, y_max * 1.01),
-        yticks=(yticks_values, yticks_labels),
-        title="g13=$title_g13"
+        yticks=(ytick_values, ytick_labels),
+        ytickfont=14,
+        title="g13=$title_g13",
+        titlefont=20,
+        size=size
     )
 end
 
 println("Writing animation...")
-mp4(anim, "foo.mp4", fps=30)
+mp4(anim, "eqn_3_7_plot.mp4", fps=30)
