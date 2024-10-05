@@ -55,7 +55,7 @@ function eqn_3_7(frame::Int64, g13::Float64)
         x3 = x[i-1, 3, frame]
         x4 = x[i-1, 4, frame]
         x[i, 1, frame] = x1 + h*(α[1]*x3^g13*x4 - β[1]*x1^h11)
-        x[i, 2, frame] = x2 + h*(α[2]*x1^g21 - β[2]*x2^h22)
+        x[i, 2, frame] = x2 + h*(α[2]*x1^g21 - β[2]*x2)
         x[i, 3, frame] = x3 + h*(α[3]*x2 - β[3]*x3^h33)
     end
 end
@@ -67,5 +67,6 @@ end
 frames_and_g13s = collect(zip(1:n_frames, range(start=g13_start, stop=g13_end, length=n_frames)))
 
 Threads.@threads for (frame, g13) ∈ frames_and_g13s
-    println("Rendering frame=$frame g13=$g13")
+    eqn_3_7(frame, g13)
+    println("Rendered frame=$frame g13=$g13.")
 end
