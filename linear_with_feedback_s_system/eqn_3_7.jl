@@ -1,4 +1,4 @@
-# using Plots
+using Base.Threads
 
 ###########################################################
 # SYSTEM PROPERTIES THAT WILL BE DIMENSTIONS OF THE DATA  #
@@ -61,11 +61,11 @@ function eqn_3_7(frame::Int64, g13::Float64)
 end
 
 ###########################################################
-# RENDER AND SAVE ALL FRAMES                              #
+# CALCULATE THE TRAJECTORY OF EACH SYSTEM FOR EACH FRAME  #
 ###########################################################
 
 frames_and_g13s = collect(zip(1:n_frames, range(start=g13_start, stop=g13_end, length=n_frames)))
 
-for (frame, g13) ∈ frames_and_g13s
+Threads.@threads for (frame, g13) ∈ frames_and_g13s
     println("Rendering frame=$frame g13=$g13")
 end
