@@ -171,3 +171,42 @@ The following commands will display an OpenGL window with the surface of reactio
 cd mm_2_substrate
 julia --project=.. two_substrate.jl
 ```
+
+## Linear with Feedback S-System
+
+### Overview of the simulation
+
+This demo is based on Figure 3.4 from Voit and Ferreira. As presented in the book, the system will exhibit the following behavior:
+
+![Figure of system behavior](images/voit_and_ferreira_2000/fig_3_4.png "Voit and Ferreira Fig. 3.4")
+
+It is based on the following equations:
+
+![System of equations](images/voit_and_ferreira_2000/fig_3_3.png "Voit and Ferreira Eqn 3.7")
+
+with the following initial conditions:
+
+![Initial conditions](images/voit_and_ferreira_2000/eqn_3_7_part_2.png "Voit and Ferreira Eqn 3.7 part 2")
+
+Citation:
+
+> Voit, E. O. & Ferreira, A. E. N. Computational Analysis of Biochemical Systems: A Practical Guide for Biochemists and Molecular Biologists. (Cambridge University Press, Cambridge New York, 2000).
+
+### Running the simulation
+
+This simulation uses multiple threads to calculate the system for each frame, so the number of threads must be set prior to execution with an environment variable.
+
+So, putting it all together, in PowerShell:
+
+```
+cd .\linear_with_feedback_s_system
+$env:JULIA_NUM_THREADS = 4
+julia --project=.. .\eqn_3_7.jl
+```
+
+In bash or zsh:
+
+```
+cd linear_with_feedback_s_system/
+JULIA_NUM_THREADS=4 julia --project=.. eqn_3_7.jl
+```
