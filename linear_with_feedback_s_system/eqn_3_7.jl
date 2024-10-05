@@ -83,15 +83,20 @@ end
 
 println("Rendering all frames...")
 
+y_max = maximum(x[:, 1:3, :])
+yticks_values = range(start=0.0, stop=y_max, length=10)
+yticks_labels = [@sprintf("%.1f", ytick_value) for ytick_value in yticks_values]
+
 anim = @animate for (frame, g13) ∈ frames_and_g13s
+    title_g13 = @sprintf("%.2f", g13)
+
     plot(
         range(start=0.0, stop=t_max, length=n_iterations),
         x[:, :, frame],
-        ylims=(0.0, maximum(x[:, 1:3, :]))
+        ylims=(0.0, y_max),
+        yticks=(yticks_values, yticks_labels),
+        title="g13=$title_g13"
     )
-
-    title_g13 = @sprintf("%.2f", g13)
-    title!("g13=$title_g13")
 end
 
 println("Writing animation...")
