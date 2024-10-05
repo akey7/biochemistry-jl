@@ -80,7 +80,7 @@ end
 
 # But this has to happen on one thread to preserve frame order
 
-anim = @animate for i ∈ n_frames
+anim = @animate for i ∈ eachindex(x[1, 1, :])
     plot(
         range(start=0.0, stop=t_max, length=n_iterations),
         x[:, 1:3, i]
