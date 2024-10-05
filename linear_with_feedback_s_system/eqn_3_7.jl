@@ -86,6 +86,7 @@ println("Rendering all frames...")
 y_max = maximum(x[:, 1:3, :])
 yticks_values = range(start=0.0, stop=y_max, length=10)
 yticks_labels = [@sprintf("%.1f", ytick_value) for ytick_value in yticks_values]
+line_labels = ["x1" "x2" "x3 (inhibits x1)" "x4"]
 
 anim = @animate for (frame, g13) ∈ frames_and_g13s
     title_g13 = @sprintf("%.2f", g13)
@@ -93,6 +94,9 @@ anim = @animate for (frame, g13) ∈ frames_and_g13s
     plot(
         range(start=0.0, stop=t_max, length=n_iterations),
         x[:, :, frame],
+        linewidth=2,
+        legend=:topleft,
+        label=line_labels,
         ylims=(0.0, y_max),
         yticks=(yticks_values, yticks_labels),
         title="g13=$title_g13"
