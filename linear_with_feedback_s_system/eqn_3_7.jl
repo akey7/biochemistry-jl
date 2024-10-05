@@ -36,7 +36,7 @@ h33 = 0.75
 # TIME LENGTH AND STEP SIZE                               #
 ###########################################################
 
-t_max = 10.0
+t_max = 3.0
 h = t_max / n_iterations
 
 ###########################################################
@@ -82,10 +82,12 @@ end
 
 println("Rendering all frames...")
 
-anim = @animate for i ∈ eachindex(x[1, 1, :])
+anim = @animate for (frame, g13) ∈ frames_and_g13s
     plot(
         range(start=0.0, stop=t_max, length=n_iterations),
-        x[:, 1:3, i]
+        x[:, 1:3, frame],
+        title="g13=$g13",
+        ylims=(0.0, maximum(x[:, 1:3, :]))
     )
 end
 
