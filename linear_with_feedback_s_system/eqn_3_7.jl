@@ -1,5 +1,6 @@
 using Base.Threads
 using Plots
+using Printf
 
 gr()  # Use basic GR backend for plots
 
@@ -43,7 +44,7 @@ h = t_max / n_iterations
 # EXTREME VALUES OF g13 PARAMETER (WHICH ARE NEGATIVE)    #
 ###########################################################
 
-g13_start = -1.0
+g13_start = 0.0
 g13_end = -2.0
 
 ###########################################################
@@ -85,10 +86,12 @@ println("Rendering all frames...")
 anim = @animate for (frame, g13) ∈ frames_and_g13s
     plot(
         range(start=0.0, stop=t_max, length=n_iterations),
-        x[:, 1:3, frame],
-        title="g13=$g13",
+        x[:, :, frame],
         ylims=(0.0, maximum(x[:, 1:3, :]))
     )
+
+    title_g13 = @sprintf("%.2f", g13)
+    title!("g13=$title_g13")
 end
 
 println("Writing animation...")
