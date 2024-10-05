@@ -1,4 +1,7 @@
 using Base.Threads
+using Plots
+
+gr()  # Use basic GR backend for plots
 
 ###########################################################
 # SYSTEM PROPERTIES THAT WILL BE DIMENSTIONS OF THE DATA  #
@@ -70,3 +73,18 @@ Threads.@threads for (frame, g13) ∈ frames_and_g13s
     eqn_3_7(frame, g13)
     println("Rendered frame=$frame g13=$g13.")
 end
+
+###########################################################
+# STITCH FRAMES TOGETHER INTO A MOVIE                     #
+###########################################################
+
+# But this has to happen on one thread to preserve frame order
+
+display(
+    plot(
+        range(start=0.0, stop=t_max, length=n_iterations),
+        x[:, 1:3, 1]
+    )
+)
+
+readline()
