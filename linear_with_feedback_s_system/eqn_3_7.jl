@@ -43,8 +43,8 @@ h = t_max / n_iterations
 # EXTREME VALUES OF g13 PARAMETER (WHICH ARE NEGATIVE)    #
 ###########################################################
 
-g13_start = 0.0
-g13_end = -5.0
+g13_start = -1.0
+g13_end = -2.0
 
 ###########################################################
 # FUNCTION TO CALCULATE SYSTEM FROM INTIAL CONIDTIONS     #
@@ -80,6 +80,8 @@ end
 
 # But this has to happen on one thread to preserve frame order
 
+println("Rendering all frames...")
+
 anim = @animate for i ∈ eachindex(x[1, 1, :])
     plot(
         range(start=0.0, stop=t_max, length=n_iterations),
@@ -87,4 +89,5 @@ anim = @animate for i ∈ eachindex(x[1, 1, :])
     )
 end
 
+println("Writing animation...")
 mp4(anim, "foo.mp4", fps=30)
