@@ -191,3 +191,22 @@ with the following initial conditions:
 Citation:
 
 > Voit, E. O. & Ferreira, A. E. N. Computational Analysis of Biochemical Systems: A Practical Guide for Biochemists and Molecular Biologists. (Cambridge University Press, Cambridge New York, 2000).
+
+### Running the simulation
+
+This simulation uses multiple threads to calculate the system for each frame, so the number of threads must be set prior to execution with an environment variable.
+
+So, putting it all together, in PowerShell:
+
+```
+cd .\linear_with_feedback_s_system
+$env:JULIA_NUM_THREADS = 4
+julia --project=.. .\eqn_3_7.jl
+```
+
+In bash or zsh:
+
+```
+cd linear_with_feedback_s_system/
+JULIA_NUM_THREADS=4 julia --project=.. eqn_3_7.jl
+```
