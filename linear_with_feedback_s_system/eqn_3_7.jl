@@ -37,7 +37,7 @@ h33 = 0.75
 # TIME LENGTH AND STEP SIZE                               #
 ###########################################################
 
-t_max = 5.0
+t_max = 8.0
 h = t_max / n_iterations
 
 ###########################################################
@@ -87,17 +87,19 @@ y_max = maximum(x[:, 1:3, :])
 yticks_values = range(start=0.0, stop=y_max, length=10)
 yticks_labels = [@sprintf("%.1f", ytick_value) for ytick_value in yticks_values]
 line_labels = ["x1" "x2" "x3 (inhibits x1)" "x4"]
+x_axis = range(start=0.0, stop=t_max, length=n_iterations)
 
 anim = @animate for (frame, g13) ∈ frames_and_g13s
     title_g13 = @sprintf("%.2f", g13)
+    y_axis = x[:, :, frame]
 
     plot(
-        range(start=0.0, stop=t_max, length=n_iterations),
-        x[:, :, frame],
+        x_axis,
+        y_axis,
         linewidth=2,
         legend=:topleft,
         label=line_labels,
-        ylims=(0.0, y_max),
+        ylims=(0.0, y_max * 1.01),
         yticks=(yticks_values, yticks_labels),
         title="g13=$title_g13"
     )
