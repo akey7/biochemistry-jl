@@ -8,14 +8,9 @@ Biochemistry simulations in Julia.
 Julia dependencies for this repo need to be installed. From the root of this repo, type `julia`. At the prompt, type `]`. Then type the following:
 
 ```
-(@v1.10) pkg> activate .
-(biochemistry-jl) pkg> instantiate
-```
-
-After the latter command finishes, type backspace, then:
-
-```
-julia> exit()
+julia --project=.
+]
+(biochemistry-jl) pkg> update
 ```
 
 ### Jupyter Notebooks for Quarto and Julia Jupyter Support
