@@ -7,7 +7,9 @@ scale_01 = b["scale_01"]
 
 function scale_01_value_changed(widget, others...)
     value = GAccessor.value(scale_01)
-    println("Slider value is $value")
+    Threads.@spawn begin
+        println("Slider value is $value")
+    end
 end
 
 signal_connect(scale_01_value_changed, scale_01, "value-changed")
