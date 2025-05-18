@@ -8,6 +8,7 @@ scale_vmax = b["scale_vmax"]
 scale_inhibitor = b["scale_inhibitor"]
 scale_ki = b["scale_ki"]
 button_update = b["button_update"]
+drawing_area_01 = b["drawing_area_01"]
 
 function button_update_clicked(widget, others...)
     km = GAccessor.value(scale_km)
