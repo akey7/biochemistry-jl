@@ -5,25 +5,25 @@ b = GtkBuilder(filename = b_filename)
 win = b["window_01"]
 scale_km = b["scale_km"]
 scale_vmax = b["scale_vmax"]
+scale_inhibitor = b["scale_inhibitor"]
+scale_ki = b["scale_ki"]
+button_update = b["button_update"]
 
-function scale_km_value_changed(widget, others...)
-    value = GAccessor.value(scale_km)
-    value *= 1e-4
+function button_update_clicked(widget, others...)
+    km = GAccessor.value(scale_km)
+    vmax = GAccessor.value(scale_vmax)
+    inhibitor = GAccessor.value(scale_inhibitor)
+    ki = GAccessor.value(scale_ki)
+    km *= 1e-4
+    vmax *= 1e-4
+    inhibitor *= 1e-4
+    ki *= 1e-4
     Threads.@spawn begin
-        println("Km = $value")
+        println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
     end
 end
 
-function scale_vmax_value_changed(widget, others...)
-    value = GAccessor.value(scale_vmax)
-    value *= 1e-4
-    Threads.@spawn begin
-        println("Vmax = $value")
-    end
-end 
-
-signal_connect(scale_km_value_changed, scale_km, "value-changed")
-signal_connect(scale_vmax_value_changed, scale_vmax, "value-changed")
+signal_connect(button_update_clicked, button_update, "clicked")
 
 showall(win)
 println("Press enter to exit script and close window...")
