@@ -26,5 +26,6 @@ end
 signal_connect(button_update_clicked, button_update, "clicked")
 
 showall(win)
+button_update_clicked(button_update)  # Get the initial default values from UI
 println("Press enter to exit script and close window...")
 readline()
