@@ -3,12 +3,22 @@ using Gtk
 using Plots
 using Cairo
 
+gr()
+
 substrate = range(1.0e-6, 1.0e-2, 10)
 
 function v_curve(km, vmax, inhibitor, ki)
     num = vmax .* substrate
     denom = substrate .+ km * (1 + inhibitor/ki)
     return num ./ denom
+end
+
+function plot_v_curve(vs)
+    plt = plot(substrate, vs)
+    buf = IOBuffer()
+    Plots.png(plt, buf)
+    seekstart(buf)
+    return Cairo.read_from_png(buf)
 end
 
 b_filename = joinpath("mm_interactive", "interactive_mm_ui.glade")
@@ -32,7 +42,11 @@ function button_update_clicked(widget, others...)
     ki *= 1e-4
     Threads.@spawn begin
         println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
-        println(v_curve(km, vmax, inhibitor, ki))
+        vs = v_curve(km, vmax, inhibitor, ki)
+        img = plot_v_curve(vs)
+        ctx = getgc(drawing_area_01)
+        set_source_surface(ctx, img)
+        paint(ctx)
     end
 end
 
