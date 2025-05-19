@@ -1,4 +1,15 @@
+using Base64
 using Gtk
+using Plots
+using Cairo
+
+substrate = range(1.0e-6, 1.0e-2, 10)
+
+function v_curve(km, vmax, inhibitor, ki)
+    num = vmax .* substrate
+    denom = substrate .+ km * (1 + inhibitor/ki)
+    return num ./ denom
+end
 
 b_filename = joinpath("mm_interactive", "interactive_mm_ui.glade")
 b = GtkBuilder(filename = b_filename)
@@ -21,6 +32,7 @@ function button_update_clicked(widget, others...)
     ki *= 1e-4
     Threads.@spawn begin
         println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
+        println(v_curve(km, vmax, inhibitor, ki))
     end
 end
 
