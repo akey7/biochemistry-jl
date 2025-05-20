@@ -18,7 +18,14 @@ mm_curve(km, vmax) = vmax .* substrate ./ (km .+ substrate)
 function plot_competitive_inhibition_curve(vs, competitive_vs)
     label = ["Uninhibited" "Competitive"]
     ymax = 1.0e-3
-    plt = plot(substrate, [vs, competitive_vs], label = label, ylims = (0.0, ymax))
+    plt = plot(
+        substrate,
+        [vs, competitive_vs],
+        label = label,
+        ylims = (0.0, ymax),
+        xlabel = "[S] (M)",
+        ylabel = "v (M/hr)",
+    )
     buf = IOBuffer()
     Plots.png(plt, buf)
     seekstart(buf)
