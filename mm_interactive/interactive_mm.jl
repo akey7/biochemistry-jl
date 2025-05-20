@@ -42,14 +42,12 @@ function button_update_clicked(widget, others...)
     vmax *= 1e-4
     inhibitor *= 1e-4
     ki *= 1e-4
-    Threads.@spawn begin
-        println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
-        vs = v_curve(km, vmax, inhibitor, ki)
-        img = plot_v_curve(vs)
-        ctx = getgc(canvas_01)
-        set_source_surface(ctx, img)
-        paint(ctx)
-    end
+    println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
+    vs = v_curve(km, vmax, inhibitor, ki)
+    img = plot_v_curve(vs)
+    ctx = getgc(canvas_01)
+    set_source_surface(ctx, img)
+    paint(ctx)
 end
 
 signal_connect(button_update_clicked, button_update, "clicked")
