@@ -9,9 +9,11 @@ substrate = range(1.0e-6, 1.0e-2, 10)
 
 function competitive_inhibition_curve(km, vmax, inhibitor, ki)
     num = vmax .* substrate
-    denom = substrate .+ km * (1 + inhibitor/ki)
+    denom = km * (1 + inhibitor/ki) .+ substrate
     return num ./ denom
 end
+
+mm_curve(km, vmax) = vmax .* substrate ./ (km .+ substrate)
 
 function plot_competitive_inhibition_curve(vs)
     plt = plot(substrate, vs)
@@ -43,8 +45,9 @@ function button_update_clicked(widget, others...)
     inhibitor *= 1e-4
     ki *= 1e-4
     println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
-    vs = competitive_inhibition_curve(km, vmax, inhibitor, ki)
-    img = plot_competitive_inhibition_curve(vs)
+    competitive_vs = competitive_inhibition_curve(km, vmax, inhibitor, ki)
+    mm_vs = mm_curve(km, vmax)
+    img = plot_competitive_inhibition_curve(mm_vs)
     ctx = getgc(canvas_01)
     set_source_surface(ctx, img)
     paint(ctx)
