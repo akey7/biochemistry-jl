@@ -29,7 +29,9 @@ scale_vmax = b["scale_vmax"]
 scale_inhibitor = b["scale_inhibitor"]
 scale_ki = b["scale_ki"]
 button_update = b["button_update"]
-drawing_area_01 = b["drawing_area_01"]
+frame_01 = b["frame_01"]
+canvas_01 = GtkCanvas()
+push!(frame_01, canvas_01)
 
 function button_update_clicked(widget, others...)
     km = GAccessor.value(scale_km)
@@ -44,7 +46,7 @@ function button_update_clicked(widget, others...)
         println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
         vs = v_curve(km, vmax, inhibitor, ki)
         img = plot_v_curve(vs)
-        ctx = getgc(drawing_area_01)
+        ctx = getgc(canvas_01)
         set_source_surface(ctx, img)
         paint(ctx)
     end
