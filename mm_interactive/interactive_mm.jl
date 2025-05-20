@@ -5,16 +5,20 @@ using Cairo
 
 gr()
 
-substrate = range(1.0e-6, 1.0e-2, 10)
+substrate = range(1.0e-6, 1.0e-2, 100)
 
-function v_curve(km, vmax, inhibitor, ki)
+function competitive_inhibition_curve(km, vmax, inhibitor, ki)
     num = vmax .* substrate
-    denom = substrate .+ km * (1 + inhibitor/ki)
+    denom = km * (1 + inhibitor/ki) .+ substrate
     return num ./ denom
 end
 
-function plot_v_curve(vs)
-    plt = plot(substrate, vs)
+mm_curve(km, vmax) = vmax .* substrate ./ (km .+ substrate)
+
+function plot_competitive_inhibition_curve(vs, competitive_vs)
+    label = ["Uninhibited" "Competitive"]
+    ymax = 1.0e-3
+    plt = plot(substrate, [vs, competitive_vs], label = label, ylims = (0.0, ymax))
     buf = IOBuffer()
     Plots.png(plt, buf)
     seekstart(buf)
@@ -43,8 +47,9 @@ function button_update_clicked(widget, others...)
     inhibitor *= 1e-4
     ki *= 1e-4
     println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
-    vs = v_curve(km, vmax, inhibitor, ki)
-    img = plot_v_curve(vs)
+    competitive_vs = competitive_inhibition_curve(km, vmax, inhibitor, ki)
+    mm_vs = mm_curve(km, vmax)
+    img = plot_competitive_inhibition_curve(mm_vs, competitive_vs)
     ctx = getgc(canvas_01)
     set_source_surface(ctx, img)
     paint(ctx)

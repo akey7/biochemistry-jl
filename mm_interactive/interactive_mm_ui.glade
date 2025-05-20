@@ -68,6 +68,7 @@
               <object class="GtkBox" id="box_03">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkBox" id="box_02">
                     <property name="width-request">250</property>
