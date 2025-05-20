@@ -5,7 +5,7 @@ using Cairo
 
 gr()
 
-substrate = range(1.0e-6, 1.0e-2, 10)
+substrate = range(1.0e-6, 1.0e-2, 100)
 
 function competitive_inhibition_curve(km, vmax, inhibitor, ki)
     num = vmax .* substrate
@@ -15,8 +15,8 @@ end
 
 mm_curve(km, vmax) = vmax .* substrate ./ (km .+ substrate)
 
-function plot_competitive_inhibition_curve(vs)
-    plt = plot(substrate, vs)
+function plot_competitive_inhibition_curve(vs, competitive_vs)
+    plt = plot(substrate, [vs, competitive_vs])
     buf = IOBuffer()
     Plots.png(plt, buf)
     seekstart(buf)
@@ -47,7 +47,7 @@ function button_update_clicked(widget, others...)
     println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
     competitive_vs = competitive_inhibition_curve(km, vmax, inhibitor, ki)
     mm_vs = mm_curve(km, vmax)
-    img = plot_competitive_inhibition_curve(mm_vs)
+    img = plot_competitive_inhibition_curve(mm_vs, competitive_vs)
     ctx = getgc(canvas_01)
     set_source_surface(ctx, img)
     paint(ctx)
