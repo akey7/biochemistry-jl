@@ -79,7 +79,7 @@
                       <object class="GtkLabel" id="label_km">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Km (10^-4)</property>
+                        <property name="label" translatable="yes">Km (10^-4 M)</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -106,7 +106,7 @@
                       <object class="GtkLabel" id="label_vmax">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Vmax (10^-4)</property>
+                        <property name="label" translatable="yes">Vmax (10^-4 M/hr)</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -146,7 +146,7 @@
                       <object class="GtkLabel" id="label_inhibitor">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">[I] (10^-4)</property>
+                        <property name="label" translatable="yes">[I] (10^-4 M)</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -171,7 +171,7 @@
                       <object class="GtkLabel" id="label_ki">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Ki (10^-4)</property>
+                        <property name="label" translatable="yes">Ki (10^-4 M)</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
