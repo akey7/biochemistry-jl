@@ -35,6 +35,8 @@ end
 b_filename = joinpath("mm_interactive", "interactive_mm_ui.glade")
 b = GtkBuilder(filename = b_filename)
 win = b["window_01"]
+radio_competitive = b["radio_competitive"]
+radio_non_competitive = b["radio_non_competitive"]
 scale_km = b["scale_km"]
 scale_vmax = b["scale_vmax"]
 scale_inhibitor = b["scale_inhibitor"]
