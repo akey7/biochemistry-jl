@@ -13,14 +13,20 @@ function competitive_inhibition_curve(km, vmax, inhibitor, ki)
     return num ./ denom
 end
 
+function non_competitive_inhibition_curve(km, vmax, inhibitor, ki)
+    num = vmax .* substrate
+    denom = (1 + inhibitor / ki) .* (km .+ substrate)
+    return num ./ denom
+end
+
 mm_curve(km, vmax) = vmax .* substrate ./ (km .+ substrate)
 
-function plot_competitive_inhibition_curve(vs, competitive_vs)
-    label = ["Uninhibited" "Competitive"]
+function plot_competitive_inhibition_curve(vs, inhibited_vs, inhibited_title)
+    label = ["Uninhibited" inhibited_title]
     ymax = 1.0e-3
     plt = plot(
         substrate,
-        [vs, competitive_vs],
+        [vs, inhibited_vs],
         label = label,
         ylims = (0.0, ymax),
         xlabel = "[S] (M)",
@@ -57,9 +63,12 @@ function button_update_clicked(widget, others...)
     ki *= 1e-4
     is_competitive = get_gtk_property(radio_competitive, :active, Bool)
     println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki is_competitive=$is_competitive")
-    competitive_vs = competitive_inhibition_curve(km, vmax, inhibitor, ki)
+    inhibited_vs =
+        is_competitive ? competitive_inhibition_curve(km, vmax, inhibitor, ki) :
+        non_competitive_inhibition_curve(km, vmax, inhibitor, ki)
+    inhibited_title = is_competitive ? "Competitive" : "Non-Competitive"
     mm_vs = mm_curve(km, vmax)
-    img = plot_competitive_inhibition_curve(mm_vs, competitive_vs)
+    img = plot_competitive_inhibition_curve(mm_vs, inhibited_vs, inhibited_title)
     ctx = getgc(canvas_01)
     set_source_surface(ctx, img)
     paint(ctx)
