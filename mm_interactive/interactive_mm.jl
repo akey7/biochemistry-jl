@@ -55,7 +55,8 @@ function button_update_clicked(widget, others...)
     vmax *= 1e-4
     inhibitor *= 1e-4
     ki *= 1e-4
-    println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki")
+    is_competitive = get_gtk_property(radio_competitive, :active, Bool)
+    println("km=$km vmax=$vmax inhibitor=$inhibitor ki=$ki is_competitive=$is_competitive")
     competitive_vs = competitive_inhibition_curve(km, vmax, inhibitor, ki)
     mm_vs = mm_curve(km, vmax)
     img = plot_competitive_inhibition_curve(mm_vs, competitive_vs)
