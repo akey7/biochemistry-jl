@@ -205,3 +205,31 @@ In bash or zsh:
 cd linear_with_feedback_s_system/
 JULIA_NUM_THREADS=4 julia --project=.. eqn_3_7.jl
 ```
+
+## `mm_interactive`
+
+This is an interactive app that demonstrates competitive and non-competitive inhibition of enzyme activity.
+
+Competititve inhibition is a "K" effect, not "V" effect. Its equation is:
+
+![Competitive Inhibition Equation](images/competitive_inhibition.png "Competitive Inhibition Equation")
+
+Non-competitive inhibition is a "V" effect, not "K" effect. Its equation is:
+
+![Non-Competitive Inhibition Equation](images/non_competitive_inhibition.png "Non-Competitive Inhibition Equation")
+
+### Running the app
+
+From the root of the repo, in PowerShell:
+
+```
+julia --project=. --threads 2 .\mm_interactive\interactive_mm.jl
+```
+
+From the root of the repo, in `bash` or `zsh`
+
+```
+julia --project=. --threads 2 mm_interactive/interactive_mm.jl
+```
+
+From there, you will be presented with an interface to modify the variables of the above equations and explore how they relate to traditional Michaelis-Menten kinetics.
