@@ -52,3 +52,6 @@ output/
 
 # VSCode stuff
 .vscode/*
+
+# Ignore glade temp files
+*.glade~

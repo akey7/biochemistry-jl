@@ -8,14 +8,9 @@ Biochemistry simulations in Julia.
 Julia dependencies for this repo need to be installed. From the root of this repo, type `julia`. At the prompt, type `]`. Then type the following:
 
 ```
-(@v1.10) pkg> activate .
-(biochemistry-jl) pkg> instantiate
-```
-
-After the latter command finishes, type backspace, then:
-
-```
-julia> exit()
+julia --project=.
+]
+(biochemistry-jl) pkg> update
 ```
 
 ### Jupyter Notebooks for Quarto and Julia Jupyter Support
@@ -151,22 +146,6 @@ quarto render reaction_solver.qmd
 
 After quarto finishes, open `reaction_solver.html` in a browser.
 
-## Metropolis Algorithm
-
-### Overview of the demo
-
-This is a demo of the Metropolis algorithm sampling a PDF that is the sum of three normal distributions.
-
-### Running the demo
-
-```
-conda activate ./env
-cd metropolis_basic
-quarto render metropolis.qmd
-```
-
-Then open `metropolis.html` in a browser.
-
 ## Michaelis-Menten two-substrate kinetics
 
 ### Overview of the simulation
@@ -188,35 +167,69 @@ cd mm_2_substrate
 julia --project=.. two_substrate.jl
 ```
 
-## Multivariate Normal Distribution
+## Linear with Feedback S-System
 
-### Overview of the demo
+### Overview of the simulation
 
-This is a demo of a multivariate normal distribution from which random points on a two-diensional plane can be drawn. In this demo, I made the off-diagonal elements of the covariance matrix 0, so that the directions are uncorrelated with each other.
+This demo is based on Figure 3.4 from Voit and Ferreira. As presented in the book, the system will exhibit the following behavior:
+
+![Figure of system behavior](images/voit_and_ferreira_2000/fig_3_4.png "Voit and Ferreira Fig. 3.4")
+
+It is based on the following equations:
+
+![System of equations](images/voit_and_ferreira_2000/fig_3_3.png "Voit and Ferreira Eqn 3.7")
+
+with the following initial conditions:
+
+![Initial conditions](images/voit_and_ferreira_2000/eqn_3_7_part_2.png "Voit and Ferreira Eqn 3.7 part 2")
+
+Citation:
+
+> Voit, E. O. & Ferreira, A. E. N. Computational Analysis of Biochemical Systems: A Practical Guide for Biochemists and Molecular Biologists. (Cambridge University Press, Cambridge New York, 2000).
 
 ### Running the simulation
 
-The following commands will render a Quarto document to HTML:
+This simulation uses multiple threads to calculate the system for each frame, so the number of threads must be set prior to execution with an environment variable.
+
+So, putting it all together, in PowerShell:
 
 ```
-conda activate ./env
-cd multivariate_normal_distribution
-quarto render multivariate_normal.qmd
+cd .\linear_with_feedback_s_system
+$env:JULIA_NUM_THREADS = 4
+julia --project=.. .\eqn_3_7.jl
 ```
 
-Then open `multivariate_normal.html` in a browser.
-
-## Two-Dimensional Metropolis Algorithm
-
-### Overview of the demo
-
-This script uses a Metropolis algorithm to draw samples from a two-diensional PDF that is the sum of 3 multivariate normal distributions. It shows the original PDF as a contour plot and the samples as a two-dimensional histogram.
-
-### Running the demo
+In bash or zsh:
 
 ```
-cd metropolis_2d
-julia --project=.. complicated_2d_pdf.jl
+cd linear_with_feedback_s_system/
+JULIA_NUM_THREADS=4 julia --project=.. eqn_3_7.jl
 ```
 
-This will render two images. First is `2d_pdf.png` which is the contour plot of the PDF being sampled from. Second is `2d_pdf_samples.png` which is the histogram of samples drawn by the Metropolis algorithm.
+## `mm_interactive`
+
+This is an interactive app that demonstrates competitive and non-competitive inhibition of enzyme activity.
+
+Competititve inhibition is a "K" effect, not "V" effect. Its equation is:
+
+![Competitive Inhibition Equation](images/competitive_inhibition.png "Competitive Inhibition Equation")
+
+Non-competitive inhibition is a "V" effect, not "K" effect. Its equation is:
+
+![Non-Competitive Inhibition Equation](images/non_competitive_inhibition.png "Non-Competitive Inhibition Equation")
+
+### Running the app
+
+From the root of the repo, in PowerShell:
+
+```
+julia --project=. --threads 2 .\mm_interactive\interactive_mm.jl
+```
+
+From the root of the repo, in `bash` or `zsh`
+
+```
+julia --project=. --threads 2 mm_interactive/interactive_mm.jl
+```
+
+From there, you will be presented with an interface to modify the variables of the above equations and explore how they relate to traditional Michaelis-Menten kinetics.
