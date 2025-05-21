@@ -78,5 +78,10 @@ signal_connect(button_update_clicked, button_update, "clicked")
 
 showall(win)
 button_update_clicked(button_update)  # Get the initial default values from UI
-println("Press enter to exit script and close window...")
-readline()
+if !isinteractive()
+    c = Condition()
+    signal_connect(win, :destroy) do widget
+        notify(c)
+    end
+    wait(c)
+end
