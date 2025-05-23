@@ -5,7 +5,7 @@ using Cairo
 
 gr()
 
-po2s = range(0.0, 100.0, 10)  # mmHg
+po2s = range(0.0, 100.0, 100)  # mmHg
 p50_0 = 26.0  # mmHg 
 n = 2.7  # Hill coefficient
 beta = 0.5  # unitless
@@ -19,6 +19,21 @@ p50(ph, co2, bpg) = p50_0 * 10^(beta*(ph-ph_0) + gamma*(co2-co2_0) + delta*(bpg-
 
 function fraction_bound(ph, co2, bpg)
     @. po2s^n / (p50(ph, co2, bpg)^n + po2s^n)
+end
+
+function plot_fraction_bound_curve(ys)
+    plt = plot(
+        po2s,
+        ys,
+        ylims = (0.0, 1.0),
+        xlabel = "pO2",
+        ylabel = "Y",
+        title = "Fraction Hb Sites Bound to O2",
+    )
+    buf = IOBuffer()
+    Plots.png(plt, buf)
+    seekstart(buf)
+    return Cairo.read_from_png(buf)
 end
 
 b_filename = joinpath("hb_o2_binding", "hb_o2_binding_ui.glade")
@@ -37,7 +52,11 @@ function button_update_clicked(widget, others...)
     co2 = GAccessor.value(scale_co2)
     bpg = GAccessor.value(scale_bpg)
     println("ph=$ph co2=$co2 bpg=$bpg")
-    println(fraction_bound(ph, co2, bpg))
+    ys = fraction_bound(ph, co2, bpg)
+    img = plot_fraction_bound_curve(ys)
+    ctx = getgc(canvas_01)
+    set_source_surface(ctx, img)
+    paint(ctx)
 end
 
 signal_connect(button_update_clicked, button_update, "clicked")
