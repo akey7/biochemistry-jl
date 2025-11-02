@@ -2,6 +2,7 @@
 # https://docs.sciml.ai/Catalyst/stable/introduction_to_catalyst/introduction_to_catalyst/
 
 using Catalyst, OrdinaryDiffEqTsit5, Plots
+using CairoMakie, GraphMakie, NetworkLayout
 
 rn = @reaction_network Repressilator begin
     hillr(P₃,α,K,n), ∅ --> m₁
@@ -21,3 +22,5 @@ end
 println(species(rn))
 println(parameters(rn))
 println(reactions(rn))
+g = plot_network(rn)
+save("repressilator_graph.png", g)
