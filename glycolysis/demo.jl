@@ -141,30 +141,7 @@ for (s, v) in zip(sp, u_ss)
 end
 
 ###############################################################
-# 6. Reaction fluxes (rates) at final time
-#    Uses reactionrates + build_function, both in-place & OOP
+# 6. Wait so user can view plot
 ###############################################################
-
-rr = reactionrates(glycolysis)
-prm = parameters(glycolysis)
-
-rf_inplace!, rf = ModelingToolkit.build_function(rr, sp, prm; expression = Val(false))
-ratefun! = eval(rf_inplace!)
-ratefun = eval(rf)
-
-# Assemble state & parameter vectors in declared order
-u_end = sol.u[end]
-pdict = Dict(p)
-pvec = [pdict[par] for par in prm]
-
-# # Sanity checks
-# @assert length(sp)  == length(u_end)
-# @assert length(prm) == length(pvec)
-
-# # --- Out-of-place (simple) ---
-# r_end = ratefun(u_end, pvec)
-
-# println("\n--- Reaction list & net rates at final time ---")
-# for (i, rx) in enumerate(reactions(glycolysis))
-#     println("[$(lpad(i,2))] ", rx, "   rate = ", round(r_end[i], digits=6))
-# end
+println("Press enter to exit...")
+readline()
