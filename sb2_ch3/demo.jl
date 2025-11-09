@@ -50,7 +50,7 @@ params = [
 println(parameters)
 u0 = [x1 => 1.0, x2 => 0.0, x3 => 0.0, x4 => 0.0]
 println(u0)
-tspan = (0.0, 1.0e6)
+tspan = (1.0e-6, 1.0e6)
 println(tspan)
 @info "Making ODEProblem..."
 prob = ODEProblem(rn, u0, tspan, params)
@@ -59,7 +59,13 @@ sol = solve(prob, Rodas5P(); reltol = 1.0e-8, abstol = 1.0e-10)
 sps = [x1, x2, x3, x4]
 size = (900, 600)
 fig = Figure(; size = size)
-ax = Axis(fig[1, 1]; xlabel = "Time", ylabel = "Concentration", title = "Results")
+ax = Axis(
+    fig[1, 1];
+    xlabel = "Time",
+    xscale = log10,
+    ylabel = "Concentration",
+    title = "Results",
+)
 for sp in sps
     lines!(ax, sol.t, sol[sp, :]; label = string(sp), linewidth = 2)
 end
