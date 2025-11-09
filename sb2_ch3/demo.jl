@@ -65,3 +65,4 @@ for sp in sps
 end
 axislegend(ax; position = :rb, framevisible = false)
 fig_filename = joinpath("sb2_ch3", "sol_conc.png")
+save(fig_filename, fig)
