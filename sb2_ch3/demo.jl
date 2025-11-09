@@ -47,7 +47,7 @@ params = [
     k_v3_f => 0.0001,
     # k_v3_r is omitted
 ]
-println(parameters)
+println(params)
 u0 = [x1 => 1.0, x2 => 0.0, x3 => 0.0, x4 => 0.0]
 println(u0)
 tspan = (1.0e-6, 1.0e6)
