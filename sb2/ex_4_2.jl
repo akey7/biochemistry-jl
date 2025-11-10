@@ -12,11 +12,11 @@ rn = @reaction_network ex_4_2 begin
         kf
         kr
     end
+    kf*x1, x1 --> x2
+    kr*x2, x2 --> x1
     @observables begin
         pool2 ~ x1 + x2
     end
-    kf*x1, x1 --> x2
-    kr*x2, x2 --> x1
 end
 for rx in reactions(rn)
     println(rx)
