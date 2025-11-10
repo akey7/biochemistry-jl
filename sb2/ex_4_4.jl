@@ -17,17 +17,16 @@ rn = @reaction_network ex_4_4 begin
         k3_f
         k3_r
     end
-    k1_f, x1 --> x2
-    k1_r, x2 --> x1
+    (k1_f, k1_r), x1 <--> x2
     k2_f, x2 --> x3
-    k3_f, x3 --> x4
-    k3_r, x4 --> x3
+    (k3_f, k3_r), x3 <--> x4
 end
 println("Reactions:")
 for rx in reactions(rn)
     println(rx)
 end
-println("ODE rate laws:")
-for rx in reactions(rn)
-    println(oderatelaw(rx))
+println("ODEs:")
+osys = convert(ODESystem, rn)
+for eq in equations(osys)
+    println(eq.rhs)
 end

@@ -31,8 +31,14 @@ rxs = [
 ]
 @named rn = ReactionSystem(rxs, t)
 rn = complete(rn)
+println("Reactions:")
 for rx in rxs
     println(rx)
+end
+println("ODEs:")
+osys = convert(ODESystem, rn)
+for eq in equations(osys)
+    println(eq.rhs)
 end
 params = [
     Keq_v1_f => 1.0,
