@@ -70,5 +70,6 @@ for sp in sps
     lines!(ax, sol.t, sol[sp, :]; label = string(sp), linewidth = 2)
 end
 axislegend(ax; position = :rb, framevisible = false)
-fig_filename = joinpath("sb2_ch3", "sol_conc.png")
+fig_filename = joinpath("sb2", "ch3_sol_conc.png")
 save(fig_filename, fig)
+println("Wrote $fig_filename")
