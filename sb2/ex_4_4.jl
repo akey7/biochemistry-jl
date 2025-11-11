@@ -41,7 +41,8 @@ for eq in equations(osys)
 end
 
 println("Jacobian:")
-J = calculate_jacobian(osys)
+simple = structural_simplify(osys)
+J = calculate_jacobian(simple)
 display(J)
 
 params = [
