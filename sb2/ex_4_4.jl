@@ -1,6 +1,7 @@
 using Catalyst
 using CairoMakie
 using DifferentialEquations
+using ModelingToolkit
 
 @info "Making reaction network, parameters, and initial conditions..."
 
@@ -34,10 +35,14 @@ for rx in reactions(rn)
 end
 
 println("ODEs:")
-osys = convert(ODESystem, rn)
+@named osys = convert(ODESystem, rn)
 for eq in equations(osys)
     println(eq.rhs)
 end
+
+println("Jacobian:")
+J = calculate_jacobian(osys)
+display(J)
 
 params = [
     # Keq_1_f
