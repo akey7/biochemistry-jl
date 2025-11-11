@@ -12,17 +12,20 @@ rn = @reaction_network ex_4_4 begin
         x4(t)
     end
     @parameters begin
-        Keq_1
-        k1
-        k2
-        Keq_3
-        k3
+        # Keq_1_f
+        k1_f
+        k2_f
+        # Keq_3_f
+        k3_f
+        # Keq_1_r
+        k1_r
+        # k2_r skipped
+        # Keq_3_r
+        k3_r
     end
-    k1*(x2-x1/Keq_1), x1 --> x2
-    k1*(x1-x2/(1/Keq_1)), x2 --> x1
-    k2, x2 --> x3
-    k3*(x4 - x3/Keq_3), x3 --> x4
-    k3*(x3 - x4/(1/Keq_3)), x4 --> x3
+    (k1_f, k1_r), x1 <--> x2
+    k2_f, x2 --> x3
+    (k3_f, k3_r), x3 <--> x4
 end
 
 println("Reactions:")
@@ -36,7 +39,18 @@ for eq in equations(osys)
     println(eq.rhs)
 end
 
-params = [:Keq_1 => 1.0, :k1 => 1.0, :k2 => 1.0, :Keq_3 => 1.0, :k3 => 1.0]
+params = [
+    # Keq_1_f
+    :k1_f => 1.0,
+    :k2_f => 1.0,
+    # Keq_3_f
+    :k3_f => 1.0,
+    # Keq_1_r
+    :k1_r => 1.0,
+    # k2_r skipped
+    # Keq_3_r
+    :k3_r => 1.0,
+]
 println("Params ", params)
 u0 = [:x1 => 1.0, :x2 => 0.0, :x3 => 0.0, :x4 => 0.0]
 println("u0 ", u0)
@@ -55,7 +69,7 @@ fig = Figure(; size = size)
 ax = Axis(
     fig[1, 1];
     xlabel = "Time",
-    xscale = log10,
+    # xscale = log10,
     ylabel = "Concentration",
     title = "Results",
 )
