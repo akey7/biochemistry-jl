@@ -40,12 +40,7 @@ sol = solve(prob, Rodas5P(); reltol = 1.0e-8, abstol = 1.0e-10)
 species_and_observables = [:x1, :x2, :pool2]
 size = (900, 600)
 fig = Figure(; size = size)
-ax = Axis(
-    fig[1, 1];
-    xlabel = "Time",
-    ylabel = "Concentration",
-    title = "Example 4.2",
-)
+ax = Axis(fig[1, 1]; xlabel = "Time", ylabel = "Concentration", title = "Example 4.2")
 for sp in species_and_observables
     lines!(ax, sol.t, sol[sp, :]; label = string(sp), linewidth = 2)
 end
