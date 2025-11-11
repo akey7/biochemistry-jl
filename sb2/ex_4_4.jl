@@ -46,7 +46,7 @@ println("tspan ", tspan)
 @info "Making ODEProblem..."
 prob = ODEProblem(rn, u0, tspan, params)
 @info "Solving ODEs..."
-sol = solve(prob, Rodas5P(); reltol = 1.0e-8, abstol = 1.0e-10, maxiters = 1000)
+sol = solve(prob, Rodas5P(); reltol = 1.0e-8, abstol = 1.0e-10, maxiters = 1_000_000)
 
 @info "Plotting..."
 sps = [:x1, :x2, :x3, :x4]
