@@ -13,15 +13,10 @@ rn = @reaction_network ex_4_4 begin
         x4(t)
     end
     @parameters begin
-        # Keq_1_f
         k1_f
         k2_f
-        # Keq_3_f
         k3_f
-        # Keq_1_r
         k1_r
-        # k2_r skipped
-        # Keq_3_r
         k3_r
     end
     (k1_f, k1_r), x1 <--> x2
@@ -46,15 +41,10 @@ J = calculate_jacobian(simple)
 display(J)
 
 params = [
-    # Keq_1_f
     :k1_f => 1.0,
     :k2_f => 1.0,
-    # Keq_3_f
     :k3_f => 1.0,
-    # Keq_1_r
     :k1_r => 1.0,
-    # k2_r skipped
-    # Keq_3_r
     :k3_r => 1.0,
 ]
 println("Params ", params)
@@ -83,6 +73,6 @@ for sp in sps
     lines!(ax, sol.t, sol[sp, :]; label = string(sp), linewidth = 2)
 end
 axislegend(ax; position = :rb, framevisible = false)
-fig_filename = joinpath("sb2", "plots", "ex_4_4_sol_conc.png")
+fig_filename = joinpath("sb2", "plots", "ex_4_4_sol_conc_v1.png")
 save(fig_filename, fig)
 println("Wrote $fig_filename")
